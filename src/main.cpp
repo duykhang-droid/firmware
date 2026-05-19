@@ -336,6 +336,7 @@ void boot_screen_anim() {
  **  Function: init_clock
  **  Clock initialisation for propper display in menu
  *********************************************************************/
+/*
 void init_clock() {
 #if defined(HAS_RTC)
     _rtc.begin();
@@ -370,7 +371,7 @@ void init_clock() {
     settimeofday(&tv, nullptr);
 #endif
 }
-
+*/
 /*********************************************************************
  **  Function: init_led
  **  Led initialisation
@@ -439,7 +440,7 @@ void setup() {
     tft.fillScreen(TFT_BLACK);
     // bruceConfig is not read yet.. just to show something on screen due to long boot time
     tft.setTextColor(TFT_PURPLE, TFT_BLACK);
-    tft.drawCentreString("Booting", tft.width() / 2, tft.height() / 2, 1);
+    tft.drawCentreString("Be Giau", tft.width() / 2, tft.height() / 2, 1);
 #else
     tft.begin();
 #endif
