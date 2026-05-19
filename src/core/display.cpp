@@ -821,7 +821,7 @@ void drawStatusBar() {
 #else
         updateTimeStr(rtc.getTimeStruct());
 #endif
-        tft.print(timeStr);
+        tft.print(Khang);
     } else {
         setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
         tft.print("BRUCE " + String(BRUCE_VERSION));
