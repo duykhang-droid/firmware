@@ -440,7 +440,7 @@ void setup() {
     tft.fillScreen(TFT_BLACK);
     // bruceConfig is not read yet.. just to show something on screen due to long boot time
     tft.setTextColor(TFT_PURPLE, TFT_BLACK);
-    tft.drawCentreString("Be Giau", tft.width() / 2, tft.height() / 2, 1);
+    tft.drawCentreString("PeGiau", tft.width() / 2, tft.height() / 2, 1);
 #else
     tft.begin();
 #endif
