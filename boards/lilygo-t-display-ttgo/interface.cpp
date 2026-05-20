@@ -29,8 +29,8 @@ void _setup_gpio() {
     pinMode(UP_BTN, INPUT_PULLUP);
     button_config_t bt1 = {
         .type = BUTTON_TYPE_GPIO,
-        .long_press_time = 350,
-        .short_press_time = 50,
+        .long_press_time = 460,
+        .short_press_time = 80,
         .gpio_button_config = {
                                .gpio_num = DW_BTN,
                                .active_level = 0,
@@ -38,8 +38,8 @@ void _setup_gpio() {
     };
     button_config_t bt2 = {
         .type = BUTTON_TYPE_GPIO,
-        .long_press_time = 350,
-        .short_press_time = 50,
+        .long_press_time = 460,
+        .short_press_time = 80,
         .gpio_button_config = {
                                .gpio_num = UP_BTN,
                                .active_level = 0,
