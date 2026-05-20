@@ -246,11 +246,6 @@ void wifiConnectTask(void *pvParameters) {
             if (WiFi.status() == WL_CONNECTED) {
                 wifiConnected = true;
                 wifiIP = WiFi.localIP().toString();
-
-                // Start timezone update in background if not already running
-                if (timezoneTaskHandle == NULL) {
-                    xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-                }
                 drawStatusBar();
                 break;
             }
