@@ -8,13 +8,11 @@ MainMenu::MainMenu() {
         &wifiMenu,
         &bleMenu,
 #if !defined(LITE_VERSION)
-        &ethernetMenu,
 #endif
         &rfMenu,
         &rfidMenu,
         &irMenu,
 #if defined(FM_SI4713) && !defined(LITE_VERSION)
-        &fmMenu,
 #endif
         &fileMenu,
         &gpsMenu,
@@ -23,8 +21,6 @@ MainMenu::MainMenu() {
 #if !defined(DISABLE_INTERPRETER)
         &scriptsMenu,
         &appsMenu,
-#endif
-        &loraMenu,
 #endif
         &othersMenu,
         &clockMenu,
