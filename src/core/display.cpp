@@ -776,7 +776,7 @@ void drawSubmenu(int index, std::vector<Option> &options, const char *title) {
 void drawStatusBar() {
     int i = 0;
     uint8_t bat = getBattery();
-    uint8_t bat_margin = 85;
+    uint8_t bat_margin = 93;
     if (bat > 0) {
         drawBatteryStatus(bat);
     } else bat_margin = 26;
@@ -791,7 +791,7 @@ void drawStatusBar() {
         i++;
     }
     if (WiFi.getMode()) {
-        drawWifiSmall(tftWidth - 89, 7);
+        drawWifiSmall(tftWidth - (bat_margin + 24 *i), 7);
         i++;
     } // Draw Wifi Symbol beside battery
     if (isWebUIActive) {
