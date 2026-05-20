@@ -67,10 +67,6 @@ bool _wifiConnect(const String &ssid, int encryption) {
         wifiIP = WiFi.localIP().toString();
         bruceConfig.addWifiCredential(ssid, password);
 
-        // Start timezone update in background if not already running
-        if (timezoneTaskHandle == NULL) {
-            xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-        }
     }
 
     delay(200);
