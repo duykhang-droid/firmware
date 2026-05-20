@@ -71,7 +71,6 @@ uint32_t scanHostsCallback(cmd *c) {
         return false;
     }
 
-    ARPScanner{esp_netinterface};
 
     return true;
 }
