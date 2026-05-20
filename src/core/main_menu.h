@@ -34,7 +34,6 @@ public:
     ScriptsMenu scriptsMenu;
     WifiMenu wifiMenu;
 
-#endif
 
     MainMenu();
     ~MainMenu();
