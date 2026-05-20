@@ -21,38 +21,6 @@ uint32_t uptimeCallback(cmd *c) {
     return true;
 }
 
-uint32_t dateCallback(cmd *c) {
-    if (!clock_set) {
-        serialDevice->println("Clock not set");
-        return false;
-    }
-
-    serialDevice->print("Current time: ");
-#if !defined(HAS_RTC)
-    serialDevice->println(rtc.getDateTime());
-    // serialDevice->println(rtc.getTime("%A, %B %d %Y %H:%M:%S"));
-#else
-    _rtc.begin();
-    _rtc.GetTime(&_time);
-    _rtc.GetDate(&_date);
-    char stimeStr[100] = {0};
-    snprintf(
-        stimeStr,
-        sizeof(stimeStr),
-        "%02d %02d %04d %02d:%02d:%02d",
-        _date.Month,
-        _date.Date,
-        _date.Year,
-        _time.Hours,
-        _time.Minutes,
-        _time.Seconds
-    );
-    serialDevice->println(stimeStr);
-#endif
-
-    return true;
-}
-
 uint32_t i2cCallback(cmd *c) {
     // scan for connected i2c modules
     // derived from https://learn.adafruit.com/scanning-i2c-addresses/arduino
@@ -107,7 +75,7 @@ uint32_t infoCallback(cmd *c) {
     serialDevice->print("Bruce v");
     serialDevice->println(BRUCE_VERSION);
     serialDevice->println(GIT_COMMIT_HASH);
-    serialDevice->print("SDK: ");              
+    serialDevice->print("SDK: ");
     serialDevice->println(ESP.getSdkVersion());
     serialDevice->println("MAC addr: " + String(WiFi.macAddress()));
     // https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/ChipID/GetChipID/GetChipID.ino
