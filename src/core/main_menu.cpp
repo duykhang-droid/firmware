@@ -22,7 +22,7 @@ MainMenu::MainMenu() {
     };
 
     _totalItems = _menuItems.size();
-}
+
 
 MainMenu::~MainMenu() }
 
