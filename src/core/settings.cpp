@@ -755,61 +755,7 @@ void addMifareKeyMenu() {
 **  Function: setClock
 **  Handles Menu to set timezone to NTP
 **********************************************************************/
-const char *ntpServer = "pool.ntp.org";
 
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, ntpServer, 0, 0);
-
-void setClock() {
-#if defined(HAS_RTC)
-    RTC_TimeTypeDef TimeStruct;
-#if defined(HAS_RTC_BM8563)
-    _rtc.GetBm8563Time();
-#endif
-#if defined(HAS_RTC_PCF85063A)
-    _rtc.GetPcf85063Time();
-#endif
-#endif
-
-    options = {
-        {"Via NTP Set Timezone",                                                 [&]() { bruceConfig.setAutomaticTimeUpdateViaNTP(true); } },
-        {"Set Time Manually",                                                    [&]() { bruceConfig.setAutomaticTimeUpdateViaNTP(false); }},
-        {("Daylight Savings " + String(bruceConfig.dst ? "On" : "Off")).c_str(),
-         [&]() {
-             bruceConfig.setDST(!bruceConfig.dst);
-             updateClockTimezone();
-             returnToMenu = true;
-         }                                                                                                                                 },
-        {(bruceConfig.clock24hr ? "24-Hour Format" : "12-Hour Format"),
-    addOptionToMainMenu();
-    loopOptions(options);
-
-    if (returnToMenu) return;
-
-    if (bruceConfig.automaticTimeUpdateViaNTP) {
-        if (!wifiConnected) wifiConnectMenu();
-
-        options.clear();
-
-#ifndef LITE_VERSION
-
-        struct TimezoneMapping {
-            const char *name;
-            float offset;
-        };
-
-        constexpr TimezoneMapping timezoneMappings[] = {
-            {"UTC-12 (Baker Island, Howland Island)",     -12  },
-            {"UTC-11 (Niue, Pago Pago)",                  -11  },
-            {"UTC-10 (Honolulu, Papeete)",                -10  },
-            {"UTC-9 (Anchorage, Gambell)",                -9   },
-            {"UTC-9.5 (Marquesas Islands)",               -9.5 },
-            {"UTC-8 (Los Angeles, Vancouver, Tijuana)",   -8   },
-            {"UTC-7 (Denver, Phoenix, Edmonton)",         -7   },
-            {"UTC-6 (Mexico City, Chicago, Tegucigalpa)", -6   },
-            {"UTC-5 (New York, Toronto, Lima)",           -5   },
-            {"UTC-4 (Caracas, Santiago, La Paz)",         -4   },
-            {"UTC-3 (Brasilia, Sao Paulo, Montevi
 /*********************************************************************
 **  Function: gsetIrTxPin
 **  get or set IR Tx Pin
