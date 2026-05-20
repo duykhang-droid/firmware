@@ -1,7 +1,7 @@
 #ifndef __MAIN_MENU_H__
 #define __MAIN_MENU_H__
 
-#include <MenuItemInterface.h>
+#include "MenuItemInterface.h"
 
 #include "menu_items/BleMenu.h"
 #include "menu_items/ClockMenu.h"
