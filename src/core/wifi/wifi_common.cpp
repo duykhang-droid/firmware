@@ -122,14 +122,14 @@ bool _setupAP() {
 
 void wifiDisconnect() {
     wifiTransitioning = true;
-    
+
     WiFi.softAPdisconnect(true); // turn off AP mode
     vTaskDelay(10 / portTICK_PERIOD_MS);
     WiFi.disconnect(true, true); // turn off STA mode
     vTaskDelay(10 / portTICK_PERIOD_MS);
     WiFi.mode(WIFI_OFF);         // enforces WIFI_OFF mode
     vTaskDelay(10 / portTICK_PERIOD_MS);
-    
+
     wifiConnected = false;
     wifiTransitioning = false;
 }
@@ -267,14 +267,14 @@ String checkMAC() { return String(WiFi.macAddress()); }
 
 bool wifiConnecttoKnownNet(void) {
     if (WiFi.isConnected()) return true; // safeguard
-    
+
     // Check if WiFi is in transition
     if (wifiTransitioning) {
         displayTextLine("WiFi busy, please wait...");
         vTaskDelay(500 / portTICK_PERIOD_MS);
         return false;
     }
-    
+
     bool result = false;
     int nets;
     // WiFi.mode(WIFI_MODE_STA);
@@ -300,23 +300,4 @@ bool wifiConnecttoKnownNet(void) {
     if (WiFi.status() == WL_CONNECTED) {
         wifiConnected = true;
         wifiIP = WiFi.localIP().toString();
-
-        // Start timezone update in background if not already running
-        if (timezoneTaskHandle == NULL) {
-            xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-        }
-    }
-    return result;
-}
-
-void updateTimezoneTask(void *pvParameters) {
-    // Wait a bit for connection to stabilize before updating timezone
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
-
-    // Only update timezone if WiFi is still connected
-    if (WiFi.isConnected() && wifiConnected) { updateClockTimezone(); }
-
-    // Clear the task handle before deleting
-    timezoneTaskHandle = NULL;
-    vTaskDelete(NULL);
 }
