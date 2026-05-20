@@ -169,7 +169,7 @@ void ConfigMenu::systemMenu() {
              }                                                                                                           },
             {"Startup App",                                                         [this]() { setStartupApp(); }        },
             {"Hide/Show Apps",                                                      [this]() { mainMenu.hideAppsMenu(); }},
-            {"Clock",                                                               [this]() { setClock(); }             },
+                                                                [this]() { setClock(); }             },
             {String("Keyboard Language: ") + bruceConfig.keyboardLang,             [this]() { setKeyboardLanguage(); }  },
             {"Advanced",                                                            [this]() { advancedMenu(); }         },
             {"Back",                                                                []() {}                              },
