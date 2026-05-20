@@ -13,11 +13,6 @@ MainMenu::MainMenu() {
         &fileMenu,
         &gpsMenu,
         &nrf24Menu,
-
-#if !defined(DISABLE_INTERPRETER)
-        &scriptsMenu,
-        &appsMenu,
-#endif
         &othersMenu,
         &clockMenu,
 #if !defined(LITE_VERSION)
