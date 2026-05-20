@@ -17,7 +17,7 @@ MainMenu::MainMenu() {
         &fileMenu,
         &gpsMenu,
         &nrf24Menu,
-#if !defined(LITE_VERSION)
+// !defined(LITE_VERSION)
 #if !defined(DISABLE_INTERPRETER)
         &scriptsMenu,
         &appsMenu,
