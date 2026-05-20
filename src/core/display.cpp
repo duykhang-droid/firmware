@@ -787,19 +787,19 @@ void drawStatusBar() {
         i++;
     } // Indication for SD card on screen
     if (gpsConnected) {
-        drawGpsSmall(tftWidth - (bat_margin + 40 * i), 7);
+        drawGpsSmall(tftWidth - (bat_margin + 80 * i), 7);
         i++;
     }
     if (WiFi.getMode()) {
-        drawWifiSmall(tftWidth - (bat_margin + 40 * i), 7);
+        drawWifiSmall(tftWidth - (bat_margin + 80 * i), 7);
         i++;
     } // Draw Wifi Symbol beside battery
     if (isWebUIActive) {
-        drawWebUISmall(tftWidth - (bat_margin + 40 * i), 7);
+        drawWebUISmall(tftWidth - (bat_margin + 80 * i), 7);
         i++;
     } // Draw Wifi Symbol beside battery
     if (BLEConnected) {
-        drawBLESmall(tftWidth - (bat_margin + 40 * i), 7);
+        drawBLESmall(tftWidth - (bat_margin + 80 * i), 7);
         i++;
     } // Draw BLE beside Wifi
     if (isConnectedWireguard) {
