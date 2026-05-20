@@ -380,8 +380,6 @@ uint32_t loaderCallback(cmd *c) {
 }
 
 void createUtilCommands(SimpleCLI *cli) {
-    cli->addCommand("uptime", uptimeCallback);
-    cli->addCommand("date", dateCallback);
     cli->addCommand("i2c", i2cCallback);
     cli->addCommand("free", freeCallback);
     cli->addCommand("info,!,device_info", infoCallback);
