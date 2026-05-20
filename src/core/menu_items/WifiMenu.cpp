@@ -81,7 +81,7 @@ void WifiMenu::optionsMenu() {
                                    Serial.println("Failed to get netif handle");
                                    return;
                                }
-                               ARPScanner{esp_netinterface};
+                        
                            }
                        }});
     options.push_back({"Wireguard", wg_setup});
