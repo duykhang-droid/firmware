@@ -105,22 +105,6 @@ bool returnToMenu;
 bool isSleeping = false;
 bool isScreenOff = false;
 bool dimmer = false;
-char timeStr[16];
-time_t localTime;
-struct tm *timeInfo;
-#if defined(HAS_RTC)
-#if defined(HAS_RTC_PCF85063A)
-pcf85063_RTC _rtc;
-#else
-cplus_RTC _rtc;
-#endif
-RTC_TimeTypeDef _time;
-RTC_DateTypeDef _date;
-bool clock_set = true;
-#else
-ESP32Time rtc;
-bool clock_set = false;
-#endif
 
 std::vector<Option> options;
 // Protected global variables
