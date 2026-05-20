@@ -25,7 +25,6 @@ public:
     ClockMenu clockMenu;
     ConnectMenu connectMenu;
     ConfigMenu configMenu;
-    FMMenu fmMenu;
     GpsMenu gpsMenu;
     IRMenu irMenu;
     NRF24Menu nrf24Menu;
@@ -35,8 +34,8 @@ public:
     ScriptsMenu scriptsMenu;
     WifiMenu wifiMenu;
 #if !defined(LITE_VERSION)
-    LoRaMenu loraMenu;
-    EthernetMenu ethernetMenu;
+    //LoRaMenu loraMenu;
+    //EthernetMenu ethernetMenu;
 #endif
 
     MainMenu();
