@@ -812,17 +812,8 @@ void drawStatusBar() {
         tft.drawLine(5, 25, tftWidth - 6, 25, bruceConfig.priColor);
     }
 
-    if (clock_set) {
-        int clock_fontsize = 1; // Font size of the clock / BRUCE + BRUCE_VERSION
-        setTftDisplay(12, 12, bruceConfig.priColor, clock_fontsize, bruceConfig.bgColor);
-        tft.fillRect(12, 12, 100, clock_fontsize * LH, bruceConfig.bgColor);
-#if defined(HAS_RTC)
-        updateTimeStr(_rtc.getTimeStruct());
-#else
-        updateTimeStr(rtc.getTimeStruct());
-#endif
-        tft.print(timeStr);
-    } else {
+
+     {
         setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
         tft.print("Khang " + String(BRUCE_VERSION));
     }
