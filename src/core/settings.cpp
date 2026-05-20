@@ -780,12 +780,7 @@ void setClock() {
              updateClockTimezone();
              returnToMenu = true;
          }                                                                                                                                 },
-        {(bruceConfig.clock24hr ? "24-Hour Format" : "12-Hour Format"),          [&]() {
-             bruceConfig.setClock24Hr(!bruceConfig.clock24hr);
-             returnToMenu = true;
-         }                                                          }
-    };
-
+        {(bruceConfig.clock24hr ? "24-Hour Format" : "12-Hour Format"),
     addOptionToMainMenu();
     loopOptions(options);
 
@@ -814,28 +809,7 @@ void setClock() {
             {"UTC-6 (Mexico City, Chicago, Tegucigalpa)", -6   },
             {"UTC-5 (New York, Toronto, Lima)",           -5   },
             {"UTC-4 (Caracas, Santiago, La Paz)",         -4   },
-            {"UTC-3 (Brasilia, Sao Paulo, Montevideo)",   -3   },
-            {"UTC-2 (South Georgia, Mid-Atlantic)",       -2   },
-            {"UTC-1 (Azores, Cape Verde)",                -1   },
-            {"UTC+0 (London, Lisbon, Casablanca)",        0    },
-            {"UTC+0.5 (Tehran)",                          0.5  },
-            {"UTC+1 (Berlin, Paris, Rome)",               1    },
-            {"UTC+2 (Cairo, Athens, Johannesburg)",       2    },
-            {"UTC+3 (Moscow, Riyadh, Nairobi)",           3    },
-            {"UTC+3.5 (Tehran)",                          3.5  },
-            {"UTC+4 (Dubai, Baku, Muscat)",               4    },
-            {"UTC+4.5 (Kabul)",                           4.5  },
-            {"UTC+5 (Islamabad, Karachi, Tashkent)",      5    },
-            {"UTC+5.5 (New Delhi, Mumbai, Colombo)",      5.5  },
-            {"UTC+5.75 (Kathmandu)",                      5.75 },
-            {"UTC+6 (Dhaka, Almaty, Omsk)",               6    },
-            {"UTC+6.5 (Yangon, Cocos Islands)",           6.5  },
-            {"UTC+7 (Bangkok, Jakarta, Hanoi)",           7    },
-            {"UTC+8 (Beijing, Singapore, Perth)",         8    },
-            {"UTC+8.75 (Eucla)",                          8.75 },
-            {"UTC+9 (Tokyo, Seoul, Pyongyang)",           9    },
-            {"UTC+9.5 (Adelaide, Darwin)",                9.5  },
-            {"UTC+1
+            {"UTC-3 (Brasilia, Sao Paulo, Montevi
 /*********************************************************************
 **  Function: gsetIrTxPin
 **  get or set IR Tx Pin
