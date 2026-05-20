@@ -301,3 +301,5 @@ bool wifiConnecttoKnownNet(void) {
         wifiConnected = true;
         wifiIP = WiFi.localIP().toString();
 }
+return result;
+}
