@@ -82,19 +82,7 @@ uint32_t hexColorCallback(cmd *c) {
     return true;
 }
 
-uint32_t clockCallback(cmd *c) {
-#if defined(HAS_RTC)
-    updateTimeStr(_rtc.getTimeStruct());
-    serialDevice->printf("\nCurrent time: %s", timeStr);
-#else
-    updateTimeStr(rtc.getTimeStruct());
-    serialDevice->printf("\nCurrent time: %s", timeStr);
-#endif
-    return true;
-}
-
 void createScreenCommands(SimpleCLI *cli) {
-    Command clockCmd = cli->addCommand("clock", clockCallback);
 
     Command screenCmd = cli->addCompositeCmd("screen");
 
