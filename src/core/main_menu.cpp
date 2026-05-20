@@ -14,7 +14,6 @@ MainMenu::MainMenu() {
         &gpsMenu,
         &nrf24Menu,
         &othersMenu,
-        &clockMenu,
 #if !defined(LITE_VERSION)
         &connectMenu,
 #endif
