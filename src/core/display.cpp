@@ -791,7 +791,7 @@ void drawStatusBar() {
         i++;
     }
     if (WiFi.getMode()) {
-        drawWifiSmall(tftWidth - 100, 7);
+        drawWifiSmall(tftWidth - 75, 7);
         i++;
     } // Draw Wifi Symbol beside battery
     if (isWebUIActive) {
