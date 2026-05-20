@@ -24,7 +24,7 @@ MainMenu::MainMenu() {
     _totalItems = _menuItems.size();
 }
 
-MainMenu::~MainMenu() {}
+MainMenu::~MainMenu() }
 
 void MainMenu::begin(void) {
     returnToMenu = false;
