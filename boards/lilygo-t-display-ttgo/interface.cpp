@@ -8,6 +8,7 @@ volatile bool nxtPress = false;
 volatile bool prvPress = false;
 volatile bool ecPress = false;
 volatile bool slPress = false;
+volatile bool escPress = false;
 static void onButtonSingleClickCb1(void *button_handle, void *usr_data) { nxtPress = true; }
 static void onButtonDoubleClickCb1(void *button_handle, void *usr_data) { slPress = true; }
 static void onButtonHoldCb1(void *button_handle, void *usr_data) { slPress = true; }
@@ -69,7 +70,7 @@ void _setup_gpio() {
 
     Serial.begin(115200);
 }
-
+static void onButtonHoldCb1(void *button_handle, void *usr_data) { escPress = true; }
 /*********************************************************************
 **  Function: setBrightness
 **  set brightness value
