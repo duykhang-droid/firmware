@@ -13,7 +13,7 @@ static void onButtonSingleClickCb1(void *button_handle, void *usr_data) { nxtPre
 static void onButtonHoldCb1(void *button_handle, void *usr_data) { nxtPress = true; }
 
 static void onButtonSingleClickCb2(void *button_handle, void *usr_data) { slPress = true; }
-//static void onButtonDoubleClickCb2(void *button_handle, void *usr_data) { ecPress = true; }
+static void onButtonDoubleClickCb2(void *button_handle, void *usr_data) { prvPress = true; }
 static void onButtonHoldCb2(void *button_handle, void *usr_data) { ecPress = true; }
 
 Button *btn1;
@@ -38,8 +38,8 @@ void _setup_gpio() {
     };
     button_config_t bt2 = {
         .type = BUTTON_TYPE_GPIO,
-        .long_press_time = 250,
-        .short_press_time = 40,
+        .long_press_time = 370,
+        .short_press_time = 90,
         .gpio_button_config = {
                                .gpio_num = UP_BTN,
                                .active_level = 0,
