@@ -19,7 +19,7 @@ void OthersMenu::optionsMenu() {
         {"BadUSB & HID", [this]() { badUsbHidMenu(); }},
 #endif
 #endif
-
+    }
     addOptionToMainMenu();
     loopOptions(options, MENU_TYPE_SUBMENU, "Others");
 }
