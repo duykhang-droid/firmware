@@ -1,6 +1,5 @@
 #include "rf_listen.h"
 
-#include "../others/audio.h"
 
 volatile unsigned long lastMicros = 0;
 volatile unsigned long pulseMicros = 0;
