@@ -9,7 +9,6 @@
 #include "driver/uart.h"
 #include "globals.h"
 #include "hal/gpio_hal.h"
-#include "modules/others/audio.h"
 #include "soc/gpio_reg.h"
 #include <NimBLEDevice.h>
 #include <WiFi.h>
