@@ -1,6 +1,5 @@
 #include "sound_commands.h"
 #include "core/sd_functions.h"
-#include "modules/others/audio.h"
 #include <globals.h>
 
 uint32_t toneCallback(cmd *c) {
