@@ -822,15 +822,6 @@ String loopSD(FS &fs, bool filePicker, String allowed_ext, String rootPath) {
                                               }}
                         );
                     }
-#if defined(HAS_NS4168_SPKR)
-                    if (isAudioFile(filepath))
-                        options.insert(options.begin(), {"Play Audio", [&]() {
-                                                             delay(200);
-                                                             check(AnyKeyPress);
-                                                             // playAudioFile(&fs, filepath);
-                                                             musicPlayerUI(&fs, filepath);
-                                                         }});
-#endif
                     // generate qr codes from small files (<3K)
                     size_t filesize = getFileSize(fs, filepath);
                     // Serial.println(filesize);
