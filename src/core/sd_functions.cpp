@@ -826,10 +826,6 @@ String loopSD(FS &fs, bool filePicker, String allowed_ext, String rootPath) {
                     size_t filesize = getFileSize(fs, filepath);
                     // Serial.println(filesize);
                     if (filesize < SAFE_STACK_BUFFER_SIZE && filesize > 0) {
-                        options.push_back({"QR code", [&]() {
-                                               delay(200);
-                                               qrcode_display(readSmallFile(fs, filepath));
-                                           }});
                         options.push_back({"CRC32", [&]() {
                                                delay(200);
                                                displaySuccess(crc32File(fs, filepath), true);
