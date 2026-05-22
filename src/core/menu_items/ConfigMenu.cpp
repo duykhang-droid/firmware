@@ -41,7 +41,7 @@ void ConfigMenu::optionsMenu() {
             localOptions.push_back({"Dev Mode", [this]() { devMenu(); }});
         }
 
-        localOptions.push_back({"Giới Thiệu", showDeviceInfo});
+        localOptions.push_back({"Device", showDeviceInfo});
         localOptions.push_back({"Main Menu", []() {}});
 
         int selected = loopOptions(localOptions, MENU_TYPE_SUBMENU, "Config");
