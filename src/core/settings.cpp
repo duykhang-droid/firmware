@@ -7,7 +7,6 @@
 #include "modules/bjs_interpreter/interpreter.h"
 #endif
 #include "modules/ble_api/ble_api.hpp"
-#include "modules/others/qrcode_menu.h"
 #include "modules/rf/rf_utils.h" // for initRfModule
 #include "mykeyboard.h"
 #include "powerSave.h"

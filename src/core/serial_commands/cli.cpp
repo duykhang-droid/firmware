@@ -9,7 +9,6 @@
 #include "rf_commands.h"
 #include "screen_commands.h"
 #include "settings_commands.h"
-#include "sound_commands.h"
 #include "storage_commands.h"
 #include "util_commands.h"
 #include "wifi_commands.h"
