@@ -686,13 +686,8 @@ void MediaCommands(HIDInterface *hid, bool ble) {
             {"Prev Track", [=]() { hid->press(KEY_MEDIA_PREVIOUS_TRACK); }},
             {"Volume +",   [=]() { hid->press(KEY_MEDIA_VOLUME_UP); }     },
             {"Volume -",   [=]() { hid->press(KEY_MEDIA_VOLUME_DOWN); }   },
-            {"Hold Vol +",
-             [=]() {
-                 hid->press(KEY_MEDIA_VOLUME_UP);
-                 delay(1000);
-                 hid->releaseAll();
-             }                                                            },
-            {"Mute",       [=]() { hid->press(KEY_MEDIA_MUTE); }          },
+            {"TiktokNxt",  [=]() { hid->press(KEY_DOWN_ARROW); }          },
+            {"TiktokPrv",  [=]() { hid->press(KEY_UP_ARROW); }          },
         };
         addOptionToMainMenu();
         index = loopOptions(options, index);
