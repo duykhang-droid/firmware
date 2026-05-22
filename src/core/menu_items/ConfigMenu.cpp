@@ -28,7 +28,6 @@ void ConfigMenu::optionsMenu() {
 #ifdef HAS_RGB_LED
             {"LED Config",    [this]() { ledMenu(); }      },
 #endif
-            {"Audio Config",  [this]() { audioMenu(); }    },
             {"System Config", [this]() { systemMenu(); }   },
             {"Power",         [this]() { powerMenu(); }    },
         };
@@ -42,7 +41,7 @@ void ConfigMenu::optionsMenu() {
             localOptions.push_back({"Dev Mode", [this]() { devMenu(); }});
         }
 
-        localOptions.push_back({"About", showDeviceInfo});
+        localOptions.push_back({"Giới Thiệu", showDeviceInfo});
         localOptions.push_back({"Main Menu", []() {}});
 
         int selected = loopOptions(localOptions, MENU_TYPE_SUBMENU, "Config");
