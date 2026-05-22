@@ -48,7 +48,7 @@ struct DuckyCombination {
 };
 const DuckyCombination duckyComb[]{
     {"ALT+F4",         KEY_LEFT_ALT, KEY_F4,     0             },
-    {"ALT+F4+ENTER",   KEY_LEFT_ALT, KEY_F4, KEY_ENTER          },
+    {"ALT+F4+ENTER",   KEY_LEFT_ALT, KEY_F4, KEY_RETURN          },
     {"CTRL-GUI",       KEY_LEFT_CTRL, KEY_LEFT_GUI,     0             },
     {"CTRL-ESCAPE",    KEY_LEFT_CTRL, KEY_ESC,          0             },
     {"ALT-SHIFT",      KEY_LEFT_ALT,  KEY_LEFT_SHIFT,   0             },
@@ -59,7 +59,7 @@ const DuckyCombination duckyComb[]{
     {"CTRL-ALT-GUI",   KEY_LEFT_CTRL, KEY_LEFT_ALT,     KEY_LEFT_GUI  },
     {"ALT-SHIFT-GUI",  KEY_LEFT_ALT,  KEY_LEFT_SHIFT,   KEY_LEFT_GUI  },
     {"CTRL-SHIFT-GUI", KEY_LEFT_CTRL, KEY_LEFT_SHIFT,   KEY_LEFT_GUI  },
-    {"ENTER",          KEY_ENTER, 0, 0             },
+    {"ENTER",          KEY_RETURN, 0, 0             },
 };
 
 const DuckyCommand duckyCmds[]{
@@ -685,8 +685,8 @@ void MediaCommands(HIDInterface *hid, bool ble) {
             {"Prev Track", [=]() { hid->press(KEY_MEDIA_PREVIOUS_TRACK); }},
             {"Volume +",   [=]() { hid->press(KEY_MEDIA_VOLUME_UP); }     },
             {"Volume -",   [=]() { hid->press(KEY_MEDIA_VOLUME_DOWN); }   },
-            {"TiktokNxt",  [=]() { hid->mouseScroll(-3); }          },
-            {"TiktokPrv",  [=]() { hid->mouseScroll(3); }          },
+            {"TiktokNxt",  [=]() { hid->press(KEY_DOWN_ARROW); }          },
+            {"TiktokPrv",  [=]() { hid->press(KEY_UP_ARROW); }          },
         };
         addOptionToMainMenu();
         index = loopOptions(options, index);
