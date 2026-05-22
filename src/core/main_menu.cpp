@@ -13,10 +13,6 @@ MainMenu::MainMenu() {
         &fileMenu,
         &gpsMenu,
         &nrf24Menu,
-        &othersMenu,
-#if !defined(LITE_VERSION)
-        &connectMenu,
-#endif
         &configMenu,
     };
 
