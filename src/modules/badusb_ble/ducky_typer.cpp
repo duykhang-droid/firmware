@@ -48,19 +48,19 @@ struct DuckyCombination {
 };
 const DuckyCombination duckyComb[]{
     {"ENTER", KEY_RETURN, 0, 0 },
-    {"ALT+F4",         KEY_LEFT_ALT, KEY_F4,     0             },
-    {"ALT+F4+ENTER",   KEY_LEFT_ALT, KEY_F4, KEY_RETURN          },
-    {"COPY",       KEY_LEFT_CTRL, KEY_C,     0             },
-    {"CUT",    KEY_LEFT_CTRL, KEY_X,          0             },
-    {"PASTE",      KEY_LEFT_CTRL,  KEY_V,   0             },
-    {"CTRL+A",        KEY_LEFT_CTRL,  KEY_A,     0             },
-    {"SETTING",      KEY_LEFT_GUI,  KEY_I,   0             },
+   // {"ALT+F4",         KEY_LEFT_ALT, KEY_F4,     0             },
+    //{"ALT+F4+ENTER",   KEY_LEFT_ALT, KEY_F4, KEY_RETURN          },
+    //{"COPY",       KEY_LEFT_CTRL, KEY_C,     0             },
+    //{"CUT",    KEY_LEFT_CTRL, KEY_X,          0             },
+  //  {"PASTE",      KEY_LEFT_CTRL,  KEY_V,   0             },
+  //  {"CTRL+A",        KEY_LEFT_CTRL,  KEY_A,     0             },
+    //{"SETTING",      KEY_LEFT_GUI,  KEY_I,   0             },
     {"GUI-SPACE",      KEY_LEFT_GUI,  KEY_SPACE,        0             },
     {"CTRL-ALT-SHIFT", KEY_LEFT_CTRL, KEY_LEFT_ALT,     KEY_LEFT_SHIFT},
     {"CTRL-ALT-GUI",   KEY_LEFT_CTRL, KEY_LEFT_ALT,     KEY_LEFT_GUI  },
     {"ALT-SHIFT-GUI",  KEY_LEFT_ALT,  KEY_LEFT_SHIFT,   KEY_LEFT_GUI  },
     {"CTRL-SHIFT-GUI", KEY_LEFT_CTRL, KEY_LEFT_SHIFT,   KEY_LEFT_GUI  },
-    {"RUN",          KEY_LEFT_GUI, KEY_R, 0             },
+    //{"RUN",          KEY_LEFT_GUI, KEY_R, 0             },
 };
 
 const DuckyCommand duckyCmds[]{
