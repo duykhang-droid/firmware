@@ -688,7 +688,7 @@ void MediaCommands(HIDInterface *hid, bool ble) {
             {"DOWN",       [=]() { hid->press(KEY_DOWN_ARROW); }          },
             {"UP",         [=]() { hid->press(KEY_UP_ARROW); }            },
             {"PAGEDOWM",   [=]() { hid->press(KEY_PAGE_DOWN); }           },
-            {"PAGEUP",     [=]() { hid->press(KEY_PAGE_UP); } }           },
+            {"PAGEUP",     [=]() { hid->press(KEY_PAGE_UP); } }           
         };
         addOptionToMainMenu();
         index = loopOptions(options, index);
