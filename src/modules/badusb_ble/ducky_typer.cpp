@@ -54,7 +54,7 @@ const DuckyCombination duckyComb[]{
     {"CUT",    KEY_LEFT_CTRL, KEY_X,          0             },
     {"PASTE",      KEY_LEFT_CTRL,  KEY_V,   0             },
     {"CTRL+A",        KEY_LEFT_CTRL,  KEY_A,     0             },
-    {"GUI-SHIFT",      KEY_LEFT_GUI,  KEY_LEFT_SHIFT,   0             },
+    {"SETTING",      KEY_LEFT_GUI,  KEY_I,   0             },
     {"GUI-SPACE",      KEY_LEFT_GUI,  KEY_SPACE,        0             },
     {"CTRL-ALT-SHIFT", KEY_LEFT_CTRL, KEY_LEFT_ALT,     KEY_LEFT_SHIFT},
     {"CTRL-ALT-GUI",   KEY_LEFT_CTRL, KEY_LEFT_ALT,     KEY_LEFT_GUI  },
