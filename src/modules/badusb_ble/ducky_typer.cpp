@@ -4,10 +4,11 @@
 #include "core/mykeyboard.h"
 #include "core/sd_functions.h"
 #include "core/utils.h"
+#include <BleMouse.h>
 #if defined(USB_as_HID)
 #include "tusb.h"
 #endif
-
+BleMouse bleMouse("Bruce Mouse", "Bruce", 100);
 #define DEF_DELAY 100
 
 uint8_t _Ask_for_restart = 0;

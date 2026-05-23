@@ -12,6 +12,7 @@
 #include <CH9329_Keyboard.h>
 #endif
 #include <BleKeyboard.h>
+#include <BleMouse.h>
 
 extern HIDInterface *hid_usb;
 extern HIDInterface *hid_ble;
