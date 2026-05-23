@@ -47,11 +47,12 @@ struct DuckyCombination {
     char key3;
 };
 const DuckyCombination duckyComb[]{
+    {"ENTER", KEY_RETURN, 0, 0 },
     {"ALT+F4",         KEY_LEFT_ALT, KEY_F4,     0             },
     {"ALT+F4+ENTER",   KEY_LEFT_ALT, KEY_F4, KEY_RETURN          },
-    {"CTRL-GUI",       KEY_LEFT_CTRL, KEY_LEFT_GUI,     0             },
-    {"CTRL-ESCAPE",    KEY_LEFT_CTRL, KEY_ESC,          0             },
-    {"ALT-SHIFT",      KEY_LEFT_ALT,  KEY_LEFT_SHIFT,   0             },
+    {"COPY",       KEY_LEFT_CTRL, KEY_C,     0             },
+    {"CUT",    KEY_LEFT_CTRL, KEY_X,          0             },
+    {"PASTE",      KEY_LEFT_CTRL,  KEY_V,   0             },
     {"ALT-GUI",        KEY_LEFT_ALT,  KEY_LEFT_GUI,     0             },
     {"GUI-SHIFT",      KEY_LEFT_GUI,  KEY_LEFT_SHIFT,   0             },
     {"GUI-SPACE",      KEY_LEFT_GUI,  KEY_SPACE,        0             },
@@ -59,7 +60,7 @@ const DuckyCombination duckyComb[]{
     {"CTRL-ALT-GUI",   KEY_LEFT_CTRL, KEY_LEFT_ALT,     KEY_LEFT_GUI  },
     {"ALT-SHIFT-GUI",  KEY_LEFT_ALT,  KEY_LEFT_SHIFT,   KEY_LEFT_GUI  },
     {"CTRL-SHIFT-GUI", KEY_LEFT_CTRL, KEY_LEFT_SHIFT,   KEY_LEFT_GUI  },
-    {"ENTER",          KEY_RETURN, 0, 0             },
+    {"RUN",          KEY_LEFT_GUI, KEY_R, 0             },
 };
 
 const DuckyCommand duckyCmds[]{
@@ -688,7 +689,7 @@ void MediaCommands(HIDInterface *hid, bool ble) {
             {"DOWN",       [=]() { hid->press(KEY_DOWN_ARROW); }          },
             {"UP",         [=]() { hid->press(KEY_UP_ARROW); }            },
             {"PAGEDOWM",   [=]() { hid->press(KEY_PAGE_DOWN); }           },
-            {"PAGEUP",     [=]() { hid->press(KEY_PAGE_UP); } }           
+            {"PAGEUP",     [=]() { hid->press(KEY_PAGE_UP); } }
         };
         addOptionToMainMenu();
         index = loopOptions(options, index);
