@@ -175,8 +175,8 @@ void BleKeyboard::begin(const uint8_t *layout, uint16_t showAs) {
     hid->setManufacturer("Espressif");
     hid->setPnp(0x02, vid, pid, version);
     hid->setHidInfo(0x00, 0x01);
-
-    BLEDevice::setSecurityAuth(true, true, true);
+    NimBLEDevice::setSecurityAuth(true, true, true);
+    //BLEDevice::setSecurityAuth(true, true, true);
 
     hid->setReportMap((uint8_t *)_hidReportDescriptor, sizeof(_hidReportDescriptor));
     hid->startServices();
