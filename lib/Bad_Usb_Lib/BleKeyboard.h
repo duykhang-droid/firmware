@@ -64,6 +64,7 @@ public:
         String deviceName = "ESP32 Keyboard", String deviceManufacturer = "Espressif",
         uint8_t batteryLevel = 100
     );
+    void move(signed char x, signed char y, signed char wheel) override;
     void begin(const uint8_t *layout = KeyboardLayout_en_US) override { begin(layout, HID_KEYBOARD); };
     void begin(const uint8_t *layout, uint16_t showAs);
     void setLayout(const uint8_t *layout = KeyboardLayout_en_US) { _asciimap = layout; }

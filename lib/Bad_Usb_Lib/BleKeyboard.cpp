@@ -1,4 +1,5 @@
 #include "BleKeyboard.h"
+#include "BleMouse.h"
 #include "KeyboardLayout.h"
 
 #include "HIDTypes.h"
@@ -155,7 +156,7 @@ static const uint8_t _hidReportDescriptor[] = {
 BleKeyboard::BleKeyboard(String deviceName, String deviceManufacturer, uint8_t batteryLevel)
     : hid(0), deviceName(String(deviceName).substring(0, 15)),
       deviceManufacturer(String(deviceManufacturer).substring(0, 15)), batteryLevel(batteryLevel) {}
-
+BleMouse bleMouse("Bruce Mouse", "BruceFW", 100);
 void BleKeyboard::begin(const uint8_t *layout, uint16_t showAs) {
     appearance = showAs;
     _asciimap = layout;
@@ -196,6 +197,7 @@ void BleKeyboard::begin(const uint8_t *layout, uint16_t showAs) {
     advertising->enableScanResponse(false);
     advertising->start();
     hid->setBatteryLevel(batteryLevel);
+    bleMouse.begin();
 }
 
 void BleKeyboard::end(void) {
@@ -500,3 +502,11 @@ void BleKeyboard::delay_ms(uint64_t ms) {
         while (esp_timer_get_time() < e) {}
     }
 }
+void BleKeyboard::move(signed char x, signed char y, signed char wheel) {
+
+        if (bleMouse.isConnected()) {
+                bleMouse.move(x, y, wheel);
+                    }
+
+                    }
+
