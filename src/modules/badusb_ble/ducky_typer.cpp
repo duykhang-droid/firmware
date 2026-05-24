@@ -690,6 +690,18 @@ void MediaCommands(HIDInterface *hid, bool ble) {
             {"UP",         [=]() { hid->press(KEY_UP_ARROW); }            },
             {"PAGEDOWM",   [=]() { hid->press(KEY_PAGE_DOWN); }           },
             {"PAGEUP",     [=]() { hid->press(KEY_PAGE_UP); } }
+            {"TikTok Down", [=]() {
+
+                    hid->move(0, 0, -1);
+
+                    }},
+
+            {"TikTok Up", [=]() {
+
+                        hid->move(0, 0, 1);
+
+                        }},
+            }}
         };
         addOptionToMainMenu();
         index = loopOptions(options, index);
