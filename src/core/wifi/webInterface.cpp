@@ -346,7 +346,7 @@ void serveWebUIFile(
     const uint8_t *originaFile, uint32_t originalFileSize
 ) {
     AsyncWebServerResponse *response = nullptr;
-    FS *fs = NULL;
+    FS *fs = &LittleFS;
     if (setupSdCard()) {
         if (SD.exists("/BruceWebUI/" + filename)) fs = &SD;
     } else if (LittleFS.exists("/BruceWebUI/" + filename)) {
