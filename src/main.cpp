@@ -438,8 +438,8 @@ void setup() {
     tft.setRotation(bruceConfigPins.rotation);
     tft.fillScreen(TFT_BLACK);
     // bruceConfig is not read yet.. just to show something on screen due to long boot time
-    tft.setTextColor(TFT_PURPLE, TFT_BLACK);
-    tft.drawCentreString("Booting", tft.width() / 2, tft.height() / 2, 1);
+    tft.setTextColor(TFT_WHITE, TFT_BLACK);
+    tft.drawCentreString("Be Dao", tft.width() / 2, tft.height() / 2, );
 #else
     tft.begin();
 #endif
