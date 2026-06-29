@@ -414,7 +414,7 @@ JSValue native_drawPixel(JSContext *ctx, JSValue *this_val, int argc, JSValue *a
 }
 
 JSValue native_drawBitmap(JSContext *ctx, JSValue *this_val, int argc, JSValue *argv) {
-    int bitmapWidth = 0, bitmapHeight = 0, bpp = 8;
+    int bitmapWidth = 0, bitmapHeight = 0, bpp = 4;
     if (argc > 3 && JS_IsNumber(ctx, argv[3])) JS_ToInt32(ctx, &bitmapWidth, argv[3]);
     if (argc > 4 && JS_IsNumber(ctx, argv[4])) JS_ToInt32(ctx, &bitmapHeight, argv[4]);
     if (argc > 5 && JS_IsNumber(ctx, argv[5])) JS_ToInt32(ctx, &bpp, argv[5]);
