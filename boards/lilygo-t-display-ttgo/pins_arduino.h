@@ -66,10 +66,11 @@ static const uint8_t SCL = GROVE_SCL;
 #define TFT_BL 4              // Display backlight control pin
 #define TFT_BACKLIGHT_ON HIGH // HIGH or LOW are options
 #define SMOOTH_FONT 1
-#define SPI_FREQUENCY 40000000     // Maximum for ILI9341
+#define SPI_FREQUENCY 27000000     // Maximum for ILI9341
 #define SPI_READ_FREQUENCY 6000000 // 6 MHz is the maximum SPI read speed for the ST7789V
 #define ST7735_GREENTAB160x80
-
+#define TFT_RGB_ORDER TFT_BGR
+#define TFT_INVERSION_ON
 // Display Setup#
 #define HAS_SCREEN
 #define ROTATION 3
