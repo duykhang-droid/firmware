@@ -1,5 +1,5 @@
 /* *********************************************************************************
- * 
+ *
  * dependency library :
  *   TFT_eSPI by Bodmer https://github.com/Bodmer/TFT_eSPI
  *
@@ -15,7 +15,7 @@ QRcode qrcode (&tft);
 void setup() {
 
     tft.init();
-    tft.setRotation(3);
+    tft.setRotation(1);
 
     qrcode.init();
     // create qrcode

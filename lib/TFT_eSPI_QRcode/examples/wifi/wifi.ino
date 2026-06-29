@@ -1,5 +1,5 @@
 /* *********************************************************************************
- * 
+ *
  * dependency library :
  *   TFT_eSPI by Bodmer https://github.com/Bodmer/TFT_eSPI
  *
@@ -12,14 +12,14 @@
 TFT_eSPI tft = TFT_eSPI();
 QRcode qrcode (&tft);
 
-String ssid = "testWiFi"; //Network SSID. Required. 
+String ssid = "testWiFi"; //Network SSID. Required.
 String security = "WPA2"; // "WEP", "WPA", "WPA2", "WPA3" or "nopass" for open
 String password = "password"; //Password, ignored if security is "nopass"
 
 void setup() {
 
     tft.init();
-    tft.setRotation(3);
+    tft.setRotation(1);
 
     qrcode.init();
     // create qrcode
