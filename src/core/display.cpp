@@ -8,7 +8,7 @@
 #include <interface.h> //for charging ischarging to print charging indicator
 #include <memory>
 
-#define MAX_MENU_SIZE (int)(tftHeight / 25)
+#define MAX_MENU_SIZE (int)(tftHeight / 17)
 
 // Send the ST7789 into or out of sleep mode
 void panelSleep(bool on) {
@@ -504,10 +504,10 @@ int loopOptions(
     if (options.size() > MAX_MENU_SIZE) { menuSize = MAX_MENU_SIZE; }
     if (index > 0)
         tft.fillRoundRect(
-            tftWidth * 0.10,
-            tftHeight / 2 - menuSize * (FM * 8 + 4) / 2 - 5,
             tftWidth * 0.8,
-            (FM * 8 + 4) * menuSize + 10,
+            tftHeight / 2 - menuSize * (FM * 5 + 2) / 2 - 5,
+            tftWidth * 0.8,
+            (FM * 5 + 2) * menuSize + 7,
             5,
             bruceConfig.bgColor
         );
@@ -685,17 +685,17 @@ Opt_Coord drawOptions(
     // Uncomment to update the statusBar (causes flickering)
     // drawStatusBar();
 
-    int32_t optionsTopY = tftHeight / 2 - menuSize * (FM * 8 + 4) / 2 - 5;
+    int32_t optionsTopY = tftHeight / 2 - menuSize * (FM * 5 + 2) / 2 - 5;
     tft.drawPixel(0, 0, bruceConfig.bgColor);
     if (firstRender) {
         tft.fillRoundRect(
-            tftWidth * 0.10, optionsTopY, tftWidth * 0.8, (FM * 8 + 4) * menuSize + 10, 5, bgcolor
+            tftWidth * 0.8, optionsTopY, tftWidth * 0.8, (FM * 5 + 2) * menuSize + 7, 5, bgcolor
         );
         tft.drawRoundRect(
-            tftWidth * 0.10,
-            tftHeight / 2 - menuSize * (FM * 8 + 4) / 2 - 5,
             tftWidth * 0.8,
-            (FM * 8 + 4) * menuSize + 10,
+            tftHeight / 2 - menuSize * (FM * 5 + 2) / 2 - 5,
+            tftWidth * 0.8,
+            (FM * 5 + 2) * menuSize + 7,
             5,
             fgcolor
         );
