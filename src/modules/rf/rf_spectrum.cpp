@@ -64,7 +64,7 @@ void rf_spectrum() {
                         0,
                         SIGNAL_STRENGTH_THRESHOLD,
                         0,
-                        tftHeight / 2);
+                        tftHeight / 4);
                 int lineX = map(i, 0, rx_size - 1, 0, tftWidth - 1); // Map i to within the display width
                 int startY = constrain(20 + tftHeight / 2 - lineHeight / 2, 20, 20 + tftHeight);
                 int endY = constrain(20 + tftHeight / 2 + lineHeight / 2, 20, 20 + tftHeight);

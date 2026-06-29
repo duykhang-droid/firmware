@@ -772,7 +772,7 @@ void target_atk(String tssid, String mac, uint8_t channel) {
             tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
 
             // Dynamic vertical spacing based on screen height
-            uint16_t lineHeight = tftHeight / 20;
+            uint16_t lineHeight = tftHeight / 40;
             uint16_t startY = lineHeight * 3;
 
             padprintln("");

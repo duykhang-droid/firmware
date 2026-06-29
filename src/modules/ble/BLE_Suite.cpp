@@ -4975,7 +4975,7 @@ void showAttackProgress(const char *message, uint16_t color) {
 
     String msg = message;
     int maxWidth = tftWidth - 40;
-    int lineHeight = 20;
+    int lineHeight = 10;
     int yPos = 80;
     int start = 0;
     int len = msg.length();
@@ -5039,7 +5039,7 @@ void showAttackResult(bool success, const char *message) {
     if (message) {
         String msg = message;
         int maxWidth = tftWidth - 40;
-        int lineHeight = 20;
+        int lineHeight = 10;
         int yPos = 80;
         int start = 0;
         int len = msg.length();
@@ -5128,7 +5128,7 @@ bool requireSimpleConfirmation(const char *message) {
     String msgStr = message;
 
     int maxWidth = tftWidth - 40;
-    int lineHeight = 20;
+    int lineHeight = 10;
     int yPos = 60;
     int start = 0;
     int len = msgStr.length();
@@ -5191,7 +5191,7 @@ int8_t showAdaptiveMessage(
 
     String lineStr = line1;
     int maxWidth = tftWidth - 40;
-    int lineHeight = 20;
+    int lineHeight = 10;
     int yPos = 70;
     int start = 0;
     int len = lineStr.length();
@@ -5284,7 +5284,7 @@ void showWarningMessage(const char *message) {
 
     String msgStr = message;
     int maxWidth = tftWidth - 40;
-    int lineHeight = 20;
+    int lineHeight = 10;
     int yPos = 70;
     int start = 0;
     int len = msgStr.length();
@@ -5337,7 +5337,7 @@ void showErrorMessage(const char *message) {
 
     String msgStr = message;
     int maxWidth = tftWidth - 40;
-    int lineHeight = 20;
+    int lineHeight = 10;
     int yPos = 70;
     int start = 0;
     int len = msgStr.length();
@@ -5389,7 +5389,7 @@ void showSuccessMessage(const char *message) {
 
     String msgStr = message;
     int maxWidth = tftWidth - 40;
-    int lineHeight = 20;
+    int lineHeight = 10;
     int yPos = 70;
     int start = 0;
     int len = msgStr.length();
@@ -5442,7 +5442,7 @@ void showDeviceInfoScreen(
 
     tft.setTextColor(textColor, bgColor);
     int yPos = 60;
-    int lineHeight = 20;
+    int lineHeight = 10;
     int maxLines = 8;
 
     for (int i = 0; i < std::min((int)lines.size(), maxLines); i++) {
