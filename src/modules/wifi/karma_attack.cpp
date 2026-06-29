@@ -1718,7 +1718,7 @@ void checkPortals() {
         }
 
         // Check if target is engaged (viewed portal recently)
-        bool targetEngaged = activePortal->instance->hasRecentPageView();
+        bool targetEngaged = activePortal->instance->hasRecentView();
 
         if (targetEngaged) {
             // Target is actively viewing the portal - keep alive

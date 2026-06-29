@@ -378,7 +378,7 @@ bool EvilPortal::hasRecentActivity() {
     return (millis() - _lastActivityTime < 5000);
 }
 
-bool EvilPortal::hasRecentPageView() { return (millis() - _lastPageViewTime < 30000); }
+bool EvilPortal::hasRecentView() { return (millis() - _lastPageViewTime < 30000); }
 
 void EvilPortal::recordPageView() { _lastPageViewTime = millis(); }
 

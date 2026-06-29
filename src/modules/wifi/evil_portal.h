@@ -13,7 +13,6 @@ class EvilPortal {
         virtual ~CaptiveRequestHandler() { _portal = nullptr; }
         bool canHandle(AsyncWebServerRequest *request) { return true; }
         void handleRequest(AsyncWebServerRequest *request);
-bool hasRecentPageView();//canh bao
     private:
         EvilPortal *_portal;
     };
