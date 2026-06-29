@@ -8,7 +8,7 @@ class MenuItemInterface {
 public:
     virtual ~MenuItemInterface() = default;
     virtual void optionsMenu(void) = 0;
-    virtual void drawIcon(float scale = 1) = 0;
+    virtual void drawIcon(float scale = 0.7) = 0;
     virtual void drawIconImg() {
         drawImg(
             *bruceConfig.themeFS(),
@@ -48,8 +48,8 @@ public:
             tftWidth - arrowAreaX - arrowAreaW, iconAreaY, arrowAreaW, iconAreaH, bruceConfig.bgColor
         );
 
-        int arrowSize = scale * 10;
-        int lineWidth = scale * 3;
+        int arrowSize = scale * 6;
+        int lineWidth = scale * 2;
 
         int arrowX = BORDER_PAD_X + 1.5 * arrowSize;
         int arrowY = iconCenterY + 1.5 * arrowSize;
@@ -98,7 +98,7 @@ public:
     void drawTitle(float scale = 1) {
         int titleY = iconCenterY + iconAreaH / 2 + FG;
 
-        tft.setTextSize(FM);
+        tft.setTextSize(1);
         tft.drawPixel(0, 0, 0);
         tft.fillRect(arrowAreaX, titleY, tftWidth - 2 * arrowAreaX, LH * FM, bruceConfig.bgColor);
         int nchars = (tftWidth - 8) / (LW * FM);
