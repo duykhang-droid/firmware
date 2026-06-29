@@ -96,7 +96,7 @@ public:
     }
 
     void drawTitle(float scale = 1) {
-        int titleY = iconCenterY + iconAreaH / 2 + FG;
+        int titleY = iconCenterY + iconAreaH / 2 - 8;
 
         tft.setTextSize(1);
         tft.drawPixel(0, 0, 0);
@@ -110,13 +110,13 @@ protected:
     uint8_t rotation = ROTATION;
 
     int iconAreaH =
-        ((tftHeight - 2 * BORDER_PAD_Y) % 2 == 0 ? tftHeight - 2 * BORDER_PAD_Y
+        ((tftHeight - 40 * BORDER_PAD_Y) % 2 == 0 ? tftHeight - 2 * BORDER_PAD_Y
                                                  : tftHeight - 2 * BORDER_PAD_Y + 1);
     int iconAreaW = iconAreaH;
 
     int iconCenterX = tftWidth / 2;
     int iconCenterY = tftHeight / 2;
-    int imgCenterY = 13;
+    int imgCenterY = 2;
 
     int iconAreaX = iconCenterX - iconAreaW / 2;
     int iconAreaY = iconCenterY - iconAreaH / 2;
