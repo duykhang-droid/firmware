@@ -807,8 +807,8 @@ void drawStatusBar() {
     if (bat > 0) drawBatteryStatus(bat);
 
     if (bruceConfig.theme.border) {
-        tft.drawRoundRect(5, 5, tftWidth - 10, tftHeight - 10, 5, bruceConfig.priColor);
-        tft.drawLine(5, 20, tftWidth - 6, 20, bruceConfig.priColor);
+        tft.drawRoundRect(3, 3, tftWidth - 8, tftHeight - 8, 3, bruceConfig.priColor);
+        tft.drawLine(3, 15, tftWidth - 4, 16, bruceConfig.priColor);
     }
 
 
@@ -831,9 +831,9 @@ void drawStatusBar() {
     if (showWG)   iconCount++;
 
     if (iconCount > 0) {
-        const int IW  = 11;
-        const int IH  = 11;
-        const int GAP = 2;
+        const int IW  = 8;
+        const int IH  = 8;
+        const int GAP = 1;
         int totalW = iconCount * IW + (iconCount - 1) * GAP;
         int sx = (tftWidth - totalW) / 2;
         int iy = 7;
