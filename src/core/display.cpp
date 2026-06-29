@@ -726,7 +726,7 @@ Opt_Coord drawOptions(
                 coord.bgcolor = bgcolor;
             } else text += " ";
             text += String(options[i].label) + "              ";
-            tft.setCursor(tftWidth * 0.10 + 5, tft.getCursorY() + 4);
+            tft.setCursor(tftWidth * 0.10 + 5, tft.getCursorY() + 1);
             tft.println(text.substring(0, (tftWidth * 0.8 - 10) / (LW * FM) - 1));
             cont++;
         }

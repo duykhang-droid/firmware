@@ -238,11 +238,11 @@ void displayStats(JammerState &state, int x, int y) {
     tft.println(state.jamCount);
 
     // Display runtime in MM:SS format
-    tft.setCursor(tftWidth / 2, tft.getCursorY() + 5);
+    tft.setCursor(tftWidth / 2, tft.getCursorY() + 3);
     tft.printf("Time : %02d:%02d", state.runtime / 60, state.runtime % 60);
 
     // Display efficiency metric
-    tft.setCursor(tftWidth / 2, tft.getCursorY() + 12);
+    tft.setCursor(tftWidth / 2, tft.getCursorY() + 6);
     tft.printf("J/s  : %.1f", jps);
 }
 
@@ -467,7 +467,7 @@ void renderJammerUI(JammerState &state) {
 
     // Display exit instruction in top-right corner
     tft.setTextColor(TFT_RED, bruceConfig.bgColor);
-    tft.setCursor(tftWidth - 70, 30);
+    tft.setCursor(tftWidth - 60, 30);
     tft.print("[ESC] Exit");
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
 

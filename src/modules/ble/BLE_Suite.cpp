@@ -2873,12 +2873,12 @@ String selectFileFromSD() {
                 if (fileIdx == selected) {
                     tft.fillRect(20, yPos, tftWidth - 40, menuItemHeight - 3, TFT_WHITE);
                     tft.setTextColor(TFT_BLACK, TFT_WHITE);
-                    tft.setCursor(25, yPos + 8);
+                    tft.setCursor(25, yPos + 3);
                     tft.print("> ");
                 } else {
                     tft.fillRect(20, yPos, tftWidth - 40, menuItemHeight - 3, bruceConfig.bgColor);
                     tft.setTextColor(TFT_WHITE, bruceConfig.bgColor);
-                    tft.setCursor(25, yPos + 8);
+                    tft.setCursor(25, yPos + 3);
                     tft.print("  ");
                 }
 
@@ -2889,9 +2889,9 @@ String selectFileFromSD() {
 
             if (fileCount > maxVisibleItems) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, menuStartY + 5);
+                tft.setCursor(tftWidth - 25, menuStartY + 3);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleItems * menuItemHeight) - 20);
+                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleItems * menuItemHeight) - 16);
                 if (scrollOffset + maxVisibleItems < fileCount) tft.print("v");
             }
 
@@ -3013,9 +3013,9 @@ String getScriptFromUser() {
 
             if (scriptCount > maxVisibleItems) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, menuStartY + 5);
+                tft.setCursor(tftWidth - 25, menuStartY + 3);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleItems * menuItemHeight) - 20);
+                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleItems * menuItemHeight) - 16);
                 if (scrollOffset + maxVisibleItems < scriptCount) tft.print("v");
             }
 
@@ -3839,9 +3839,9 @@ String selectTargetFromScan(const char *title) {
 
             if (deviceCount > maxVisibleDevices) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, menuStartY + 10);
+                tft.setCursor(tftWidth - 25, menuStartY + 3);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleDevices * deviceItemHeight) - 15);
+                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleDevices * deviceItemHeight) - 16);
                 if (scrollOffset + maxVisibleDevices < deviceCount) tft.print("v");
             }
 
@@ -3996,9 +3996,9 @@ void BleSuiteMenu() {
 
             if (MENU_ITEMS > maxVisible) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, 65);
+                tft.setCursor(tftWidth - 25, 50);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, 65 + (maxVisible * 25) - 10);
+                tft.setCursor(tftWidth - 25, 50 + (maxVisible * 25) - 10);
                 if (scrollOffset + maxVisible < MENU_ITEMS) tft.print("v");
             }
 
@@ -4126,9 +4126,9 @@ int showSubMenu(const char *title, const char *options[], int optionCount) {
 
             if (optionCount > maxVisible) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, 65);
+                tft.setCursor(tftWidth - 25, 50);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, 65 + (maxVisible * 25) - 10);
+                tft.setCursor(tftWidth - 25, 50 + (maxVisible * 25) - 10);
                 if (scrollOffset + maxVisible < optionCount) tft.print("v");
             }
 
@@ -5004,7 +5004,7 @@ void showAttackProgress(const char *message, uint16_t color) {
 
     static uint8_t spinnerPos = 0;
     const char *spinner = "|/-\\";
-    tft.setCursor(tftWidth - 40, 80);
+    tft.setCursor(tftWidth - 30, 60);
     tft.print(spinner[spinnerPos % 4]);
     spinnerPos++;
 

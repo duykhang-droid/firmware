@@ -604,7 +604,7 @@ void mic_record_app() {
             case ITEM_GAIN: {
                 tft.setCursor(MARGIN + 2, contentY);
                 tft.print("Gain:");
-                tft.setCursor(tftWidth - MARGIN - 50, contentY);
+                tft.setCursor(tftWidth - MARGIN - 25, contentY);
                 tft.print(gain_value, 1);
                 tft.print("x");
                 break;
@@ -612,7 +612,7 @@ void mic_record_app() {
             case ITEM_STEALTH: {
                 tft.setCursor(MARGIN + 2, contentY);
                 tft.print("Stealth:");
-                tft.setCursor(tftWidth - MARGIN - 35, contentY);
+                tft.setCursor(tftWidth - MARGIN - 18, contentY);
                 tft.print(stealth_enabled ? "ON" : "OFF");
                 break;
             }

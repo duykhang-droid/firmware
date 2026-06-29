@@ -563,9 +563,9 @@ void PN532KillerTools::setSnifferMode() {
         snifferType = "MFKey64";
     }
     tft.setTextSize(FM);
-    tft.setCursor(tftWidth / 2 - 20, tftHeight / 2 + 5);
+    tft.setCursor(tftWidth / 2 - 18, tftHeight / 2 + 5);
     tft.print(tagType);
-    tft.setCursor(tftWidth / 2 - 20, tftHeight / 2 + FM * 10 + 5);
+    tft.setCursor(tftWidth / 2 - 18, tftHeight / 2 + FM * 10 + 5);
     tft.print(snifferType);
 }
 
@@ -587,12 +587,12 @@ void PN532KillerTools::setReaderMode() {
     displayBanner();
     printSubtitle("Reader Mode");
     // Regular PN532 does not display ISO15693 text (if not supported)
-    drawCreditCard(tftWidth / 4 - 40, (tftHeight) / 2 - 10);
+    drawCreditCard(tftWidth / 4 - 30, (tftHeight) / 2 - 7);
     tft.setTextSize(FM);
-    tft.setCursor(tftWidth / 2 - 20, tftHeight / 2);
+    tft.setCursor(tftWidth / 2 - 18, tftHeight / 2);
     tft.print("ISO14443");
     if (_isPn532killer) { // Only enhanced version shows ISO15693 hint
-        tft.setCursor(tftWidth / 2 - 20, tftHeight / 2 + FM * 10);
+        tft.setCursor(tftWidth / 2 - 18, tftHeight / 2 + FM * 10);
         tft.print("ISO15693");
     }
     printCenterFootnote("Press OK to select mode");
@@ -675,7 +675,7 @@ void PN532KillerTools::setEmulatorNextSlot(bool reverse, bool redrawTypeName) {
             case PN532KillerCmd::TagType::EM4100: typeName = "EM4100"; break;
             default: typeName = "Unknown"; break;
         }
-        tft.setCursor(tftWidth / 2 - 20, tftHeight / 2 + 5);
+        tft.setCursor(tftWidth / 2 - 16, tftHeight / 2 + 4);
         tft.print(typeName);
     }
 
