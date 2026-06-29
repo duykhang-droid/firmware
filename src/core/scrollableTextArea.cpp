@@ -191,7 +191,7 @@ void ScrollableTextArea::draw(bool force) {
     }
 
     lastVisibleLine = firstVisibleLine + lines;
-    tft.setTextFont(_fSize);
+    tft.setTextFont(1);
 
     _redraw = false;
 }
