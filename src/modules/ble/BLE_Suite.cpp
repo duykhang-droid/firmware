@@ -3996,9 +3996,9 @@ void BleSuiteMenu() {
 
             if (MENU_ITEMS > maxVisible) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, 50);
+                tft.setCursor(tftWidth - 50, 50);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, 50 + (maxVisible * 25) - 10);
+                tft.setCursor(tftWidth - 50, 50 + (maxVisible * 25) - 10);
                 if (scrollOffset + maxVisible < MENU_ITEMS) tft.print("v");
             }
 
@@ -4126,9 +4126,9 @@ int showSubMenu(const char *title, const char *options[], int optionCount) {
 
             if (optionCount > maxVisible) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, 50);
+                tft.setCursor(tftWidth -05, 50);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, 50 + (maxVisible * 25) - 10);
+                tft.setCursor(tftWidth - 50, 50 + (maxVisible * 25) - 10);
                 if (scrollOffset + maxVisible < optionCount) tft.print("v");
             }
 
