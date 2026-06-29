@@ -2889,9 +2889,9 @@ String selectFileFromSD() {
 
             if (fileCount > maxVisibleItems) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, menuStartY + 3);
+                tft.setCursor(tftWidth - 50, menuStartY + 3);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleItems * menuItemHeight) - 16);
+                tft.setCursor(tftWidth - 50, menuStartY + (maxVisibleItems * menuItemHeight) - 16);
                 if (scrollOffset + maxVisibleItems < fileCount) tft.print("v");
             }
 
@@ -3013,9 +3013,9 @@ String getScriptFromUser() {
 
             if (scriptCount > maxVisibleItems) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, menuStartY + 3);
+                tft.setCursor(tftWidth - 50, menuStartY + 3);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleItems * menuItemHeight) - 16);
+                tft.setCursor(tftWidth - 50, menuStartY + (maxVisibleItems * menuItemHeight) - 16);
                 if (scrollOffset + maxVisibleItems < scriptCount) tft.print("v");
             }
 
@@ -3839,9 +3839,9 @@ String selectTargetFromScan(const char *title) {
 
             if (deviceCount > maxVisibleDevices) {
                 tft.setTextColor(TFT_CYAN, bruceConfig.bgColor);
-                tft.setCursor(tftWidth - 25, menuStartY + 3);
+                tft.setCursor(tftWidth - 50, menuStartY + 3);
                 if (scrollOffset > 0) tft.print("^");
-                tft.setCursor(tftWidth - 25, menuStartY + (maxVisibleDevices * deviceItemHeight) - 16);
+                tft.setCursor(tftWidth - 50, menuStartY + (maxVisibleDevices * deviceItemHeight) - 16);
                 if (scrollOffset + maxVisibleDevices < deviceCount) tft.print("v");
             }
 
