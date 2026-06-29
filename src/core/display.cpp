@@ -812,7 +812,7 @@ void drawStatusBar() {
     }
 
 
-        setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
+        setTftDisplay(7, 7, bruceConfig.priColor, 1, bruceConfig.bgColor);
         tft.print("Khang " + String(BRUCE_VERSION));
 
 
@@ -883,7 +883,7 @@ void drawMainBorder(bool clear) {
         tft.drawPixel(0, 0, 0);
         tft.fillScreen(bruceConfig.bgColor);
     }
-    setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
+    setTftDisplay(7, 7, bruceConfig.priColor, 1, bruceConfig.bgColor);
     tft.setTextDatum(0);
 
     // if(wifiConnected) {tft.print(timeStr);} else {tft.print("BRUCE 1.0b");}
