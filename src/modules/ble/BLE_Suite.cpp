@@ -2883,7 +2883,7 @@ String selectFileFromSD() {
                 }
 
                 String displayName = files[fileIdx];
-                if (displayName.length() > 28) displayName = displayName.substring(0, 25) + "...";
+                if (displayName.length() > 18) displayName = displayName.substring(0, 15) + "...";
                 tft.print(displayName);
             }
 
@@ -3007,7 +3007,7 @@ String getScriptFromUser() {
                 }
 
                 String displayName = scripts[scriptIdx];
-                if (displayName.length() > 28) displayName = displayName.substring(0, 25) + "...";
+                if (displayName.length() > 18) displayName = displayName.substring(0, 15) + "...";
                 tft.print(displayName);
             }
 
@@ -4820,7 +4820,7 @@ void runAudioControlTest(NimBLEAddress target) {
                 if (yPos + testHeight > tftHeight - 45) break;
 
                 String displayName = audioTestNames[i];
-                if (displayName.length() > 28) displayName = displayName.substring(0, 25) + "...";
+                if (displayName.length() > 18) displayName = displayName.substring(0, 15) + "...";
 
                 if (i == selectedTest) {
                     tft.fillRoundRect(30, yPos, tftWidth - 60, testHeight - 5, 5, TFT_WHITE);
