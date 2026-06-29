@@ -576,7 +576,7 @@ String loopSD(FS &fs, bool filePicker, String allowed_ext, String rootPath) {
 
     Opt_Coord coord;
     String result = "";
-    const short PAGE_JUMP_SIZE = (tftHeight - 20) / (LH * FM);
+    const short PAGE_JUMP_SIZE = (tftHeight - 10) / (LH * FM);
     bool reload = false;
     bool redraw = true;
     int index = 0;

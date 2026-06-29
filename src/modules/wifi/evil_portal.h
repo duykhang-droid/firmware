@@ -45,7 +45,7 @@ public:
     void setExtendedDuration(uint16_t seconds);
     void checkAndExtendDuration();
     bool hasRecentActivity();
-    bool hasRecentPageView();
+    bool hasRecentView();
     void recordPageView();
     bool shouldTerminate();
 

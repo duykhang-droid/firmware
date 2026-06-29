@@ -29,7 +29,7 @@ public:
     void draw(float scale = 1) {
         if (rotation != bruceConfigPins.rotation) resetCoordinates();
         if (!checkTheme()) {
-            tft.fillRect(0, 27, tftWidth, tftHeight - 27, bruceConfig.bgColor);
+            tft.fillRect(0, 13, tftWidth, tftHeight - 13, bruceConfig.bgColor);
             drawIcon(scale);
             drawArrows(scale);
             drawTitle(scale);
@@ -101,7 +101,7 @@ public:
         tft.setTextSize(FM);
         tft.drawPixel(0, 0, 0);
         tft.fillRect(arrowAreaX, titleY, tftWidth - 2 * arrowAreaX, LH * FM, bruceConfig.bgColor);
-        int nchars = (tftWidth - 16) / (LW * FM);
+        int nchars = (tftWidth - 8) / (LW * FM);
         tft.drawCentreString(getName().substring(0, nchars), iconCenterX, titleY, 1);
     }
 
@@ -129,7 +129,7 @@ protected:
     void clearIconArea(void) {
         tft.fillRect(iconAreaX, iconAreaY, iconAreaW, iconAreaH, bruceConfig.bgColor);
     }
-    void clearImgArea(void) { tft.fillRect(7, 27, tftWidth - 14, tftHeight - 34, bruceConfig.bgColor); }
+    void clearImgArea(void) { tft.fillRect(4, 13, tftWidth - 7, tftHeight - 17, bruceConfig.bgColor); }
     void resetCoordinates(void) {
         // Recalculate Center and ared due to portrait/landscape changings
         if (tftWidth > tftHeight) {
