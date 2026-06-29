@@ -54,9 +54,9 @@ static const uint8_t SCL = GROVE_SCL;
 
 // TFT_eSPI display
 #define USER_SETUP_LOADED
-#define ST7789_DRIVER
-#define TFT_WIDTH 135
-#define TFT_HEIGHT 240
+#define ST7735_DRIVER
+#define TFT_WIDTH 80
+#define TFT_HEIGHT 160
 #define CGRAM_OFFSET
 #define TFT_MOSI 19
 #define TFT_SCLK 18
@@ -68,6 +68,7 @@ static const uint8_t SCL = GROVE_SCL;
 #define SMOOTH_FONT 1
 #define SPI_FREQUENCY 40000000     // Maximum for ILI9341
 #define SPI_READ_FREQUENCY 6000000 // 6 MHz is the maximum SPI read speed for the ST7789V
+#define ST7735_GREENTAB160x80
 
 // Display Setup#
 #define HAS_SCREEN
