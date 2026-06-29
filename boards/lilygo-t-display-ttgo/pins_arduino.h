@@ -73,7 +73,7 @@ static const uint8_t SCL = GROVE_SCL;
 #define TFT_INVERSION_ON
 // Display Setup#
 #define HAS_SCREEN
-#define ROTATION 3
+#define ROTATION 1
 #define MINBRIGHT (uint8_t)1
 
 // Font Sizes#
