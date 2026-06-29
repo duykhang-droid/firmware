@@ -18,11 +18,11 @@ void draw_tf_spectrum_grid() {
     tft.setCursor(3, 2);
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
     tft.printf(" RF - Spectrum (%.2f Mhz)", bruceConfigPins.rfFreq);
-    tft.fillRect(0, 20, tftWidth, tftHeight - 20, bruceConfig.bgColor);
-    tft.drawFastHLine(0, 20 + tftHeight / 2, tftWidth, TFT_DARKGREY);
-    tft.drawFastVLine((1 * tftWidth) / 4, 20, tftHeight - 20, TFT_DARKGREY);
-    tft.drawFastVLine((2 * tftWidth) / 4, 20, tftHeight - 20, TFT_DARKGREY);
-    tft.drawFastVLine((3 * tftWidth) / 4, 20, tftHeight - 20, TFT_DARKGREY);
+    tft.fillRect(0, 10, tftWidth, tftHeight - 10, bruceConfig.bgColor);
+    tft.drawFastHLine(0, 10 + tftHeight / 2, tftWidth, TFT_DARKGREY);
+    tft.drawFastVLine((1 * tftWidth) / 2, 10, tftHeight - 10, TFT_DARKGREY);
+    tft.drawFastVLine((2 * tftWidth) / 2, 10, tftHeight - 10, TFT_DARKGREY);
+    tft.drawFastVLine((3 * tftWidth) / 2, 10, tftHeight - 10, TFT_DARKGREY);
 }
 
 void rf_spectrum() {
@@ -185,7 +185,7 @@ void rf_CC1101_rssi() {
             else {
                 if (!initRfModule("rx", bruceConfigPins.rfFreq)) displayError("Error starting module", true);
                 tft.printf(" RF - RSSI spectrum (%s)", subghz_frequency_ranges[bruceConfigPins.rfScanRange]);
-                tft.drawFastHLine(0, tftHeight - 20, tftWidth, bruceConfig.priColor);
+                tft.drawFastHLine(0, tftHeight - 10, tftWidth, bruceConfig.priColor);
                 char buf[7];
                 float var = subghz_frequency_list[range_limits[bruceConfigPins.rfScanRange][0]];
                 snprintf(buf, sizeof(buf), "%.3f", var);
@@ -197,7 +197,7 @@ void rf_CC1101_rssi() {
                             range_limits[bruceConfigPins.rfScanRange][0] + 1;
                 int space = tftWidth / range;
                 for (int i = 0; i < range; i++) {
-                    tft.drawFastVLine(space * i, tftHeight - 20, 5, bruceConfig.priColor);
+                    tft.drawFastVLine(space * i, tftHeight - 10, 5, bruceConfig.priColor);
                 }
                 std::fill(bar_size.begin(), bar_size.end(), 0);
             }

@@ -1202,7 +1202,7 @@ void PresenterMode(HIDInterface *&hid, bool ble) {
         tft.drawCentreString("PRESENTER", tftWidth / 2, 10, 1);
 
         // Draw a separator line
-        tft.drawFastHLine(10, 35, tftWidth - 20, bruceConfig.priColor);
+        tft.drawFastHLine(5, 17, tftWidth - 10, bruceConfig.priColor);
 
         // Draw time label
         tft.setTextSize(FM);
