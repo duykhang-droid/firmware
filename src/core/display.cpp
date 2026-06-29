@@ -808,22 +808,13 @@ void drawStatusBar() {
 
     if (bruceConfig.theme.border) {
         tft.drawRoundRect(5, 5, tftWidth - 10, tftHeight - 10, 5, bruceConfig.priColor);
-        tft.drawLine(5, 25, tftWidth - 6, 25, bruceConfig.priColor);
+        tft.drawLine(5, 20, tftWidth - 6, 20, bruceConfig.priColor);
     }
 
-    if (clock_set) {
+
         setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
-        tft.fillRect(12, 12, 60, LH, bruceConfig.bgColor);
-#if defined(HAS_RTC)
-        updateTimeStr(_rtc.getTimeStruct());
-#else
-        updateTimeStr(rtc.getTimeStruct());
-#endif
-        tft.print(timeStr);
-    } else {
-        setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
-        tft.print("BRUCE " + String(BRUCE_VERSION));
-    }
+        tft.print("Khang " + String(BRUCE_VERSION));
+
 
     int iconCount = 0;
     bool showSD   = sdcardMounted;
@@ -840,9 +831,9 @@ void drawStatusBar() {
     if (showWG)   iconCount++;
 
     if (iconCount > 0) {
-        const int IW  = 16;
-        const int IH  = 16;
-        const int GAP = 6;
+        const int IW  = 11;
+        const int IH  = 11;
+        const int GAP = 2;
         int totalW = iconCount * IW + (iconCount - 1) * GAP;
         int sx = (tftWidth - totalW) / 2;
         int iy = 7;
