@@ -3,7 +3,6 @@
 #include "core/sd_functions.h"
 #include "crypto_commands.h"
 #include "gpio_commands.h"
-#include "interpreter_commands.h"
 #include "power_commands.h"
 #include "rf_commands.h"
 #include "screen_commands.h"
