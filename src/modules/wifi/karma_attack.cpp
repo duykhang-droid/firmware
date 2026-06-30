@@ -3339,7 +3339,7 @@ void saveProbesToFile(FS &fs, bool compressed) {
     } else {
         File file = fs.open(filen, FILE_WRITE);
         if (file) {
-            file.println("Timestamp,MAC,RSSI,Channel,SSID");
+            file.println(",MAC,RSSI,Channel,SSID");
             int count = bufferWrapped ? MAX_PROBE_BUFFER : probeBufferIndex;
             count = std::min(count, 100);
             for (int i = 0; i < count; i++) {
