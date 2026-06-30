@@ -289,15 +289,19 @@ void checkShortcutPress() {
 
     // parse shortcutsJson and check the keys
     for (JsonPair kv : shortcutsJson.as<JsonObject>()) {
-        const char *shortcut_key = kv.key().c_str();
-        const char *shortcut_value = kv.value().as<const char *>();
 
-        // check for matching keys
-        for (auto i : key.word) {
-            if (i == *shortcut_key)
-        } //canh bao
+            const char *shortcut_key = kv.key().c_str();
+                const char *shortcut_value = kv.value().as<const char *>();
+
+                    // check for matching keys
+                        for (const auto& i : key.word) {
+
+                                if (i == String(shortcut_key)) {
+
+                                        }
+                                            }
+                                            }
     }
-}
 
 /*********************************************************************
 ** Function: checkNumberShortcutPress
