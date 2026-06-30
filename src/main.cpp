@@ -2,7 +2,6 @@
 #include <globals.h>
 
 #include "core/powerSave.h"
-#include "core/serial_commands/cli.h"
 #include "core/utils.h"
 #include "current_year.h"
 #include "esp32-hal-psram.h"

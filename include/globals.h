@@ -13,7 +13,6 @@
 #include "core/USBSerial/USBSerial.h"
 #include "core/config.h"
 #include "core/configPins.h"
-#include "core/serial_commands/cli.h"
 #include "core/startup_app.h"
 #include <Arduino.h>
 #include <ESP32Time.h>
