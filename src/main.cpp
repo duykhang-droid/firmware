@@ -102,22 +102,6 @@ bool returnToMenu;
 bool isSleeping = false;
 bool isScreenOff = false;
 bool dimmer = false;
-char timeStr[16];
-time_t localTime;
-struct tm *timeInfo;
-#if defined(HAS_RTC)
-#if defined(HAS_RTC_PCF85063A)
-pcf85063_RTC _rtc;
-#else
-cplus_RTC _rtc;
-#endif
-RTC_TimeTypeDef _time;
-RTC_DateTypeDef _date;
-bool clock_set = true;
-#else
-ESP32Time rtc;
-bool clock_set = false;
-#endif
 
 std::vector<Option> options;
 // Protected global variables
@@ -320,40 +304,7 @@ void boot_screen_anim() {
  **  Function: init_clock
  **  Clock initialisation for propper display in menu
  *********************************************************************/
-void init_clock() {
-#if defined(HAS_RTC)
-    _rtc.begin();
-#if defined(HAS_RTC_BM8563)
-    _rtc.GetBm8563Time();
-#endif
-#if defined(HAS_RTC_PCF85063A)
-    _rtc.GetPcf85063Time();
-#endif
-    _rtc.GetTime(&_time);
-    _rtc.GetDate(&_date);
 
-    struct tm timeinfo = {};
-    timeinfo.tm_sec = _time.Seconds;
-    timeinfo.tm_min = _time.Minutes;
-    timeinfo.tm_hour = _time.Hours;
-    timeinfo.tm_mday = _date.Date;
-    timeinfo.tm_mon = _date.Month > 0 ? _date.Month - 1 : 0;
-    timeinfo.tm_year = _date.Year >= 1900 ? _date.Year - 1900 : 0;
-    time_t epoch = mktime(&timeinfo);
-    struct timeval tv = {.tv_sec = epoch};
-    settimeofday(&tv, nullptr);
-#else
-    struct tm timeinfo = {};
-    timeinfo.tm_year = CURRENT_YEAR - 1900;
-    timeinfo.tm_mon = 0x05;
-    timeinfo.tm_mday = 0x14;
-    time_t epoch = mktime(&timeinfo);
-    rtc.setTime(epoch);
-    clock_set = true;
-    struct timeval tv = {.tv_sec = epoch};
-    settimeofday(&tv, nullptr);
-#endif
-}
 
 /*********************************************************************
  **  Function: init_led
