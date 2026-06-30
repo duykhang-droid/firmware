@@ -1139,7 +1139,7 @@ void setStartupApp() {
         index++;
         if (bruceConfig.startupApp == appName) idx = index;
 
-    
+
 
     loopOptions(options, idx);
     options.clear();
@@ -1194,7 +1194,7 @@ void setWifiApPasswordMenu() {
                  if (!newPassword.isEmpty()) bruceConfig.setWifiApCreds(bruceConfig.wifiAp.ssid, newPassword);
                  else displayError("Password cannot be empty", true);
              }
-         },                                                                          !isDefault},
+         },                                                         
     };
     addOptionToMainMenu();
 
