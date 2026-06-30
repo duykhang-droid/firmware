@@ -231,8 +231,7 @@ public:
     void fromJson(JsonObject obj);
     void toJson(JsonObject obj) const;
 
-    void setCC1101Pins(SPIPins value);
-    void setNrf24Pins(SPIPins value);
+
     void setPn532Pins(SPIPins value);
     void setSDCardPins(SPIPins value);
 #if !defined(LITE_VERSION)

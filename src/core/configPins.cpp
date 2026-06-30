@@ -44,62 +44,6 @@ void BruceConfigPins::fromJson(JsonObject obj) {
         log_e("Fail");
     }
 
-    if (!root["irTx"].isNull()) {
-        irTx = root["irTx"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!root["irTxRepeats"].isNull()) {
-        irTxRepeats = root["irTxRepeats"].as<uint8_t>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!root["irRx"].isNull()) {
-        irRx = root["irRx"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-
-    if (!root["rfTx"].isNull()) {
-        rfTx = root["rfTx"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!root["rfRx"].isNull()) {
-        rfRx = root["rfRx"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!root["rfModule"].isNull()) {
-        rfModule = root["rfModule"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!root["rfFreq"].isNull()) {
-        rfFreq = root["rfFreq"].as<float>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!root["rfFxdFreq"].isNull()) {
-        rfFxdFreq = root["rfFxdFreq"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!root["rfScanRange"].isNull()) {
-        rfScanRange = root["rfScanRange"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-
     if (!root["rfidModule"].isNull()) {
         rfidModule = root["rfidModule"].as<int>();
     } else {
@@ -117,30 +61,6 @@ void BruceConfigPins::fromJson(JsonObject obj) {
     }
 
 
-
-    if (!root["CC1101_Pins"].isNull()) {
-        SPIPins def = CC1101_bus;
-        CC1101_bus.fromJson(root["CC1101_Pins"].as<JsonObject>());
-        if (CC1101_bus.sck == GPIO_NUM_NC && def.sck != GPIO_NUM_NC) {
-            CC1101_bus = def;
-            count++;
-        }
-    } else {
-        count++;
-        log_e("Fail");
-    }
-
-    if (!root["NRF24_Pins"].isNull()) {
-        SPIPins def = NRF24_bus;
-        NRF24_bus.fromJson(root["NRF24_Pins"].as<JsonObject>());
-        if (NRF24_bus.sck == GPIO_NUM_NC && def.sck != GPIO_NUM_NC) {
-            NRF24_bus = def;
-            count++;
-        }
-    } else {
-        count++;
-        log_e("Fail");
-    }
     if (!root["PN532_Pins"].isNull()) {
         SPIPins def = PN532_bus;
         PN532_bus.fromJson(root["PN532_Pins"].as<JsonObject>());
@@ -164,26 +84,8 @@ void BruceConfigPins::fromJson(JsonObject obj) {
         count++;
         log_e("Fail");
     }
-#if !defined(LITE_VERSION)
-    if (!root["W5500_Pins"].isNull()) {
-        W5500_bus.fromJson(root["W5500_Pins"].as<JsonObject>());
-    } else {
-        count++;
-        log_e("Fail");
-    }
 
-    if (!root["LoRa_Pins"].isNull()) {
-        SPIPins def = LoRa_bus;
-        LoRa_bus.fromJson(root["LoRa_Pins"].as<JsonObject>());
-        if (LoRa_bus.sck == GPIO_NUM_NC && def.sck != GPIO_NUM_NC) {
-            LoRa_bus = def;
-            count++;
-        }
-    } else {
-        count++;
-        log_e("Fail");
-    }
-#endif
+
     // if (!root["sys_i2c"].isNull()) {
     //     sys_i2c.fromJson(root["sys_i2c"].as<JsonObject>());
     // } else {
@@ -211,24 +113,10 @@ void BruceConfigPins::toJson(JsonObject obj) const {
     JsonObject root = obj[getMacAddress()].to<JsonObject>();
 
     root["rot"] = rotation;
-    root["irTx"] = irTx;
-    root["irTxRepeats"] = irTxRepeats;
-    root["irRx"] = irRx;
-    root["rfTx"] = rfTx;
-    root["rfRx"] = rfRx;
-    root["rfModule"] = rfModule;
-    root["rfFreq"] = rfFreq;
-    root["rfFxdFreq"] = rfFxdFreq;
-    root["rfScanRange"] = rfScanRange;
     root["bleName"] = bleName;
     root["rfidModule"] = rfidModule;
     root["iButton"] = iButton;
 
-    JsonObject _CC1101 = root["CC1101_Pins"].to<JsonObject>();
-    CC1101_bus.toJson(_CC1101);
-
-    JsonObject _NRF = root["NRF24_Pins"].to<JsonObject>();
-    NRF24_bus.toJson(_NRF);
 
     JsonObject _PN532 = root["PN532_Pins"].to<JsonObject>();
     PN532_bus.toJson(_PN532);
@@ -236,13 +124,6 @@ void BruceConfigPins::toJson(JsonObject obj) const {
     JsonObject _SD = root["SDCard_Pins"].to<JsonObject>();
     SDCARD_bus.toJson(_SD);
 
-#if !defined(LITE_VERSION)
-    JsonObject _W5500 = root["W5500_Pins"].to<JsonObject>();
-    W5500_bus.toJson(_W5500);
-
-    JsonObject _LoRa = root["LoRa_Pins"].to<JsonObject>();
-    LoRa_bus.toJson(_LoRa);
-#endif
     // JsonObject _si2c = root["sys_i2c"].as<JsonObject>();
     // sys_i2c.toJson(_si2c);
     JsonObject _di2c = root["i2c_bus"].to<JsonObject>();
@@ -347,27 +228,11 @@ void BruceConfigPins::factoryReset() {
 
 void BruceConfigPins::validateConfig() {
     validateRotationValue();
-#if !defined(LITE_VERSION)
-    validateSpiPins(LoRa_bus);
-    validateSpiPins(W5500_bus);
-#endif
     validateSpiPins(PN532_bus);
     validateSpiPins(SDCARD_bus);
     validateI2CPins(i2c_bus);
     validateUARTPins(uart_bus);
 }
-#if !defined(LITE_VERSION)
-void BruceConfigPins::setLoRaPins(SPIPins value) {
-    LoRa_bus = value;
-    validateSpiPins(LoRa_bus);
-    saveFile();
-}
-void BruceConfigPins::setW5500Pins(SPIPins value) {
-    LoRa_bus = value;
-    validateSpiPins(W5500_bus);
-    saveFile();
-}
-#endif
 
 void BruceConfigPins::setPn532Pins(SPIPins value) {
     PN532_bus = value;
