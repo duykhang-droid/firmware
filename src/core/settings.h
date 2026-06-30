@@ -50,11 +50,7 @@ void setEvilPasswordMode();
 
 void setEvilGatewayIp();
 
-void setRFModuleMenu();
 
-void setRFFreqMenu();
-
-void setRFIDModuleMenu();
 
 void addMifareKeyMenu();
 
@@ -62,13 +58,9 @@ void setSleepMode();
 
 void setDimmerTimeMenu();
 
-void setClock();
-
-void runClockLoop(bool showMenuHint = false);
 
 void setSoundConfig();
 
-void setSoundVolume();
 
 #ifdef HAS_RGB_LED
 void setLedBlinkConfig();

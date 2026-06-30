@@ -207,7 +207,7 @@ public:
     int rfScanRange = 3;
 
     // iButton Pin
-    int iButton = 0;
+
 
     // RFID
 
@@ -262,11 +262,6 @@ public:
     void setRfScanRange(int value, int fxdFreq = 0);
     void validateRfScanRangeValue();
 
-    // iButton
-    void setiButtonPin(int value);
 
-    // RFID
-    void setRfidModule(RFIDModules value);
-    void validateRfidModuleValue();
 
 };
