@@ -1171,7 +1171,7 @@ void setWifiApSsidMenu() {
              }
          },                                                                         !isDefault},
     };
-    addOptionToMainMenu();
+   // addOptionToMainMenu();
 
     loopOptions(options, isDefault ? 0 : 1);
 }
@@ -1194,7 +1194,7 @@ void setWifiApPasswordMenu() {
                  if (!newPassword.isEmpty()) bruceConfig.setWifiApCreds(bruceConfig.wifiAp.ssid, newPassword);
                  else displayError("Password cannot be empty", true);
              }
-         },                                                         
+         },
     };
     addOptionToMainMenu();
 
