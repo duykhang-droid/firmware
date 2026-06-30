@@ -88,7 +88,6 @@ void setWifiStartupConfig();
 
 void setStartupApp();
 
-void setGpsBaudrateMenu();
 
 void setNetworkCredsMenu();
 

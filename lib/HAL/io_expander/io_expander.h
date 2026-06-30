@@ -165,4 +165,3 @@ public:
 };
 
 #endif // #ifdef IO_EXPANDER_AW9523
-#endif // _IO_EXPANDER_H

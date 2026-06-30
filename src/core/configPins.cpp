@@ -350,7 +350,6 @@ void BruceConfigPins::validateConfig() {
     validateRfScanRangeValue();
     validateRfModuleValue();
     validateRfidModuleValue();
-    validateGpsBaudrateValue();
 #if !defined(LITE_VERSION)
     validateSpiPins(LoRa_bus);
     validateSpiPins(W5500_bus);
