@@ -106,7 +106,6 @@ void createWifiCommands(SimpleCLI *cli) {
 
 #if !defined(LITE_VERSION)
 
-    Command ScanHostsCmd = cli->addCommand("arp", scanHostsCallback);
 
     Command listenTCPCmd =
         cli->addCommand("listen", listenTCPCallback); // TODO: make possible to select port to open via Serial
