@@ -1172,8 +1172,8 @@ void setWifiApSsidMenu() {
          },                                                                         !isDefault},
     };
    // addOptionToMainMenu();
-}
-    loopOptions(options, isDefault ? 0 : 1);
+
+    loopOptions(options, isDefault ? 0 : 1); }
 }
 
 /*********************************************************************
