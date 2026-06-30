@@ -1170,9 +1170,9 @@ void setWifiApSsidMenu() {
                  else displayError("SSID cannot be empty", true);
              }
          },         !isDefault},
-    
+
    // addOptionToMainMenu();
-    loopOptions(options, isDefault ? 0 : 1); }
+    loopOptions(options, isDefault ? 0 : 1); 
 }
 
 /*********************************************************************
