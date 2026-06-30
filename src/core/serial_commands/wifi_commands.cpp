@@ -63,18 +63,7 @@ uint32_t webuiCallback(cmd *c) {
 
     return true;
 }
-#if !defined(LITE_VERSION)
-uint32_t scanHostsCallback(cmd *c) {
-    esp_netif_t *esp_netinterface = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
-    if (esp_netinterface == nullptr) {
-        Serial.println("Failed to get netif handle\nTry connecting to a network first");
-        return false;
-    }
 
-    ARPScanner{esp_netinterface};
-
-    return true;
-}
 
 uint32_t snifferCallback(cmd *c) {
     sniffer_setup();

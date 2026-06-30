@@ -70,20 +70,7 @@ void WifiMenu::optionsMenu() {
     options.push_back({"TelNET", telnet_setup});
     options.push_back({"SSH", lambdaHelper(ssh_setup, String(""))});
     options.push_back({"Sniffer", sniffer_setup});
-    options.push_back({"Scan Hosts", [=]() {
-                           bool doScan = true;
-                           if (!wifiConnected) doScan = wifiConnectMenu();
-
-                           if (doScan) {
-                               esp_netif_t *esp_netinterface =
-                                   esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
-                               if (esp_netinterface == nullptr) {
-                                   Serial.println("Failed to get netif handle");
-                                   return;
-                               }
-                               ARPScanner{esp_netinterface};
-                           }
-                       }});
+    
     options.push_back({"Wireguard", wg_setup});
     options.push_back({"Responder", responder});
     options.push_back({"Brucegotchi", brucegotchi_start});
