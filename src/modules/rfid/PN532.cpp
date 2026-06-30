@@ -397,15 +397,12 @@ int PN532::emulate() {
     static const std::vector<uint8_t> kSwNotSupported = {0x6A, 0x81};
     static const std::vector<uint8_t> kSwEof = {0x62, 0x82};
 
-    std::vector<uint8_t> emulatedNdefMessage;
-    bool canParseUltralightDump = (uid.sak == PICC_TYPE_MIFARE_UL);
-    if ((!canParseUltralightDump || !extractNdefMessageFromPageDump(strAllPages, emulatedNdefMessage))) {
-        if (!buildNdefMessageFromStruct(this->ndefMessage, emulatedNdefMessage)) {
-            // Fallback test payload if no loaded/read NDEF is available.
-            std::vector<uint8_t> uriPayload = Ndef::urlNdefAbbrv("https://bruce.computer");
-            emulatedNdefMessage = Ndef::newMessage(uriPayload);
-        }
-    }
+    std::vector<uint8_t> uriPayload =
+        Ndef::urlNdefAbbrv("https://bruce.computer");
+
+        std::vector<uint8_t> emulatedNdefMessage =
+        Ndef::newMessage(uriPayload);
+
     if (emulatedNdefMessage.empty()) return FAILURE;
     if (emulatedNdefMessage.size() > (kNdefMaxLen - 2)) return FAILURE;
 
