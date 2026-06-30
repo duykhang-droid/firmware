@@ -779,28 +779,7 @@ String loopSD(FS &fs, bool filePicker, String allowed_ext, String rootPath) {
                                                              if (readSubFile(&fs, filepath, data))
                                                                  txSubFile(data);
                                                          }});
-                    if (filepath.endsWith(".csv")) {
-                        options.insert(options.begin(), {"Wigle Upload", [&]() {
-                                                             delay(200);
-                                                             Wigle wigle;
-                                                             wigle.upload(&fs, filepath);
-                                                         }});
-                        options.insert(options.begin(), {"Wigle Up All", [&]() {
-                                                             delay(200);
-                                                             Wigle wigle;
-                                                             wigle.upload_all(&fs, Folder);
-                                                         }});
-                        options.insert(options.begin(), {"WDG Upload", [&]() {
-                                                             delay(200);
-                                                             WDGoWars wdg;
-                                                             wdg.upload(&fs, filepath);
-                                                         }});
-                        options.insert(options.begin(), {"WDG Up All", [&]() {
-                                                             delay(200);
-                                                             WDGoWars wdg;
-                                                             wdg.upload_all(&fs, Folder);
-                                                         }});
-                    }
+                    
 #if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
                     if (filepath.endsWith(".bjs") || filepath.endsWith(".js")) {
                         options.insert(options.begin(), {"JS Script Run", [&]() {

@@ -180,8 +180,7 @@ public:
     // Misc
     void setStartupApp(String value);
     void setStartupAppJSInterpreterFile(String value);
-    void setWigleBasicToken(String value);
-    void setWdgwarsApiKey(String value);
+    
     void setDevMode(int value);
     void validateDevModeValue();
     void setColorInverted(int value);

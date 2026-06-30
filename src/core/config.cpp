@@ -755,15 +755,6 @@ void BruceConfig::setStartupAppJSInterpreterFile(String value) {
     saveFile();
 }
 
-void BruceConfig::setWigleBasicToken(String value) {
-    wigleBasicToken = value;
-    saveFile();
-}
-
-void BruceConfig::setWdgwarsApiKey(String value) {
-    wdgwarsApiKey = value;
-    saveFile();
-}
 
 void BruceConfig::setDevMode(int value) {
     devMode = value;
