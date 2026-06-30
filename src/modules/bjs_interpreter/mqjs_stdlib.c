@@ -398,7 +398,7 @@ static const JSPropDef js_ir[] = {
     JS_PROP_END,
 };
 
-
+const JSClassDef js_ir_obj = JS_OBJECT_DEF("IR", js_ir);
 /* Dialog module */
 static const JSPropDef js_dialog[] = {
     JS_CFUNC_DEF("message", 2, native_dialogMessage),
