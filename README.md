@@ -157,10 +157,7 @@ Also, [read our FAQ](https://wiki.bruce.computer/faq/)
 </details>
 
 <details>
-  <summary><h2>Others</h2></summary>
-
-- [x] Mic Spectrum
-- [x] [QRCodes](https://wiki.bruce.computer/features/others/#qrcodes)
+  <summary><h2>Others</h2></summarl
   - [x] Custom
   - [x] PIX (Brazil bank transfer system)
 - [x] [SD Card Mngr](https://github.com/pr3y/Bruce/wiki/Others#sd-card-mngr)
@@ -178,7 +175,6 @@ Also, [read our FAQ](https://wiki.bruce.computer/faq/)
 - [x] Megalodon
 - [x] [BADUsb (New features, LittleFS and SDCard)](https://wiki.bruce.computer/features/others/#badusb)
 - [x] USB Keyboard - Cardputer and T-Deck Only
-- [x] [iButton](https://wiki.bruce.computer/features/others/#ibutton)
 - [x] LED Control
 </details>
 
