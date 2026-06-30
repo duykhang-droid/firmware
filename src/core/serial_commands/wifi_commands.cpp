@@ -79,7 +79,7 @@ uint32_t listenTCPCallback(cmd *c) {
 
     listenTcpPort();
 
-    return true;
+    return true; //sửa
 }
 
 /*
