@@ -12,7 +12,6 @@
 #include "core/wifi/webInterface.h"
 #include "core/wifi/wifi_common.h"
 #include "modules/pwnagotchi/pwnagotchi.h"
-#include "modules/rf/rf_send.h"
 #include "modules/rfid/PN532KillerTools.h"
 #include "modules/rfid/pn532ble.h"
 #include "modules/wifi/sniffer.h"
@@ -28,7 +27,6 @@ StartupApp::StartupApp() {
     _startupApps["PN532 UART"] = []() { PN532KillerTools(); };
 #endif
     _startupApps["Clock"] = []() { runClockLoop(); };
-    _startupApps["Custom SubGHz"] = []() { sendCustomRF(); };
 #if defined(SOC_USB_OTG_SUPPORTED)
     _startupApps["Mass Storage"] = []() { MassStorage(); };
 #endif

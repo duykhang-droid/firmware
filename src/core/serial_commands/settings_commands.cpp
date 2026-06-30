@@ -60,14 +60,6 @@ uint32_t settingsCallback(cmd *c) {
     }
     if (setting_name == "bleName") bruceConfigPins.setBleName(setting_value);
 
-    if (setting_name == "rfTx") bruceConfigPins.setRfTxPin(setting_value.toInt());
-    if (setting_name == "rfRx") bruceConfigPins.setRfRxPin(setting_value.toInt());
-    if (setting_name == "rfModule")
-        bruceConfigPins.setRfModule(static_cast<RFModules>(setting_value.toInt()));
-    if (setting_name == "rfFreq" && setting_value.toFloat())
-        bruceConfigPins.setRfFreq(setting_value.toFloat());
-    if (setting_name == "rfFxdFreq") bruceConfigPins.setRfFxdFreq(setting_value.toInt());
-    if (setting_name == "rfScanRange") bruceConfigPins.setRfScanRange(setting_value.toInt());
     if (setting_name == "rfidModule")
         bruceConfigPins.setRfidModule(static_cast<RFIDModules>(setting_value.toInt()));
 

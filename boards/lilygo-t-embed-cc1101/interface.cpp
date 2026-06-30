@@ -29,7 +29,6 @@ BQ27220 bq;
 #endif
 
 #include "core/i2c_finder.h"
-#include "modules/rf/rf_utils.h"
 #include <Adafruit_PN532.h>
 
 /***************************************************************************************
@@ -215,11 +214,6 @@ void powerDownNFC() {
     }
 }
 
-void powerDownCC1101() {
-    if (!initRfModule("rx", bruceConfigPins.rfFreq)) { Serial.println("Can't init CC1101"); }
-
-    ELECHOUSE_cc1101.goSleep();
-}
 
 /*********************************************************************
 ** Function: checkReboot

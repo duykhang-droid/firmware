@@ -1,7 +1,6 @@
 #include "mykeyboard.h"
 #include "core/utils.h"
 #include "core/wifi/webInterface.h"
-#include "modules/rf/rf_send.h"
 #include "powerSave.h"
 #include "sd_functions.h"
 #include <ArduinoJson.h>

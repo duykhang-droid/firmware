@@ -6,7 +6,6 @@
 #include "modules/others/audio_player.h"
 #endif
 #include "modules/others/qrcode_menu.h"
-#include "modules/rf/rf_send.h"
 #include "mykeyboard.h" // using keyboard when calling rename
 #include "passwords.h"
 #include "scrollableTextArea.h"
@@ -759,14 +758,6 @@ String loopSD(FS &fs, bool filePicker, String allowed_ext, String rootPath) {
                                                                  vTaskDelay(10 / portTICK_PERIOD_MS);
                                                          }});
 
-                    if (filepath.endsWith(".sub"))
-                        options.insert(options.begin(), {"Subghz Tx", [&]() {
-                                                             delay(200);
-                                                             RfCodes data{};
-
-                                                             if (readSubFile(&fs, filepath, data))
-                                                                 txSubFile(data);
-                                                         }});
 
 
 

@@ -7,13 +7,11 @@
 #endif
 #include "modules/ble_api/ble_api.hpp"
 #include "modules/others/qrcode_menu.h"
-#include "modules/rf/rf_utils.h" // for initRfModule
 #include "mykeyboard.h"
 #include "powerSave.h"
 #include "sd_functions.h"
 #include "settingsColor.h"
 #include "utils.h"
-#include <ELECHOUSE_CC1101_SRC_DRV.h>
 #include <globals.h>
 
 int currentScreenBrightness = -1;
@@ -621,114 +619,11 @@ void setEvilGatewayIp() {
 **  Function: setRFModuleMenu
 **  Handles Menu to set the RF module in use
 **********************************************************************/
-void setRFModuleMenu() {
-    int result = 0;
-    int idx = 0;
-    uint8_t pins_setup = 0;
-    if (bruceConfigPins.rfModule == M5_RF_MODULE) idx = 0;
-    else if (bruceConfigPins.rfModule == CC1101_SPI_MODULE) {
-        idx = 1;
-#if defined(ARDUINO_M5STICK_C_PLUS) || defined(ARDUINO_M5STICK_C_PLUS2)
-        if (bruceConfigPins.CC1101_bus.mosi == GPIO_NUM_26) idx = 2;
-#endif
-    }
-
-    options = {
-        {"M5 RF433T/R",         [&]() { result = M5_RF_MODULE; }   },
-#if defined(ARDUINO_M5STICK_C_PLUS) || defined(ARDUINO_M5STICK_C_PLUS2)
-        {"CC1101 (legacy)",     [&pins_setup]() { pins_setup = 1; }},
-        {"CC1101 (Shared SPI)", [&pins_setup]() { pins_setup = 2; }},
-#else
-        {"CC1101", [&]() { result = CC1101_SPI_MODULE; }},
-#endif
-        /* WIP:
-         * #ifdef USE_CC1101_VIA_PCA9554
-         * {"CC1101+PCA9554",  [&]() { result = 2; }},
-         * #endif
-         */
-    };
-    loopOptions(options, idx);
-    if (result == CC1101_SPI_MODULE || pins_setup > 0) {
-        // This setting is meant to StickCPlus and StickCPlus2 to setup the ports from RF Menu
-        if (pins_setup == 1) {
-            result = CC1101_SPI_MODULE;
-            bruceConfigPins.setCC1101Pins(
-                {(gpio_num_t)CC1101_SCK_PIN,
-                 (gpio_num_t)CC1101_MISO_PIN,
-                 (gpio_num_t)CC1101_MOSI_PIN,
-                 (gpio_num_t)CC1101_SS_PIN,
-                 (gpio_num_t)CC1101_GDO0_PIN,
-                 GPIO_NUM_NC}
-            );
-            bruceConfigPins.setNrf24Pins(
-                {(gpio_num_t)CC1101_SCK_PIN,
-                 (gpio_num_t)CC1101_MISO_PIN,
-                 (gpio_num_t)CC1101_MOSI_PIN,
-                 (gpio_num_t)CC1101_SS_PIN,
-                 (gpio_num_t)CC1101_GDO0_PIN,
-                 GPIO_NUM_NC}
-            );
-        } else if (pins_setup == 2) {
-#if CONFIG_SOC_GPIO_OUT_RANGE_MAX > 30
-            result = CC1101_SPI_MODULE;
-            bruceConfigPins.setCC1101Pins(
-                {(gpio_num_t)SDCARD_SCK,
-                 (gpio_num_t)SDCARD_MISO,
-                 (gpio_num_t)SDCARD_MOSI,
-                 GPIO_NUM_33,
-                 GPIO_NUM_32,
-                 GPIO_NUM_NC}
-            );
-            bruceConfigPins.setNrf24Pins(
-                {(gpio_num_t)SDCARD_SCK,
-                 (gpio_num_t)SDCARD_MISO,
-                 (gpio_num_t)SDCARD_MOSI,
-                 GPIO_NUM_33,
-                 GPIO_NUM_32,
-                 GPIO_NUM_NC}
-            );
-#endif
-        }
-        if (initRfModule()) {
-            bruceConfigPins.setRfModule(CC1101_SPI_MODULE);
-            deinitRfModule();
-            if (pins_setup == 1) CC_NRF_SPI.end();
-            return;
-        }
-        // else display an error
-        displayError("CC1101 not found", true);
-        if (pins_setup == 1)
-            qrcode_display("https://github.com/pr3y/Bruce/blob/main/media/connections/cc1101_stick.jpg");
-        if (pins_setup == 2)
-            qrcode_display(
-                "https://github.com/pr3y/Bruce/blob/main/media/connections/cc1101_stick_SDCard.jpg"
-            );
-        while (!check(AnyKeyPress)) vTaskDelay(50 / portTICK_PERIOD_MS);
-    }
-    // fallback to "M5 RF433T/R" on errors
-    bruceConfigPins.setRfModule(M5_RF_MODULE);
-}
 
 /*********************************************************************
 **  Function: setRFFreqMenu
 **  Handles Menu to set the default frequency for the RF module
 **********************************************************************/
-void setRFFreqMenu() {
-    float result = 433.92;
-    String freq_str = num_keyboard(String(bruceConfigPins.rfFreq), 10, "Default frequency:");
-    if (freq_str == "\x1B") return;
-    if (freq_str.length() > 1) {
-        result = freq_str.toFloat();          // returns 0 if not valid
-        if (result >= 280 && result <= 928) { // TODO: check valid freq according to current module?
-            bruceConfigPins.setRfFreq(result);
-            return;
-        }
-    }
-    // else
-    displayError("Invalid frequency");
-    bruceConfigPins.setRfFreq(433.92); // reset to default
-    delay(1000);
-}
 
 /*********************************************************************
 **  Function: setRFIDModuleMenu
@@ -1052,75 +947,11 @@ void runClockLoop(bool showMenuHint) {
 **  Function: gsetRfTxPin
 **  get or set RF Tx Pin
 **********************************************************************/
-int gsetRfTxPin(bool set) {
-    int result = bruceConfigPins.rfTx;
-
-    if (result > 45) bruceConfigPins.setRfTxPin(GROVE_SDA);
-    if (set) {
-        options.clear();
-        std::vector<std::pair<const char *, int>> pins;
-        pins = RF_TX_PINS;
-        int idx = -1;
-        int j = 0;
-        for (auto pin : pins) {
-            if (pin.second == bruceConfigPins.rfTx && idx < 0) idx = j;
-            j++;
-#ifdef ALLOW_ALL_GPIO_FOR_IR_RF
-            int i = pin.second;
-            if (i != TFT_CS && i != TFT_RST && i != TFT_SCLK && i != TFT_MOSI && i != TFT_BL &&
-                i != TOUCH_CS && i != SDCARD_CS && i != SDCARD_MOSI && i != SDCARD_MISO)
-#endif
-                options.push_back(
-                    {pin.first,
-                     [=]() { bruceConfigPins.setRfTxPin(pin.second); },
-                     pin.second == bruceConfigPins.rfTx}
-                );
-        }
-
-        loopOptions(options);
-        options.clear();
-    }
-
-    returnToMenu = true;
-    return bruceConfigPins.rfTx;
-}
 
 /*********************************************************************
 **  Function: gsetRfRxPin
 **  get or set FR Rx Pin
 **********************************************************************/
-int gsetRfRxPin(bool set) {
-    int result = bruceConfigPins.rfRx;
-
-    if (result > 36) bruceConfigPins.setRfRxPin(GROVE_SCL);
-    if (set) {
-        options.clear();
-        std::vector<std::pair<const char *, int>> pins;
-        pins = RF_RX_PINS;
-        int idx = -1;
-        int j = 0;
-        for (auto pin : pins) {
-            if (pin.second == bruceConfigPins.rfRx && idx < 0) idx = j;
-            j++;
-#ifdef ALLOW_ALL_GPIO_FOR_IR_RF
-            int i = pin.second;
-            if (i != TFT_CS && i != TFT_RST && i != TFT_SCLK && i != TFT_MOSI && i != TFT_BL &&
-                i != TOUCH_CS && i != SDCARD_CS && i != SDCARD_MOSI && i != SDCARD_MISO)
-#endif
-                options.push_back(
-                    {pin.first,
-                     [=]() { bruceConfigPins.setRfRxPin(pin.second); },
-                     pin.second == bruceConfigPins.rfRx}
-                );
-        }
-
-        loopOptions(options);
-        options.clear();
-    }
-
-    returnToMenu = true;
-    return bruceConfigPins.rfRx;
-}
 
 /*********************************************************************
 **  Function: setStartupApp

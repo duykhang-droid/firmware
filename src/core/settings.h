@@ -66,11 +66,6 @@ void setClock();
 
 void runClockLoop(bool showMenuHint = false);
 
-
-int gsetRfTxPin(bool set = false);
-
-int gsetRfRxPin(bool set = false);
-
 void setSoundConfig();
 
 void setSoundVolume();

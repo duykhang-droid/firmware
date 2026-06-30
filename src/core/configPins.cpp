@@ -347,15 +347,10 @@ void BruceConfigPins::factoryReset() {
 
 void BruceConfigPins::validateConfig() {
     validateRotationValue();
-    validateRfScanRangeValue();
-    validateRfModuleValue();
-    validateRfidModuleValue();
 #if !defined(LITE_VERSION)
     validateSpiPins(LoRa_bus);
     validateSpiPins(W5500_bus);
 #endif
-    validateSpiPins(CC1101_bus);
-    validateSpiPins(NRF24_bus);
     validateSpiPins(PN532_bus);
     validateSpiPins(SDCARD_bus);
     validateI2CPins(i2c_bus);
@@ -373,17 +368,6 @@ void BruceConfigPins::setW5500Pins(SPIPins value) {
     saveFile();
 }
 #endif
-void BruceConfigPins::setCC1101Pins(SPIPins value) {
-    CC1101_bus = value;
-    validateSpiPins(CC1101_bus);
-    saveFile();
-}
-
-void BruceConfigPins::setNrf24Pins(SPIPins value) {
-    NRF24_bus = value;
-    validateSpiPins(NRF24_bus);
-    saveFile();
-}
 
 void BruceConfigPins::setPn532Pins(SPIPins value) {
     PN532_bus = value;
@@ -445,54 +429,6 @@ void BruceConfigPins::setBleName(String value) {
     saveFile();
 }
 
-
-void BruceConfigPins::setRfTxPin(int value) {
-    rfTx = value;
-    saveFile();
-}
-
-void BruceConfigPins::setRfRxPin(int value) {
-    rfRx = value;
-    saveFile();
-}
-
-void BruceConfigPins::setRfModule(RFModules value) {
-    rfModule = value;
-    validateRfModuleValue();
-    saveFile();
-}
-
-void BruceConfigPins::validateRfModuleValue() {
-    if (rfModule != M5_RF_MODULE && rfModule != CC1101_SPI_MODULE) { rfModule = M5_RF_MODULE; }
-}
-
-void BruceConfigPins::setRfFreq(float value, int fxdFreq) {
-    rfFreq = value;
-    if (fxdFreq > 1) rfFxdFreq = fxdFreq;
-    saveFile();
-}
-
-void BruceConfigPins::setRfFxdFreq(float value) {
-    rfFxdFreq = value;
-    saveFile();
-}
-
-void BruceConfigPins::setRfScanRange(int value, int fxdFreq) {
-    rfScanRange = value;
-    rfFxdFreq = fxdFreq;
-    validateRfScanRangeValue();
-    saveFile();
-}
-
-void BruceConfigPins::validateRfScanRangeValue() {
-    if (rfScanRange < 0 || rfScanRange > 3) rfScanRange = 3;
-}
-
-void BruceConfigPins::setRfidModule(RFIDModules value) {
-    rfidModule = value;
-    validateRfidModuleValue();
-    saveFile();
-}
 
 void BruceConfigPins::validateRfidModuleValue() {
     if (rfidModule != M5_RFID2_MODULE && rfidModule != PN532_I2C_MODULE && rfidModule != PN532_SPI_MODULE &&
