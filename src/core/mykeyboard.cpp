@@ -298,7 +298,7 @@ void checkShortcutPress() {
                             if (i == *shortcut_key) {
                                         break;
                                                 }
-                                  }
+                                  }// co the xoa
                                               }
 
 
