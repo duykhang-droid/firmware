@@ -2,8 +2,6 @@
 #include "display.h" // using displayRedStripe as error msg
 #include "modules/badusb_ble/ducky_typer.h"
 #include "modules/bjs_interpreter/interpreter.h"
-#include "modules/ir/TV-B-Gone.h"
-#include "modules/ir/custom_ir.h"
 #include "modules/others/audio.h"
 #if defined(HAS_NS4168_SPKR)
 #include "modules/others/audio_player.h"
@@ -761,7 +759,7 @@ String loopSD(FS &fs, bool filePicker, String allowed_ext, String rootPath) {
                                                              while (!check(AnyKeyPress))
                                                                  vTaskDelay(10 / portTICK_PERIOD_MS);
                                                          }});
-                    
+
                     if (filepath.endsWith(".sub"))
                         options.insert(options.begin(), {"Subghz Tx", [&]() {
                                                              delay(200);

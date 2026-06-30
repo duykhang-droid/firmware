@@ -9,7 +9,6 @@
 #include "globals_js.h"
 #include "gpio_js.h"
 #include "i2c_js.h"
-#include "ir_js.h"
 #include "keyboard_js.h"
 #include "led_js.h"
 #include "math_js.h"

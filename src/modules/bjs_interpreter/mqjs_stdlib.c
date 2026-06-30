@@ -398,7 +398,6 @@ static const JSPropDef js_ir[] = {
     JS_PROP_END,
 };
 
-const JSClassDef js_ir_obj = JS_OBJECT_DEF("IR", js_ir);
 
 /* Dialog module */
 static const JSPropDef js_dialog[] = {
@@ -843,7 +842,6 @@ static const JSPropDef js_global_object[] = {
     JS_PROP_CLASS_DEF("dialog", &js_dialog_obj),
     JS_PROP_CLASS_DEF("gpio", &js_gpio_obj),
     JS_PROP_CLASS_DEF("i2c", &js_i2c_obj),
-    JS_PROP_CLASS_DEF("ir", &js_ir_obj),
     JS_PROP_CLASS_DEF("keyboard", &js_keyboard_obj),
     JS_PROP_CLASS_DEF("notification", &js_notification_obj),
     JS_PROP_CLASS_DEF("mic", &js_mic_obj),
