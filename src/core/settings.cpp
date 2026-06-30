@@ -1139,16 +1139,7 @@ void setStartupApp() {
         index++;
         if (bruceConfig.startupApp == appName) idx = index;
 
-        options.push_back({appName.c_str(), [=]() {
-                               bruceConfig.setStartupApp(appName);
-#if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
-                               if (appName == "JS Interpreter") {
-                                   options = getScriptsOptionsList("", true);
-                                   loopOptions(options, MENU_TYPE_SUBMENU, "Startup Script");
-                               }
-#endif
-                           }});
-    }
+    
 
     loopOptions(options, idx);
     options.clear();

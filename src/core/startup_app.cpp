@@ -8,7 +8,6 @@
 
 #include "startup_app.h"
 
-#include "core/menu_items/ScriptsMenu.h"
 #include "core/settings.h" // clock
 #include "core/wifi/webInterface.h"
 #include "core/wifi/wifi_common.h"
