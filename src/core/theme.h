@@ -9,20 +9,14 @@
 struct themeFiles {
     String wifi = "";
     String ble = "";
-    String rf = "";
     String rfid = "";
-    String fm = "";
-    String ir = "";
     String files = "";
-    String nrf = "";
-    String interpreter = "";
     String others = "";
     String clock = "";
     String connect = "";
     String config = "";
     String boot_img = "";
     String boot_sound = "";
-    String lora = "";
 };
 
 struct themeInfo {
@@ -33,20 +27,14 @@ struct themeInfo {
     bool label = true;
     bool wifi = false;
     bool ble = false;
-    bool rf = false;
     bool rfid = false;
-    bool fm = false;
-    bool ir = false;
     bool files = false;
-    bool nrf = false;
-    bool interpreter = false;
     bool others = false;
     bool clock = false;
     bool connect = false;
     bool config = false;
     bool boot_img = false;
     bool boot_sound = false;
-    bool lora = false;
     int gifDuration = 0;
 
     // Theme file paths, colors and border

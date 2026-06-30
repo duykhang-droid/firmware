@@ -37,7 +37,6 @@
   "connectivity": [
     "bluetooth",
     "wifi",
-    "lora"
   ],
   "debug": {
     "default_tool": "esp-builtin",
