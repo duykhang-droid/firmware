@@ -43,9 +43,7 @@ void SerialCli::setup() {
 #ifdef USB_as_HID
     createBadUsbCommands(&_cli);
 #endif
-#ifndef LITE_VERSION
-    createInterpreterCommands(&_cli);
-#endif
+
 #ifdef HAS_SCREEN
     createScreenCommands(&_cli);
 #endif
