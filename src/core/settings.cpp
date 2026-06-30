@@ -4,7 +4,6 @@
 #include "current_year.h"
 #include "display.h"
 #if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
-#include "modules/bjs_interpreter/interpreter.h"
 #endif
 #include "modules/ble_api/ble_api.hpp"
 #include "modules/others/qrcode_menu.h"

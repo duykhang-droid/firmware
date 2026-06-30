@@ -150,7 +150,6 @@ volatile int tftHeight = VECTOR_DISPLAY_DEFAULT_WIDTH;
 #include "core/settings.h"
 #include "core/wifi/webInterface.h"
 #include "core/wifi/wifi_common.h"
-#include "modules/bjs_interpreter/interpreter.h" // for JavaScript interpreter
 #include "modules/others/audio.h"                // for playAudioFile
 #include "modules/rf/rf_utils.h"                 // for initCC1101once
 #include <Wire.h>

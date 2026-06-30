@@ -12,7 +12,6 @@
 #include "core/settings.h" // clock
 #include "core/wifi/webInterface.h"
 #include "core/wifi/wifi_common.h"
-#include "modules/bjs_interpreter/interpreter.h"
 #include "modules/pwnagotchi/pwnagotchi.h"
 #include "modules/rf/rf_send.h"
 #include "modules/rfid/PN532KillerTools.h"

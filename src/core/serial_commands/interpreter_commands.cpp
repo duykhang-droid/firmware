@@ -1,7 +1,6 @@
 #include "interpreter_commands.h"
 #include "core/sd_functions.h"
 #include "helpers.h"
-#include "modules/bjs_interpreter/interpreter.h"
 
 static uint32_t jsCallback(cmd *c) {
 #if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)

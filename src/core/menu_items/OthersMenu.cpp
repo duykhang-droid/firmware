@@ -3,7 +3,6 @@
 #include "core/display.h"
 #include "core/utils.h"
 #include "modules/badusb_ble/ducky_typer.h"
-#include "modules/bjs_interpreter/interpreter.h"
 #include "modules/others/clicker.h"
 #include "modules/others/ibutton.h"
 #include "modules/others/mic.h"

@@ -2,7 +2,7 @@
 #include "core/display.h"
 #include "core/settings.h"
 #include "core/utils.h"
-#include "modules/bjs_interpreter/interpreter.h" // for JavaScript interpreter
+// for JavaScript interpreter
 #include <algorithm>                             // for std::sort
 
 void ScriptsMenu::optionsMenu() {
