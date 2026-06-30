@@ -34,29 +34,9 @@ bool parseSerialCommand(const String &command, bool waitForResponse) {
     return false;
 }
 
-void handleSerialCommands(SerialCli &serialCli) {
-    CmdPacket packet;
-    if (cmdQueue && rspQueue) {
-        if (xQueueReceive(cmdQueue, &packet, 0) == pdTRUE) {
-            bool result = serialCli.parse(String(packet.text));
-            xQueueSend(rspQueue, &result, 0);
-            Serial.println("COMMAND: " + String(packet.text));
-            Serial.printf("[CLI] Result: %s\n", result ? "TRUE" : "FALSE");
-        }
-    }
-    if (!serialDevice->available()) return;
-
-    String cmd_str = serialDevice->readStringUntil('\n');
-    Serial.println("COMMAND: " + cmd_str);
-    serialCli.parse(cmd_str);
-    serialDevice->print("# "); // prompt
-    backToMenu();              // forced menu redrawn
-}
-
 void _serialCmdsTaskLoop(void *pvParameters) {
     Serial.begin(115200);
     while (1) {
-        handleSerialCommands(serialCli);
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

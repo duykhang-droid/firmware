@@ -14,7 +14,6 @@ io_expander ioExpander;
 BruceConfig bruceConfig;
 BruceConfigPins bruceConfigPins;
 
-SerialCli serialCli;
 USBSerial USBserial;
 SerialDevice *serialDevice = &USBserial;
 

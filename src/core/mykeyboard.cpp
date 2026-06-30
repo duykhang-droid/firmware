@@ -294,11 +294,8 @@ void checkShortcutPress() {
 
         // check for matching keys
         for (auto i : key.word) {
-            if (i == *shortcut_key) { // compare the 1st char of the key string
-                // execute the associated action
-                serialCli.parse(String(shortcut_value));
-            }
-        }
+            if (i == *shortcut_key)
+        } //canh bao
     }
 }
 
