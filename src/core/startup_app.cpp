@@ -34,7 +34,6 @@ StartupApp::StartupApp() {
 #if defined(SOC_USB_OTG_SUPPORTED)
     _startupApps["Mass Storage"] = []() { MassStorage(); };
 #endif
-    _startupApps["Wardriving"] = []() { Wardriving(); };
     _startupApps["WebUI"] = []() { startWebUi(!wifiConnecttoKnownNet()); };
 #if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
     _startupApps["JS Interpreter"] = []() {
