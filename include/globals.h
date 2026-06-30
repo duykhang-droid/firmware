@@ -69,7 +69,6 @@ extern XPowersPPM PPM;
 
 extern BruceConfig bruceConfig;
 extern BruceConfigPins bruceConfigPins;
-extern SerialCli serialCli;
 extern SerialDevice *serialDevice;
 extern USBSerial USBserial;
 extern StartupApp startupApp;
