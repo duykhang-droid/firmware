@@ -50,12 +50,7 @@ void PN532KillerTools::setup() {
         bruceConfigPins.SDCARD_bus.checkConflict(TXD_PIN)) {
         sdcardSPI.end();
     }
-    if (bruceConfigPins.CC1101_bus.checkConflict(RXD_PIN) ||
-        bruceConfigPins.CC1101_bus.checkConflict(TXD_PIN) ||
-        bruceConfigPins.NRF24_bus.checkConflict(RXD_PIN) ||
-        bruceConfigPins.NRF24_bus.checkConflict(TXD_PIN)) {
-        CC_NRF_SPI.end();
-    }
+    
     pinMode(RXD_PIN, INPUT);
     pinMode(TXD_PIN, OUTPUT);
     Serial1.begin(UART_BAUD_RATE, SERIAL_8N1, RXD_PIN, TXD_PIN);
