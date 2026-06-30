@@ -257,49 +257,6 @@ keyStroke _getKeyPress() {
 ** location: mykeyboard.cpp
 ** runs a function called by the shortcut action
 **********************************************************************/
-void checkShortcutPress() {
-    static JsonDocument shortcutsJson; // parsed only once
-
-    // lazy init
-    if (shortcutsJson.size() == 0) {
-        FS *fs;
-        if (!getFsStorage(fs)) return;
-        File file = fs->open("/shortcuts.json", FILE_READ);
-        if (!file) {
-            log_e("Shortcuts Config file not found. Using default values");
-            JsonObject shortcuts = shortcutsJson.to<JsonObject>(); // root
-            shortcuts["i"] = "loader open ir";
-            shortcuts["r"] = "loader open rf";
-            shortcuts["s"] = "loader open rf";
-            shortcuts["b"] = "loader open badusb";
-            shortcuts["w"] = "loader open webui";
-            shortcuts["f"] = "loader open files";
-            return;
-        }
-        // else
-        if (deserializeJson(shortcutsJson, file)) {
-            log_e("Failed to parse shortcuts.json");
-            file.close();
-            return;
-        }
-        file.close();
-    }
-
-    keyStroke key = _getKeyPress();
-
-    // parse shortcutsJson and check the keys
-    for (JsonPair kv : shortcutsJson.as<JsonObject>()) {
-
-            const char *shortcut_key = kv.key().c_str();
-                const char *shortcut_value = kv.value().as<const char *>();
-
-                    for (const auto& i : key.word) {
-
-                            if (i == *shortcut_key) {
-                                        break;
-                                                }
-                                  }// co the xoa
-                                              }
 
 
 /*********************************************************************
