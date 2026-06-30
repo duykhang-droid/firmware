@@ -293,15 +293,14 @@ void checkShortcutPress() {
             const char *shortcut_key = kv.key().c_str();
                 const char *shortcut_value = kv.value().as<const char *>();
 
-                    // check for matching keys
-                        for (const auto& i : key.word) {
+                    for (const auto& i : key.word) {
 
-                                if (i == String(shortcut_key)) {
+                            if (i == *shortcut_key) {
+                                        break;
+                                                }
+                                  }
+                                              }
 
-                                        }
-                                            }
-                                            }
-    }
 
 /*********************************************************************
 ** Function: checkNumberShortcutPress
