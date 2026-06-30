@@ -64,50 +64,6 @@ int getBattery() {
     return 0;
 }
 
-void updateClockTimezone() {
-    timeClient.begin();
-    timeClient.update();
-
-    timeClient.setTimeOffset(bruceConfig.tmz * 3600);
-
-    localTime = timeClient.getEpochTime() + (bruceConfig.dst ? 3600 : 0);
-
-#if defined(HAS_RTC)
-    struct tm *timeinfo = localtime(&localTime);
-    RTC_TimeTypeDef TimeStruct;
-    TimeStruct.Hours = timeinfo->tm_hour;
-    TimeStruct.Minutes = timeinfo->tm_min;
-    TimeStruct.Seconds = timeinfo->tm_sec;
-    _rtc.SetTime(&TimeStruct);
-    updateTimeStr(_rtc.getTimeStruct());
-#else
-    rtc.setTime(localTime);
-    updateTimeStr(rtc.getTimeStruct());
-    clock_set = true;
-#endif
-    // Update Internal clock to system time
-    struct timeval tv = {.tv_sec = localTime};
-    settimeofday(&tv, nullptr);
-}
-
-void updateTimeStr(struct tm timeInfo) {
-    if (bruceConfig.clock24hr) {
-        // Use 24 hour format
-        snprintf(
-            timeStr, sizeof(timeStr), "%02d:%02d:%02d", timeInfo.tm_hour, timeInfo.tm_min, timeInfo.tm_sec
-        );
-    } else {
-        // Use 12 hour format with AM/PM
-        int hour12 = (timeInfo.tm_hour == 0)   ? 12
-                     : (timeInfo.tm_hour > 12) ? timeInfo.tm_hour - 12
-                                               : timeInfo.tm_hour;
-        const char *ampm = (timeInfo.tm_hour < 12) ? "AM" : "PM";
-
-        snprintf(
-            timeStr, sizeof(timeStr), "%02d:%02d:%02d %s", hour12, timeInfo.tm_min, timeInfo.tm_sec, ampm
-        );
-    }
-}
 
 void showDeviceInfo() {
     ScrollableTextArea area = ScrollableTextArea("DEVICE INFO");

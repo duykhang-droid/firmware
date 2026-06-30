@@ -127,7 +127,6 @@ public:
     void setTmz(float value);
     void validateTmzValue();
     void setDST(bool value);
-    void setClock24Hr(bool value);
     void setSoundEnabled(int value);
     void setSoundVolume(int value);
     void validateSoundEnabledValue();
@@ -180,7 +179,7 @@ public:
     // Misc
     void setStartupApp(String value);
     void setStartupAppJSInterpreterFile(String value);
-    
+
     void setDevMode(int value);
     void validateDevModeValue();
     void setColorInverted(int value);

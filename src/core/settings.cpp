@@ -640,8 +640,8 @@ void addMifareKeyMenu() {
 /*********************************************************************
 **  Function: setClock
 **  Handles Menu to set timezone to NTP
-**********************************************************************/
-const char *ntpServer = "pool.ntp.org";
+*********************************************************************/
+/***t char *ntpServer = "pool.ntp.org";
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, ntpServer, 0, 0);
@@ -909,7 +909,7 @@ void runClockLoop(bool showMenuHint) {
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }
-
+****/
 /*********************************************************************
 **  Function: gsetIrTxPin
 **  get or set IR Tx Pin

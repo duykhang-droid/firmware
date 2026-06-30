@@ -539,30 +539,7 @@ void BruceConfig::setDST(bool value) {
     saveFile();
 }
 
-void BruceConfig::setClock24Hr(bool value) {
-    clock24hr = value;
-    saveFile();
-}
 
-void BruceConfig::setSoundEnabled(int value) {
-    soundEnabled = value;
-    validateSoundEnabledValue();
-    saveFile();
-}
-
-void BruceConfig::setSoundVolume(int value) {
-    soundVolume = value;
-    validateSoundVolumeValue();
-    saveFile();
-}
-
-void BruceConfig::validateSoundEnabledValue() {
-    if (soundEnabled > 1) soundEnabled = 1;
-}
-
-void BruceConfig::validateSoundVolumeValue() {
-    if (soundVolume > 100) soundVolume = 100;
-}
 
 void BruceConfig::setWifiAtStartup(int value) {
     wifiAtStartup = value;

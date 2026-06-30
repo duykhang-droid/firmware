@@ -18,11 +18,10 @@
 #endif
 
 StartupApp::StartupApp() {
-#ifndef LITE_VERSION
+
     _startupApps["Brucegotchi"] = []() { brucegotchi_start(); };
     _startupApps["Sniffer"] = []() { sniffer_setup(); };
-#endif
-    _startupApps["Clock"] = []() { runClockLoop(); };
+
 #if defined(SOC_USB_OTG_SUPPORTED)
     _startupApps["Mass Storage"] = []() { MassStorage(); };
 #endif
