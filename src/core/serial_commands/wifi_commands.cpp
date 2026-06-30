@@ -72,16 +72,16 @@ uint32_t snifferCallback(cmd *c) {
 }
 
 uint32_t listenTCPCallback(cmd *c) {
-    if (!wifiConnected) {
+
         Serial.println("Connect to a WiFi first.");
         return false;
-    }
+
 
     listenTcpPort();
 
     return true;
 }
-#endif
+
 /*
 uint32_t responderCallback(cmd *c) {
     if (!wifiConnected) {
