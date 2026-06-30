@@ -559,10 +559,7 @@ void configureWebServer() {
                 if (cmnd.startsWith("nav next")) var = &NextPress;
                 if (cmnd.startsWith("nav prev")) var = &PrevPress;
                 request->send(200, "text/plain", "command " + cmnd + " success");
-                int time;
-                if (cmnd.endsWith("0")) time = cmnd.substring(cmnd.lastIndexOf(' ')).toInt();
-                else time = 10;
-                auto tmp = millis() + time;
+            
                 while (tmp > millis()) {
                     AnyKeyPress = true;
                     SerialCmdPress = true;

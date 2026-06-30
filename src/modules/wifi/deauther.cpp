@@ -25,7 +25,6 @@
 #include <lwip/netif.h>
 #include <lwip/sockets.h>
 #include <lwip/sys.h>
-#include <lwip/timeouts.h>
 #include <modules/wifi/sniffer.h>
 #include <sstream>
 
@@ -115,7 +114,7 @@ bool tryMonitorMode(uint8_t channel) {
     return true;
 }
 
-void buildOptimizedDeauthFrame(uint8_t* frame, 
+void buildOptimizedDeauthFrame(uint8_t* frame,
                               const uint8_t* dest,
                               const uint8_t* src,
                               const uint8_t* bssid,

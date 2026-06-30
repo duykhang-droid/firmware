@@ -466,7 +466,6 @@ void ducky_setup(HIDInterface *&hid, bool ble) {
         return;
     }
     FS *fs = nullptr;
-    bool first_time = true;
 
     tft.fillScreen(bruceConfig.bgColor);
     String bad_script = "";
@@ -495,7 +494,6 @@ void ducky_setup(HIDInterface *&hid, bool ble) {
             printStatusBadUSBBLE("Preparing USB");
             ducky_startKb(hid, ble);
             if (returnToMenu) goto EXIT; // make sure to free the hid object before exiting
-            first_time = false;
             if (!ble) {
 #if !defined(USB_as_HID)
                 mySerial.write(0x00);
@@ -1067,8 +1065,6 @@ void printTextAtPosition(uint16_t xOffset, uint16_t yOffset, const String &text)
 
 void printStatusBadUSBBLE(String text) { printTextAtPosition(8, 2, text); }
 
-void printDecimalTime(uint32_t timeElapsed) { printTextAtPosition(10, 3, formatTimeDecimal(timeElapsed)); }
-
 void printHeaderBadUSBBLE(String bad_script) {
     tft.fillScreen(bruceConfig.bgColor);
     drawMainBorder();
@@ -1189,7 +1185,6 @@ void PresenterMode(HIDInterface *&hid, bool ble) {
     int lastDisplayedSlide = 0;
     unsigned long startTime = 0; // Will be set on first interaction
     unsigned long lastDisplayedSeconds = 0;
-    bool timerStarted = false;
     bool firstDraw = true;
 
     // Helper function to draw static UI elements (only once)
@@ -1228,36 +1223,9 @@ void PresenterMode(HIDInterface *&hid, bool ble) {
         lastDisplayedSlide = currentSlide;
     };
 
-    // Helper function to update timer (only when seconds change)
-    auto updateTimerDisplay = [&]() {
-        unsigned long elapsed = 0;
-        if (timerStarted) { elapsed = (millis() - startTime) / 1000; }
-
-        int hours = elapsed / 3600;
-        int minutes = (elapsed % 3600) / 60;
-        int seconds = elapsed % 60;
-
-        // Format time string
-        char timeBuffer[16];
-        if (hours > 0) {
-            snprintf(timeBuffer, sizeof(timeBuffer), "%d:%02d:%02d", hours, minutes, seconds);
-        } else {
-            snprintf(timeBuffer, sizeof(timeBuffer), "%02d:%02d", minutes, seconds);
-        }
-
-        // Clear timer area and redraw
-        tft.fillRect(0, tftHeight / 2 + 30, tftWidth, 30, bruceConfig.bgColor);
-        tft.setTextSize(3);
-        tft.setTextColor(timerStarted ? TFT_GREEN : TFT_DARKGREY, bruceConfig.bgColor);
-        tft.drawCentreString(timeBuffer, tftWidth / 2, tftHeight / 2 + 35, 1);
-
-        lastDisplayedSeconds = elapsed;
-    };
-
     // Initial UI draw
     drawStaticUI();
     updateSlideDisplay();
-    updateTimerDisplay();
 
     while (1) {
         bool slideChanged = false;
@@ -1266,73 +1234,42 @@ void PresenterMode(HIDInterface *&hid, bool ble) {
         if (check(SelPress)) {
             delay(50); // Allow system to stabilize after check()
             // First press only starts timer, doesn't send key
-            if (!timerStarted) {
-                startTime = millis();
-                timerStarted = true;
-                updateTimerDisplay();
-                // Prime the HID connection with an empty report
-                hid->releaseAll();
-                delay(50);
-            } else {
                 hid->press(KEY_RIGHT_ARROW);
                 delay(80);
                 hid->releaseAll();
                 currentSlide++;
                 slideChanged = true;
-            }
+
             delay(150); // debounce
         }
         // Wheel right = Next slide (Right arrow)
         else if (check(NextPress)) {
             delay(50); // Allow system to stabilize after check()
             // First press only starts timer, doesn't send key
-            if (!timerStarted) {
-                startTime = millis();
-                timerStarted = true;
-                updateTimerDisplay();
-                // Prime the HID connection with an empty report
-                hid->releaseAll();
-                delay(50);
-            } else {
                 hid->press(KEY_RIGHT_ARROW);
                 delay(80);
                 hid->releaseAll();
                 currentSlide++;
                 slideChanged = true;
-            }
+
             delay(150); // debounce
         }
         // Wheel left = Previous slide (Left arrow)
         else if (check(PrevPress)) {
             delay(50); // Allow system to stabilize after check()
             // First press only starts timer, doesn't send key
-            if (!timerStarted) {
-                startTime = millis();
-                timerStarted = true;
-                updateTimerDisplay();
-                // Prime the HID connection with an empty report
-                hid->releaseAll();
-                delay(50);
-            } else {
                 hid->press(KEY_LEFT_ARROW);
                 delay(80);
                 hid->releaseAll();
                 if (currentSlide > 1) currentSlide--;
                 slideChanged = true;
-            }
+
             delay(150); // debounce
         }
 
         // Update slide display only if changed
         if (slideChanged) {
             updateSlideDisplay();
-            updateTimerDisplay();
-        }
-
-        // Update timer display every second (only if timer is running)
-        if (timerStarted) {
-            unsigned long currentSeconds = (millis() - startTime) / 1000;
-            if (currentSeconds != lastDisplayedSeconds) { updateTimerDisplay(); }
         }
 
         // Escape to exit

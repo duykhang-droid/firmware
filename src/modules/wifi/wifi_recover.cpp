@@ -37,7 +37,6 @@
 
 #include "esp_log.h"
 #include "esp_system.h"
-#include "esp_timer.h"
 #include "esp_wifi.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -81,7 +80,6 @@ struct HandshakeData {
    Globals
 ───────────────────────────────────────────────────────────── */
 static volatile bool g_abortRequested = false;
-static inline uint64_t now_us() { return esp_timer_get_time(); }
 static inline uint32_t swap32(uint32_t x) {
     return ((x >> 24) & 0xFF) | ((x >> 8) & 0xFF00) | ((x << 8) & 0xFF0000) | ((x << 24) & 0xFF000000);
 }
@@ -1023,8 +1021,7 @@ void wifi_crack_handshake(const String &wordlist_path, const String &pcap_path) 
     padprintln("(Press SEL to abort)");
     padprintln("");
 
-    uint64_t start_time = now_us();
-    uint64_t last_ui = start_time;
+
     PwEntry entry;
     bool producer_done = false;
 
@@ -1062,13 +1059,7 @@ void wifi_crack_handshake(const String &wordlist_path, const String &pcap_path) 
             vTaskDelay(pdMS_TO_TICKS(10));
         }
 
-        uint64_t now = now_us();
-        if (now - last_ui > 1000000ULL) {
-            double elapsed = (now - start_time) / 1000000.0;
-            double rate = shared.attempts / (elapsed > 0 ? elapsed : 1.0);
-            padprintf("\r%lu | %.1f/s | %.1fs     ", (uint32_t)shared.attempts, rate, elapsed);
-            last_ui = now;
-        }
+
     }
 
     PwEntry sentinel;

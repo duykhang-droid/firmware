@@ -85,7 +85,6 @@ void ledEffectTask(void *pvParameters) {
     short offset = 0;
     int currentLED = 0;
     int frame = 0;
-    uint64_t start_time = esp_timer_get_time() / 1000;
     while (1) {
         CRGB baseColor = isPreviewLed ? previewLedColor : bruceConfig.ledColor;
         int ledEffect = isPreviewLed ? previewLedEffect : bruceConfig.ledEffect;

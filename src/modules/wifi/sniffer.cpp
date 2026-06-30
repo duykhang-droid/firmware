@@ -65,7 +65,6 @@ int num_HS = 0;
 uint32_t packet_counter = 0;
 uint32_t deauth_counter = 0;
 uint32_t beacon_frames = 0;
-uint32_t start_time = 0;
 long deauth_tmp = 0;
 
 File _pcap_file;
@@ -256,8 +255,6 @@ bool matchesTargetAP(const wifi_promiscuous_pkt_t *pkt, const uint8_t targetBssi
 
 // Définition de l'en-tête d'un paquet PCAP
 typedef struct pcaprec_hdr_s {
-    uint32_t ts_sec;   /* timestamp secondes */
-    uint32_t ts_usec;  /* timestamp microsecondes */
     uint32_t incl_len; /* nombre d'octets du paquet enregistrés dans le fichier */
     uint32_t orig_len; /* longueur réelle du paquet */
 } pcaprec_hdr_t;
@@ -311,8 +308,6 @@ void saveHandshake(const wifi_promiscuous_pkt_t *packet, bool beacon, FS &Fs, co
 
     // Écrire l'en-tête du paquet et le paquet lui-même dans le fichier
     pcaprec_hdr_t pcap_packet_header;
-    pcap_packet_header.ts_sec = packet->rx_ctrl.timestamp / 1000000;
-    pcap_packet_header.ts_usec = packet->rx_ctrl.timestamp % 1000000;
     pcap_packet_header.incl_len = packet->rx_ctrl.sig_len;
     pcap_packet_header.orig_len = packet->rx_ctrl.sig_len;
     fichierPcap.write((const byte *)&pcap_packet_header, sizeof(pcaprec_hdr_t));
@@ -714,16 +709,6 @@ SnifferMode sniffer_get_mode() { return currentMode; }
 
 bool sniffer_full_mode_available() { return sdDetected; }
 
-void sniffer_wait_for_flush(uint32_t timeoutMs) {
-    if (!snifferQueue) { return; }
-    TickType_t start = xTaskGetTickCount();
-    TickType_t deadline = pdMS_TO_TICKS(timeoutMs);
-    while (uxQueueMessagesWaiting(snifferQueue) > 0) {
-        vTaskDelay(pdMS_TO_TICKS(10));
-        if (timeoutMs == 0) { continue; }
-        if ((xTaskGetTickCount() - start) > deadline) { break; }
-    }
-}
 
 void sniffer_reset_handshake_cache() {
     if (handshakeMutex && xSemaphoreTake(handshakeMutex, pdMS_TO_TICKS(100)) == pdTRUE) {
@@ -821,9 +806,6 @@ void sniffer(void *buf, wifi_promiscuous_pkt_type_t type) {
 
     SnifferQueueItem item;
     item.packet = copy;
-    uint64_t pktTimestamp = copy->rx_ctrl.timestamp;
-    item.ts_sec = pktTimestamp / 1000000ULL;
-    item.ts_usec = pktTimestamp % 1000000ULL;
     item.raw_len = ctrl.sig_len;
     if (type == WIFI_PKT_MGMT && item.raw_len >= 4) { item.raw_len -= 4; }
     item.type = type;
@@ -957,7 +939,6 @@ void sniffer_setup() {
     String FileSys = "LittleFS";
     bool deauth = false;
     unsigned long lastLittleFsCheck = 0;
-    start_time = millis();
     drawMainBorderWithTitle("pcap sniffer");
     lastRedraw = millis();
     // closeSdCard();
@@ -1150,7 +1131,6 @@ void sniffer_setup() {
                      packet_counter = 0;
                      num_EAPOL = 0;
                      num_HS = 0;
-                     start_time = millis();
                      beacon_frames = 0;
                      registeredBeacons.clear();
                      beaconSsidCache.clear();
@@ -1171,8 +1151,6 @@ void sniffer_setup() {
 
         if (redraw) { // Redraw UI
             redraw = false;
-            // calculate run time
-            uint32_t runtime = (millis() - start_time) / 1000;
 
             if (returnToMenu) goto Exit;
             tft.drawPixel(0, 0, 0);
@@ -1199,8 +1177,6 @@ void sniffer_setup() {
                 tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
 
             } else padprintln("Silent mode.");
-
-            padprintln("Run time " + String(runtime / 60) + ":" + String(runtime % 60));
 
             // New: show beacon counts and recent SSIDs
             size_t activeOnChannel = countActiveBeaconsOnChannel(all_wifi_channels[ch]);
@@ -1238,17 +1214,6 @@ void sniffer_setup() {
                 " EAPOL: " + String(num_EAPOL) + " HS: " + String(num_HS) + " ", 10, tftHeight - 18
             );
             tft.drawCentreString("Packets " + String(packet_counter), tftWidth / 2, tftHeight - 26, 1);
-        }
-
-        if (currentTime - lastTime > 100) tft.drawPixel(0, 0, 0);
-
-        if ((rawCaptureEnabled() || deauthCaptureEnabled()) && currentTime - lastTime > 1000) {
-            if (lockFileMutex(pdMS_TO_TICKS(50))) {
-                if (rawCaptureEnabled()) { _pcap_file.flush(); }
-                if (deauthCaptureEnabled()) { _deauth_file.flush(); }
-                unlockFileMutex();
-            }
-            lastTime = currentTime; // update time
         }
 
         if (deauth && (millis() - deauth_tmp) > DEAUTH_INTERVAL) {

@@ -639,7 +639,7 @@ void addMifareKeyMenu() {
 
 /*********************************************************************
 **  Function: setClock
-**  Handles Menu to set timezone to NTP
+**  Handles Menu to set zone to NTP
 *********************************************************************/
 /***t char *ntpServer = "pool.ntp.org";
 
@@ -658,14 +658,16 @@ void setClock() {
 #endif
 
     options = {
-        {"Via NTP Set Timezone",                                                 [&]() { bruceConfig.setAutomaticTimeUpdateViaNTP(true); } },
-        {"Set Time Manually",                                                    [&]() { bruceConfig.setAutomaticTimeUpdateViaNTP(false); }},
+        {"Via NTP Set Timezone",                                                 [&]() {
+bruceConfig.setAutomaticTimeUpdateViaNTP(true); } },
+        {"Set Time Manually",                                                    [&]() {
+bruceConfig.setAutomaticTimeUpdateViaNTP(false); }},
         {("Daylight Savings " + String(bruceConfig.dst ? "On" : "Off")).c_str(),
          [&]() {
              bruceConfig.setDST(!bruceConfig.dst);
              updateClockTimezone();
              returnToMenu = true;
-         }                                                                                                                                 },
+         } },
         {(bruceConfig.clock24hr ? "24-Hour Format" : "12-Hour Format"),          [&]() {
              bruceConfig.setClock24Hr(!bruceConfig.clock24hr);
              returnToMenu = true;
@@ -689,7 +691,7 @@ void setClock() {
             float offset;
         };
 
-        constexpr TimezoneMapping timezoneMappings[] = {
+        constexpr TimezoneMapping zoneMappings[] = {
             {"UTC-12 (Baker Island, Howland Island)",     -12  },
             {"UTC-11 (Niue, Pago Pago)",                  -11  },
             {"UTC-10 (Honolulu, Papeete)",                -10  },
@@ -804,7 +806,7 @@ void setClock() {
 
         struct tm timeinfo = {};
         timeinfo.tm_sec = _time.Seconds;
-        timeinfo.tm_min = _time.Minutes;
+        info.tm_min = _.Minutes;
         timeinfo.tm_hour = _time.Hours;
         timeinfo.tm_mday = _date.Date;
         timeinfo.tm_mon = _date.Month > 0 ? _date.Month - 1 : 0;
@@ -941,7 +943,6 @@ void setStartupApp() {
     for (String appName : startupApp.getAppNames()) {
         index++;
         if (bruceConfig.startupApp == appName) idx = index;
-
     }
 
     loopOptions(options, idx);
@@ -952,7 +953,6 @@ void setStartupApp() {
 **  Function: setGpsBaudrateMenu
 **  Handles Menu to set the baudrate for the GPS module
 **********************************************************************/
-
 
 /*********************************************************************
 **  Function: setWifiApSsidMenu
@@ -972,10 +972,10 @@ void setWifiApSsidMenu() {
                  if (!newSsid.isEmpty()) bruceConfig.setWifiApCreds(newSsid, bruceConfig.wifiAp.pwd);
                  else displayError("SSID cannot be empty", true);
              }
-         },         !isDefault},
-        };
+         },                                                                         !isDefault},
+    };
 
-   // addOptionToMainMenu();
+    // addOptionToMainMenu();
     loopOptions(options, isDefault ? 0 : 1);
 }
 
@@ -997,7 +997,7 @@ void setWifiApPasswordMenu() {
                  if (!newPassword.isEmpty()) bruceConfig.setWifiApCreds(bruceConfig.wifiAp.ssid, newPassword);
                  else displayError("Password cannot be empty", true);
              }
-         }, !isDefault},
+         },                                                                          !isDefault},
     };
     addOptionToMainMenu();
 

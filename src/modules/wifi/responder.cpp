@@ -99,12 +99,6 @@ IPAddress getIPAddress() {
     return IPAddress(0, 0, 0, 0);
 }
 
-uint64_t getWindowsTimestamp() {
-    const uint64_t EPOCH_DIFF = 11644473600ULL;
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return ((tv.tv_sec + EPOCH_DIFF) * 10000000ULL + (tv.tv_usec * 10ULL));
-}
 
 // Buffer pour le NTLM Type 2 généré dynamiquement
 uint8_t ntlmType2Buffer[512];
@@ -812,7 +806,6 @@ void responder() {
         // Gérer la connexion SMB active (état machine NTLM)
         if (smbState.active && smbState.client.connected()) {
             // Définir un petit timeout pour lecture (évitons blocage)
-            smbState.client.setTimeout(100);
             // Lire l'entête NetBIOS (4 octets) si disponible
             if (smbState.client.available() >= 4) {
                 uint8_t nbss[4];

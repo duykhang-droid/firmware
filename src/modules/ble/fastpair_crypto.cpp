@@ -148,8 +148,6 @@ bool FastPairCrypto::deriveAccountKey(
 }
 
 void FastPairCrypto::generateValidNonce(uint8_t *nonce) {
-    uint32_t time_part = millis();
-    memcpy(nonce, &time_part, 4);
     esp_fill_random(&nonce[4], 4);
 
     for (int i = 8; i < 16; i++) {

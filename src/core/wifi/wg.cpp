@@ -119,7 +119,6 @@ void wg_setup() {
     printSubtitle("Connecting...");
     tft.setTextSize(FP);
     padprintln("");
-    padprintln("Syncing time...");
 
     configTime(9 * 60 * 60, 0, "ntp.jst.mfeed.ad.jp", "ntp.nict.jp");
 

@@ -906,8 +906,6 @@ void fileInfo(FS fs, String filepath) {
     float filesize = bytesize;
     String unit = "B";
 
-    time_t modifiedTime = file.getLastWrite();
-
     if (filesize >= 1000000) {
         filesize /= 1000000.0;
         unit = "MB";
@@ -924,7 +922,6 @@ void fileInfo(FS fs, String filepath) {
     padprintln("");
     padprintf("Size: %.02f %s\n", filesize, unit.c_str());
     padprintln("");
-    padprintf("Modified: %s\n", ctime(&modifiedTime));
 
     file.close();
     delay(100);

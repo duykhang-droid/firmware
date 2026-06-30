@@ -58,7 +58,6 @@ void sniffer_set_mode(SnifferMode mode);
 SnifferMode sniffer_get_mode();
 bool sniffer_full_mode_available();
 bool sniffer_prepare_storage(FS *fs, bool sdDetected);
-void sniffer_wait_for_flush(uint32_t timeoutMs = 2000);
 void sniffer_reset_handshake_cache();
 void markHandshakeReady(uint64_t key);
 

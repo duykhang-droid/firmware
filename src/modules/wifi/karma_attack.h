@@ -66,7 +66,6 @@ typedef struct {
     char mac[PROBE_MAC_STR_LEN];
     char ssid[PROBE_SSID_BUF_LEN];
     int8_t rssi;
-    uint32_t timestamp;
     uint8_t channel;
     uint16_t frame_len;
     uint32_t fingerprint; // Hash of IE parameters for device tracking
@@ -77,7 +76,6 @@ typedef struct {
     char mac[PROBE_MAC_STR_LEN];
     char ssid[PROBE_SSID_BUF_LEN];
     int8_t rssi;
-    uint32_t timestamp;
     uint8_t channel;
     uint32_t fingerprint;
     RSNInfo rsn;
@@ -120,7 +118,6 @@ typedef struct {
     String targetMAC;
     uint8_t channel;
     RSNInfo rsn;
-    unsigned long timestamp;
 } ProbeResponseTask;
 
 // Portal template structure
@@ -136,7 +133,6 @@ typedef struct {
     String ssid;
     uint8_t channel;
     String targetMAC;
-    unsigned long timestamp;
     bool launched;
     String templateName;
     String templateFile;
@@ -155,8 +151,6 @@ struct BackgroundPortal {
     String portalId;                  // Unique ID for file naming
     String ssid;                      // SSID being spoofed
     uint8_t channel;                   // Channel this portal runs on
-    unsigned long lastHeartbeat;      // Last time we checked this portal
-    unsigned long launchTime;         // When portal was launched
     bool hasCreds;                    // Whether credentials captured
     String capturedPassword;          // Captured password if any
     uint32_t clientFingerprint;       // Fingerprint of connected victim
@@ -194,7 +188,6 @@ struct HandshakeCapture {
     uint8_t bssid[6];
     String ssid;
     uint8_t channel;
-    uint32_t timestamp;
     uint8_t eapolFrame[256];
     uint16_t frameLen;
     bool complete;

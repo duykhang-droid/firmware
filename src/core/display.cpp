@@ -500,7 +500,6 @@ int loopOptions(
     bool exit = false;
     int menuSize = options.size();
     int devModeCounter = 0;
-    static unsigned long _clock_bat_timer = millis();
     if (options.size() > MAX_MENU_SIZE) { menuSize = MAX_MENU_SIZE; }
     if (index > 0)
         tft.fillRoundRect(
@@ -524,10 +523,7 @@ int loopOptions(
                 bruceConfig.setDevMode(true);
                 displayInfo("Dev Mode Enabled", true);
             }
-            if (millis() - _clock_bat_timer > 30000) {
-                _clock_bat_timer = millis();
-                drawStatusBar(); // update clock and battery status each 30s
-            }
+
         }
 
         if (redraw) {
@@ -650,7 +646,7 @@ int loopOptions(
         }
         // interpreter_start -> running the interpreter
         // interpreter -> loopOptions helper inside the Javascript
-    
+
     }
     return index;
 }
@@ -1268,7 +1264,6 @@ bool showJpeg(FS &fs, String filename, int x, int y, bool center) {
     drawTime = millis() - drawTime; // Calculate the time it took
 
     // print the results to the serial port
-    Serial.print("Total render time was    : ");
     Serial.print(drawTime);
     Serial.println(" ms");
     Serial.println("=====================================");
@@ -1482,14 +1477,11 @@ bool showGif(
     }
 
     int result = 0;
-    long timeStart = millis();
     do {
         result = gif.playFrame(x, y);
         if (result == -1) log_e("GIF playFrame error: %d\n", gif.getLastError());
 
         if (check(AnyKeyPress, resetButtonStatus)) break;
-
-        if (playDurationMs > 0 && (millis() - timeStart) > playDurationMs) break;
         if (playDurationMs == 0 && result == 0) break;
     } while (result >= 0);
 

@@ -10,7 +10,6 @@
 #include <esp_netif.h>
 #include <globals.h>
 
-static TaskHandle_t timezoneTaskHandle = NULL;
 static bool wifiTransitioning = false;
 
 void ensureWifiPlatform() {
@@ -72,11 +71,6 @@ bool _wifiConnect(const String &ssid, int encryption) {
         wifiConnected = true;
         wifiIP = WiFi.localIP().toString();
         bruceConfig.addWifiCredential(ssid, password);
-
-        // Start timezone update in background if not already running
-        if (timezoneTaskHandle == NULL) {
-            xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-        }
     }
 
     delay(200);
@@ -271,11 +265,6 @@ void wifiConnectTask(void *pvParameters) {
             if (WiFi.status() == WL_CONNECTED) {
                 wifiConnected = true;
                 wifiIP = WiFi.localIP().toString();
-
-                // Start timezone update in background if not already running
-                if (timezoneTaskHandle == NULL) {
-                    xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-                }
                 drawStatusBar();
                 break;
             }

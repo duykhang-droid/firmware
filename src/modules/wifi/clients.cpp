@@ -985,7 +985,6 @@ SSH_EXIT:
 void telnetWorkerTask(void *pvParameters) {
     std::unique_ptr<char[]> buffer(new char[CLIENT_IO_BUFFER_SIZE]);
     struct sockaddr_in dest_addr = {};
-    struct timeval timeout = {.tv_sec = 0, .tv_usec = 100000};
 
     if (!buffer) {
         markSessionClosed("Telnet buffer allocation failed.", true);
@@ -1003,8 +1002,6 @@ void telnetWorkerTask(void *pvParameters) {
         markSessionClosed("Unable to create socket.", true);
         goto TELNET_EXIT;
     }
-
-    setsockopt(telnetSock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
 
     if (connect(telnetSock, (struct sockaddr *)&dest_addr, sizeof(dest_addr)) != 0) {
         markSessionClosed("Socket connection failed.", true);
