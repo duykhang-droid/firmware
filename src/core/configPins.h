@@ -210,7 +210,7 @@ public:
     int iButton = 0;
 
     // RFID
-    int rfidModule = M5_RFID2_MODULE;
+
 
     // GPS
 

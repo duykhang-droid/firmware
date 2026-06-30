@@ -12,8 +12,6 @@
 #include "core/wifi/webInterface.h"
 #include "core/wifi/wifi_common.h"
 #include "modules/pwnagotchi/pwnagotchi.h"
-#include "modules/rfid/PN532KillerTools.h"
-#include "modules/rfid/pn532ble.h"
 #include "modules/wifi/sniffer.h"
 #ifdef SOC_USB_OTG_SUPPORTED
 #include "core/massStorage.h"
@@ -23,8 +21,6 @@ StartupApp::StartupApp() {
 #ifndef LITE_VERSION
     _startupApps["Brucegotchi"] = []() { brucegotchi_start(); };
     _startupApps["Sniffer"] = []() { sniffer_setup(); };
-    _startupApps["PN532 BLE"] = []() { Pn532ble(); };
-    _startupApps["PN532 UART"] = []() { PN532KillerTools(); };
 #endif
     _startupApps["Clock"] = []() { runClockLoop(); };
 #if defined(SOC_USB_OTG_SUPPORTED)

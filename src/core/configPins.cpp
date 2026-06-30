@@ -44,34 +44,6 @@ void BruceConfigPins::fromJson(JsonObject obj) {
         log_e("Fail");
     }
 
-    if (!root["rfidModule"].isNull()) {
-        rfidModule = root["rfidModule"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-
-    if (!root["iButton"].isNull()) {
-        int val = root["iButton"].as<int>();
-        if (val < GPIO_NUM_MAX) iButton = val;
-        else log_w("iButton pin not set");
-    } else {
-        count++;
-        log_e("Fail");
-    }
-
-
-    if (!root["PN532_Pins"].isNull()) {
-        SPIPins def = PN532_bus;
-        PN532_bus.fromJson(root["PN532_Pins"].as<JsonObject>());
-        if (PN532_bus.sck == GPIO_NUM_NC && def.sck != GPIO_NUM_NC) {
-            PN532_bus = def;
-            count++;
-        }
-    } else {
-        count++;
-        log_e("Fail");
-    }
 
     if (!root["SDCard_Pins"].isNull()) {
         SPIPins def = SDCARD_bus;
@@ -114,12 +86,6 @@ void BruceConfigPins::toJson(JsonObject obj) const {
 
     root["rot"] = rotation;
     root["bleName"] = bleName;
-    root["rfidModule"] = rfidModule;
-    root["iButton"] = iButton;
-
-
-    JsonObject _PN532 = root["PN532_Pins"].to<JsonObject>();
-    PN532_bus.toJson(_PN532);
 
     JsonObject _SD = root["SDCard_Pins"].to<JsonObject>();
     SDCARD_bus.toJson(_SD);
@@ -228,17 +194,11 @@ void BruceConfigPins::factoryReset() {
 
 void BruceConfigPins::validateConfig() {
     validateRotationValue();
-    validateSpiPins(PN532_bus);
     validateSpiPins(SDCARD_bus);
     validateI2CPins(i2c_bus);
     validateUARTPins(uart_bus);
 }
 
-void BruceConfigPins::setPn532Pins(SPIPins value) {
-    PN532_bus = value;
-    validateSpiPins(PN532_bus);
-    saveFile();
-}
 
 void BruceConfigPins::setSDCardPins(SPIPins value) {
     SDCARD_bus = value;
@@ -292,19 +252,4 @@ void BruceConfigPins::validateRotationValue() {
 void BruceConfigPins::setBleName(String value) {
     bleName = value;
     saveFile();
-}
-
-
-void BruceConfigPins::validateRfidModuleValue() {
-    if (rfidModule != M5_RFID2_MODULE && rfidModule != PN532_I2C_MODULE && rfidModule != PN532_SPI_MODULE &&
-        rfidModule != RC522_SPI_MODULE && rfidModule != PN532_I2C_SPI_MODULE) {
-        rfidModule = M5_RFID2_MODULE;
-    }
-}
-
-void BruceConfigPins::setiButtonPin(int value) {
-    if (value < GPIO_NUM_MAX) {
-        iButton = value;
-        saveFile();
-    } else log_e("iButton: Gpio pin not set, incompatible with this device\n");
 }

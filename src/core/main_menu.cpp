@@ -8,7 +8,6 @@ MainMenu::MainMenu() {
         &wifiMenu,
         &bleMenu,
         &fileMenu,
-        &othersMenu,
         &configMenu,
     };
 

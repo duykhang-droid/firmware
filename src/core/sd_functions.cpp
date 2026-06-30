@@ -1,11 +1,6 @@
 #include "sd_functions.h"
 #include "display.h" // using displayRedStripe as error msg
 #include "modules/badusb_ble/ducky_typer.h"
-#include "modules/others/audio.h"
-#if defined(HAS_NS4168_SPKR)
-#include "modules/others/audio_player.h"
-#endif
-#include "modules/others/qrcode_menu.h"
 #include "mykeyboard.h" // using keyboard when calling rename
 #include "passwords.h"
 #include "scrollableTextArea.h"

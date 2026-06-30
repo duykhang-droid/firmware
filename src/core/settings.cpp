@@ -6,7 +6,6 @@
 #if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
 #endif
 #include "modules/ble_api/ble_api.hpp"
-#include "modules/others/qrcode_menu.h"
 #include "mykeyboard.h"
 #include "powerSave.h"
 #include "sd_functions.h"
@@ -629,33 +628,6 @@ void setEvilGatewayIp() {
 **  Function: setRFIDModuleMenu
 **  Handles Menu to set the RFID module in use
 **********************************************************************/
-void setRFIDModuleMenu() {
-    options = {
-        {"M5 RFID2",
-         [=]() { bruceConfigPins.setRfidModule(M5_RFID2_MODULE); },
-         bruceConfigPins.rfidModule == M5_RFID2_MODULE     },
-#ifdef M5STICK
-        {"PN532 I2C G33",
-         [=]() { bruceConfigPins.setRfidModule(PN532_I2C_MODULE); },
-         bruceConfigPins.rfidModule == PN532_I2C_MODULE    },
-        {"PN532 I2C G36",
-         [=]() { bruceConfigPins.setRfidModule(PN532_I2C_SPI_MODULE); },
-         bruceConfigPins.rfidModule == PN532_I2C_SPI_MODULE},
-#else
-        {"PN532 on I2C",
-         [=]() { bruceConfigPins.setRfidModule(PN532_I2C_MODULE); },
-         bruceConfigPins.rfidModule == PN532_I2C_MODULE},
-#endif
-        {"PN532 on SPI",
-         [=]() { bruceConfigPins.setRfidModule(PN532_SPI_MODULE); },
-         bruceConfigPins.rfidModule == PN532_SPI_MODULE    },
-        {"RC522 on SPI",
-         [=]() { bruceConfigPins.setRfidModule(RC522_SPI_MODULE); },
-         bruceConfigPins.rfidModule == RC522_SPI_MODULE    },
-    };
-    loopOptions(options, bruceConfigPins.rfidModule);
-}
-
 /*********************************************************************
 **  Function: addMifareKeyMenu
 **  Handles Menu to add MIFARE keys into config list
