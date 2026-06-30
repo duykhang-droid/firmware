@@ -9,11 +9,7 @@
 struct themeFiles {
     String wifi = "";
     String ble = "";
-    String rfid = "";
     String files = "";
-    String others = "";
-    String clock = "";
-    String connect = "";
     String config = "";
     String boot_img = "";
     String boot_sound = "";
@@ -27,11 +23,7 @@ struct themeInfo {
     bool label = true;
     bool wifi = false;
     bool ble = false;
-    bool rfid = false;
     bool files = false;
-    bool others = false;
-    bool clock = false;
-    bool connect = false;
     bool config = false;
     bool boot_img = false;
     bool boot_sound = false;
