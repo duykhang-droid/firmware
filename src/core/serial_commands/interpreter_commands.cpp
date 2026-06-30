@@ -27,7 +27,7 @@ static uint32_t jsCallback(cmd *c) {
         }
 
         char *txt = _readFileFromSerial(fileSize + 2);
-        return run_bjs_script_headless(txt);
+
     }
 
     String filepath;
@@ -51,7 +51,6 @@ static uint32_t jsCallback(cmd *c) {
         fs = &LittleFS;
     }
 
-    run_bjs_script_headless(*fs, filepath);
     return true;
 #else
     return true;

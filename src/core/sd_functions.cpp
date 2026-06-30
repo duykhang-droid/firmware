@@ -768,15 +768,8 @@ String loopSD(FS &fs, bool filePicker, String allowed_ext, String rootPath) {
                                                                  txSubFile(data);
                                                          }});
 
-#if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
-                    if (filepath.endsWith(".bjs") || filepath.endsWith(".js")) {
-                        options.insert(options.begin(), {"JS Script Run", [&]() {
-                                                             delay(200);
-                                                             run_bjs_script_headless(fs, filepath);
-                                                             exit = true;
-                                                         }});
-                    }
-#endif
+
+
 #if defined(USB_as_HID)
                     if (filepath.endsWith(".txt")) {
                         options.push_back({"BadUSB Run", [&]() {

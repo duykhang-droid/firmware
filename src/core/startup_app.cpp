@@ -34,14 +34,7 @@ StartupApp::StartupApp() {
     _startupApps["Mass Storage"] = []() { MassStorage(); };
 #endif
     _startupApps["WebUI"] = []() { startWebUi(!wifiConnecttoKnownNet()); };
-#if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
-    _startupApps["JS Interpreter"] = []() {
-        FS *fs = nullptr;
-        getScriptsFolder(fs);
-        if (fs == nullptr) return;
-        run_bjs_script_headless(*fs, bruceConfig.startupAppJSInterpreterFile);
-    };
-#endif
+
 }
 
 bool StartupApp::startApp(const String &appName) const {
