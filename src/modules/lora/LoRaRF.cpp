@@ -128,7 +128,7 @@ bool startLoraRadio(float bandMHz) {
     if (loraRadioVariant == LoRaRadioVariant::SX1262 && busyPin == GPIO_NUM_NC) {
         Serial.println("Warning: SX1262 selected but BUSY pin is not configured");
     }
-    loraModule = new Module(getLoraCsPin(), irqPin, getLoraResetPin(), busyPin, *loraSpi);
+
 
     int state = RADIOLIB_ERR_NONE;
     if (loraRadioVariant == LoRaRadioVariant::SX1276) {
