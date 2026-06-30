@@ -818,7 +818,6 @@ void drawStatusBar() {
 
     int iconCount = 0;
     bool showSD   = sdcardMounted;
-    bool showGPS  = gpsConnected;
     bool showWifi = (WiFi.getMode() != 0);
     bool showWeb  = isWebUIActive;
     bool showBLE  = BLEConnected;

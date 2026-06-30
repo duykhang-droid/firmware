@@ -92,7 +92,6 @@ int prog_handler; // 0 - Flash, 1 - LittleFS, 3 - Download
 String cachedPassword = "";
 int8_t interpreter_state = -1;
 bool sdcardMounted = false;
-bool gpsConnected = false;
 
 // wifi globals
 // TODO put in a namespace

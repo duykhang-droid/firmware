@@ -14,7 +14,6 @@ struct themeFiles {
     String fm = "";
     String ir = "";
     String files = "";
-    String gps = "";
     String nrf = "";
     String interpreter = "";
     String others = "";
@@ -39,7 +38,6 @@ struct themeInfo {
     bool fm = false;
     bool ir = false;
     bool files = false;
-    bool gps = false;
     bool nrf = false;
     bool interpreter = false;
     bool others = false;

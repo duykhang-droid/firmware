@@ -185,7 +185,7 @@ public:
     // I2CPins sys_i2c = {(gpio_num_t)GROVE_SDA, (gpio_num_t)GROVE_SCL};
     I2CPins i2c_bus = {(gpio_num_t)GROVE_SDA, (gpio_num_t)GROVE_SCL};
     UARTPins uart_bus = {(gpio_num_t)SERIAL_RX, (gpio_num_t)SERIAL_TX};
-    UARTPins gps_bus = {(gpio_num_t)GPS_SERIAL_RX, (gpio_num_t)GPS_SERIAL_TX};
+
 
     // Screen Rotation
     int rotation = ROTATION > 1 ? 3 : 1;
@@ -213,7 +213,6 @@ public:
     int rfidModule = M5_RFID2_MODULE;
 
     // GPS
-    int gpsBaudrate = 9600;
 
     /////////////////////////////////////////////////////////////////////////////////////
     // Constructor

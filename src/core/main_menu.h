@@ -7,7 +7,6 @@
 #include "menu_items/ConfigMenu.h"
 #include "menu_items/ConnectMenu.h"
 #include "menu_items/FileMenu.h"
-#include "menu_items/GpsMenu.h"
 #include "menu_items/IRMenu.h"
 #include "menu_items/LoRaMenu.h"
 #include "menu_items/NRF24.h"
@@ -22,7 +21,6 @@ public:
     BleMenu bleMenu;
     ConnectMenu connectMenu;
     ConfigMenu configMenu;
-    GpsMenu gpsMenu;
     IRMenu irMenu;
     NRF24Menu nrf24Menu;
     OthersMenu othersMenu;

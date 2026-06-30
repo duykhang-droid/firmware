@@ -98,7 +98,6 @@ extern String wifiIP;
 
 extern bool BLEConnected; // inform if BLE is active or not
 
-extern bool gpsConnected; // inform if GPS is active or not
 
 struct Option {
     String label;

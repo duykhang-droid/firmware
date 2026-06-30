@@ -1251,19 +1251,7 @@ void setStartupApp() {
 **  Function: setGpsBaudrateMenu
 **  Handles Menu to set the baudrate for the GPS module
 **********************************************************************/
-void setGpsBaudrateMenu() {
-    options = {
-        {"9600 bps",   [=]() { bruceConfigPins.setGpsBaudrate(9600); },  bruceConfigPins.gpsBaudrate == 9600 },
-        {"19200 bps",  [=]() { bruceConfigPins.setGpsBaudrate(19200); }, bruceConfigPins.gpsBaudrate == 19200},
-        {"38400 bps",  [=]() { bruceConfigPins.setGpsBaudrate(38400); }, bruceConfigPins.gpsBaudrate == 38400},
-        {"57600 bps",  [=]() { bruceConfigPins.setGpsBaudrate(57600); }, bruceConfigPins.gpsBaudrate == 57600},
-        {"115200 bps",
-         [=]() { bruceConfigPins.setGpsBaudrate(115200); },
-         bruceConfigPins.gpsBaudrate == 115200                                                               },
-    };
 
-    loopOptions(options, bruceConfigPins.gpsBaudrate);
-}
 
 /*********************************************************************
 **  Function: setWifiApSsidMenu

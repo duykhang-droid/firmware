@@ -116,12 +116,7 @@ void BruceConfigPins::fromJson(JsonObject obj) {
         log_e("Fail");
     }
 
-    if (!root["gpsBaudrate"].isNull()) {
-        gpsBaudrate = root["gpsBaudrate"].as<int>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
+
 
     if (!root["CC1101_Pins"].isNull()) {
         SPIPins def = CC1101_bus;
@@ -207,12 +202,7 @@ void BruceConfigPins::fromJson(JsonObject obj) {
         count++;
         log_e("Fail");
     }
-    if (!root["GPS_bus"].isNull()) {
-        gps_bus.fromJson(root["GPS_bus"].as<JsonObject>());
-    } else {
-        count++;
-        log_e("Fail");
-    }
+
     validateConfig();
     if (count > 0) saveFile();
 }
@@ -232,7 +222,6 @@ void BruceConfigPins::toJson(JsonObject obj) const {
     root["rfScanRange"] = rfScanRange;
     root["bleName"] = bleName;
     root["rfidModule"] = rfidModule;
-    root["gpsBaudrate"] = gpsBaudrate;
     root["iButton"] = iButton;
 
     JsonObject _CC1101 = root["CC1101_Pins"].to<JsonObject>();
@@ -260,8 +249,6 @@ void BruceConfigPins::toJson(JsonObject obj) const {
     i2c_bus.toJson(_di2c);
     JsonObject _uart = root["uart_bus"].to<JsonObject>();
     uart_bus.toJson(_uart);
-    JsonObject _gps = root["GPS_bus"].to<JsonObject>();
-    gps_bus.toJson(_gps);
 }
 
 void BruceConfigPins::loadFile(JsonDocument &jsonDoc, bool checkFS) {
@@ -374,7 +361,6 @@ void BruceConfigPins::validateConfig() {
     validateSpiPins(SDCARD_bus);
     validateI2CPins(i2c_bus);
     validateUARTPins(uart_bus);
-    validateUARTPins(gps_bus);
 }
 #if !defined(LITE_VERSION)
 void BruceConfigPins::setLoRaPins(SPIPins value) {
@@ -535,15 +521,4 @@ void BruceConfigPins::setiButtonPin(int value) {
         iButton = value;
         saveFile();
     } else log_e("iButton: Gpio pin not set, incompatible with this device\n");
-}
-void BruceConfigPins::setGpsBaudrate(int value) {
-    gpsBaudrate = value;
-    validateGpsBaudrateValue();
-    saveFile();
-}
-
-void BruceConfigPins::validateGpsBaudrateValue() {
-    if (gpsBaudrate != 9600 && gpsBaudrate != 19200 && gpsBaudrate != 57600 && gpsBaudrate != 38400 &&
-        gpsBaudrate != 115200)
-        gpsBaudrate = 9600;
 }

@@ -48,7 +48,6 @@ bool BruceTheme::openThemeFile(FS *fs, String filepath, bool overwriteConfigSett
         {"fm",          &theme.fm,          theme.paths.fm         },
         {"ir",          &theme.ir,          theme.paths.ir         },
         {"files",       &theme.files,       theme.paths.files      },
-        {"gps",         &theme.gps,         theme.paths.gps        },
         {"nrf",         &theme.nrf,         theme.paths.nrf        },
         {"interpreter", &theme.interpreter, theme.paths.interpreter},
         {"clock",       &theme.clock,       theme.paths.clock      },
