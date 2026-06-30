@@ -90,7 +90,7 @@ void __attribute__((weak)) taskInputHandler(void *parameter) {
 unsigned long previousMillis = millis();
 int prog_handler; // 0 - Flash, 1 - LittleFS, 3 - Download
 String cachedPassword = "";
-int8_t interpreter_state = -1;
+
 bool sdcardMounted = false;
 
 // wifi globals
@@ -513,26 +513,12 @@ void setup() {
  **********************************************************************/
 #if defined(HAS_SCREEN)
 void loop() {
-#if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
-    if (interpreter_state > 0) {
-        vTaskDelay(pdMS_TO_TICKS(10));
-        interpreter_state = 2;
-        Serial.println("Entering interpreter...");
-        while (interpreter_state > 0) { vTaskDelay(pdMS_TO_TICKS(500)); }
-        if (interpreter_state == 0) {
-            Serial.println("Interpreter put to background.");
-        } else {
-            Serial.println("Exiting interpreter...");
-        }
-        if (interpreter_state == -1) { interpreterTaskHandler = NULL; }
-        previousMillis = millis(); // ensure that will not dim screen when get back to menu
-    }
-#endif
+
     tft.fillScreen(bruceConfig.bgColor);
 
-    mainMenu.begin();
-    delay(1);
-}
+        mainMenu.begin();
+            delay(1);
+            }
 #else
 
 void loop() {
