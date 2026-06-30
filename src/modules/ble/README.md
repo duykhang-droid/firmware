@@ -122,7 +122,6 @@ Dependencies
 · mbedTLS (ECDH, AES-CCM)
 · TFT_eSPI
 · SD card support
-· NRF24L01+ (optional)
 
 Flow
 

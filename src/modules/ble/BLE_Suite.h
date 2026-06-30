@@ -345,24 +345,6 @@ public:
     bool exploitAuthBypass(NimBLEAddress target);
 };
 
-class MultiConnectionAttack {
-public:
-    MultiConnectionAttack();
-    ~MultiConnectionAttack();
-    bool connectionFloodSingle(NimBLEAddress target, int timeout);
-    bool connectionFlood(std::vector<NimBLEAddress> targets, int attemptsPerTarget = 3);
-    bool advertisingSpamSingle(NimBLEAddress target);
-    bool advertisingSpam(std::vector<NimBLEAddress> targets);
-    bool mitmAttackSingle(NimBLEAddress target);
-    bool mitmAttack(std::vector<NimBLEAddress> targets);
-    bool nrf24JamAttack(int jamMode = 0);
-    bool jamAndConnect(NimBLEAddress target);
-    void cleanup();
-
-private:
-    std::vector<NimBLEClient*> activeConnections;
-};
-
 class VulnerabilityScanner {
 private:
     struct VulnCheck {

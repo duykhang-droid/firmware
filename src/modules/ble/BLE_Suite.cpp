@@ -4216,25 +4216,6 @@ void showMemorySubMenu(NimBLEAddress target) {
     NimBLEDevice::deleteClient(pClient);
 }
 
-void showDoSSubMenu(NimBLEAddress target) {
-    const char *options[] = {
-        "Connection Flood", "Advertising Spam", "Jam & Connect (NRF24)", "Protocol Fuzzer"
-    };
-
-    int choice = showSubMenu("DoS Attacks", options, 4);
-    if (choice == -1) return;
-
-    DoSAttackServiceClass dos;
-    MultiConnectionAttack multi;
-
-    switch (choice) {
-        case 0: dos.connectionFlood(target); break;
-        case 1: dos.advertisingSpam(target); break;
-        case 2: multi.jamAndConnect(target); break;
-        case 3: runProtocolFuzzer(target); break;
-    }
-}
-
 void showPayloadSubMenu(NimBLEAddress target) {
     const char *options[] = {"DuckyScript Injection", "PIN Brute Force", "Auth Bypass Suite"};
 

@@ -2,7 +2,6 @@
 #include "core/powerSave.h"
 #include "core/utils.h"
 #include <Arduino.h>
-#include <ELECHOUSE_CC1101_SRC_DRV.h>
 #include <interface.h>
 
 CYD28_TouchR touch(320, 240);
