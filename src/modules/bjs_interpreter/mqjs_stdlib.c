@@ -148,7 +148,7 @@ static const JSPropDef js_array_proto[] = {
     JS_CFUNC_MAGIC_DEF("filter", 1, js_array_every, js_special_filter ),
     JS_CFUNC_MAGIC_DEF("reduce", 1, js_array_reduce, js_special_reduce ),
     JS_CFUNC_MAGIC_DEF("reduceRight", 1, js_array_reduce, js_special_reduceRight ),
-    JS_CFUNC_MAGIC_DEF("reduce", 1, js_array_reduce, js_special_reduce ),
+    //JS_CFUNC_MAGIC_DEF("reduce", 1, js_array_reduce, js_special_reduce ),
     JS_CFUNC_DEF("sort", 1, js_array_sort ),
     JS_PROP_END,
 };
