@@ -274,7 +274,4 @@ public:
     void setRfidModule(RFIDModules value);
     void validateRfidModuleValue();
 
-    // GPS
-    void setGpsBaudrate(int value);
-    void validateGpsBaudrateValue();
 };

@@ -205,9 +205,7 @@ void drawBLESmall(int x, int y);
 
 void drawBLE_beacon(int x, int y, uint16_t color);
 
-void drawGPS(int x, int y);
 
-void drawGpsSmall(int x, int y);
 
 void drawSdSmall(int x, int y);
 

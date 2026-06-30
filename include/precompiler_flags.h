@@ -138,13 +138,6 @@
   #define SERIAL_RX GROVE_SCL
 #endif
 
-#ifndef GPS_SERIAL_TX // Serial TX used just for GPS communications
-  #define GPS_SERIAL_TX GROVE_SDA
-#endif
-
-#ifndef GPS_SERIAL_RX // Serial RX used just for GPS communications
-  #define GPS_SERIAL_RX GROVE_SCL
-#endif
 
 //This one sets an array to set create the options to devices that have all GPIO available to use (except tft and SD Card)
 #ifdef CONFIG_IDF_TARGET_ESP32S3

@@ -14,8 +14,6 @@
 #define IO_EXPANDER_ADDRESS PCA9555_DEFAULT_ADDR // 0x58
 #endif
 
-#ifndef IO_EXP_GPS // Used in Smoochiee and T-Lora
-#define IO_EXP_GPS -1
 #endif
 #ifndef IO_EXP_MIC // Used in Smoochiee
 #define IO_EXP_MIC -1
@@ -86,7 +84,6 @@ public:
 
         configureDirection(0xFFFF); // All outputs initially
 
-        turnPinOnOff(IO_EXP_GPS, LOW);   // SMOOOCHIE||REAPER
         turnPinOnOff(IO_EXP_MIC, LOW);   // SMOOOCHIE
         turnPinOnOff(IO_EXP_VIBRO, LOW); // SMOOOCHIE||REAPER
         turnPinOnOff(IO_EXP_CC_RX, LOW); // SMOOOCHIE||REAPER

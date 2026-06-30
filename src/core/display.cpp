@@ -823,7 +823,6 @@ void drawStatusBar() {
     bool showBLE  = BLEConnected;
     bool showWG   = isConnectedWireguard;
     if (showSD)   iconCount++;
-    if (showGPS)  iconCount++;
     if (showWifi) iconCount++;
     if (showWeb)  iconCount++;
     if (showBLE)  iconCount++;
@@ -842,12 +841,6 @@ void drawStatusBar() {
             int x = sx + idx * (IW + GAP);
             tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
             drawSdSmall(x, iy);
-            idx++;
-        }
-        if (showGPS) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawGpsSmall(x, iy);
             idx++;
         }
         if (showWifi) {
@@ -1078,19 +1071,7 @@ void drawBLE_beacon(int x, int y, uint16_t color) {
     tft.fillTriangle(40 + x, 53 + y, 20 + x, 40 + y, 20 + x, 68 + y, color);
 }
 
-void drawGPS(int x, int y) {
-    tft.fillRect(x, y, 20, 20, bruceConfig.bgColor);
-    tft.drawEllipse(40 + x, 70 + y, 15, 8, bruceConfig.priColor);
-    tft.drawArc(40 + x, 25 + y, 23, 7, 0, 340, bruceConfig.priColor, bruceConfig.bgColor);
-    tft.fillTriangle(40 + x, 70 + y, 20 + x, 64 + y, 60 + x, 64 + y, bruceConfig.priColor);
-}
 
-void drawGpsSmall(int x, int y) {
-    tft.fillRect(x, y, 7, 7, bruceConfig.bgColor);
-    tft.drawEllipse(x + 8, y + 13, 4, 3, bruceConfig.priColor);
-    tft.drawArc(x + 8, y + 5, 5, 2, 0, 360, bruceConfig.priColor, bruceConfig.bgColor);
-    tft.fillTriangle(x + 8, y + 14, x + 4, y + 8, x + 12, y + 8, bruceConfig.priColor);
-}
 
 void drawCreditCard(int x, int y) {
     tft.fillRect(x, y, 25, 15, bruceConfig.bgColor);

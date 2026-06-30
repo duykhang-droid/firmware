@@ -136,7 +136,6 @@ static const uint8_t SCK = SPI_SCK_PIN;
 // IO EXPANDER
 #define USE_IO_EXPANDER
 #define IO_EXPANDER_AW9523
-#define IO_EXP_GPS 5
 #define IO_EXP_VIBRO 15
 #define IO_EXP_CC_RX 9
 #define IO_EXP_CC_TX 10
