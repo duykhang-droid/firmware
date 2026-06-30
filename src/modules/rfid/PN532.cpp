@@ -18,20 +18,12 @@
 #ifndef GPIO_NUM_25
 #define GPIO_NUM_25 25
 #endif
+/*espace { /*aitReadyPreferIrq(Adafruit_PN532 &nfc, uint16_t timeoutMs) {
 
-namespace {
-bool waitReadyPreferIrq(Adafruit_PN532 &nfc, uint16_t timeoutMs) {
-    if (nfc._irq >= 0) {
-        uint32_t start = millis();
-        while (digitalRead(nfc._irq) != LOW) {
-            if (timeoutMs != 0 && (millis() - start) > timeoutMs) return false;
-            delay(1);
-            yield();
-        }
         return true;
-    }
+
     return nfc.waitready(timeoutMs);
-}
+
 
 bool sendCommandCheckAckPreferIrq(Adafruit_PN532 &nfc, uint8_t *cmd, uint8_t cmdLen, uint16_t timeoutMs) {
     nfc.writecommand(cmd, cmdLen);
@@ -39,7 +31,7 @@ bool sendCommandCheckAckPreferIrq(Adafruit_PN532 &nfc, uint8_t *cmd, uint8_t cmd
     if (!waitReadyPreferIrq(nfc, timeoutMs)) return false;
     if (!nfc.readack()) return false;
     delay(1);
-    if (!waitReadyPreferIrq(nfc, timeoutMs)) return false;
+    if (!waitReadyPreferq(nfc, timeoutMs)) return false;
     return true;
 }
 
@@ -249,7 +241,7 @@ bool buildNdefMessageFromStruct(const RFIDInterface::NdefMessage &src, std::vect
 
     return ndefOut.size() == src.messageSize;
 }
-} // namespace
+} // namespace*/
 
 PN532::PN532(CONNECTION_TYPE connection_type) {
     _connection_type = connection_type;
@@ -442,26 +434,12 @@ int PN532::emulate() {
             break;
         }
         yield();
-        if (!targetReady && millis() >= nextArmTry) {
-            targetReady = tgInitAsTargetIrq(nfc);
-            nextArmTry = millis() + 300;
-            currentFile = TagFile::NONE;
-            if (targetReady) targetArmed = true;
-            if (!targetReady) {
-                delay(20);
-                continue;
-            }
-        }
+
 
         uint8_t request[255] = {0};
         uint8_t request_len = 0;
         uint8_t tgStatus = 0xFF;
-        if (!tgGetDataIrq(nfc, request, sizeof(request), &request_len, &tgStatus)) {
-            nfc.inRelease();
-            targetReady = false;
-            delay(20);
-            continue;
-        }
+
         if (tgStatus == 0x29 || tgStatus == 0x25) {
             nfc.inRelease();
             targetReady = false;
@@ -541,11 +519,7 @@ int PN532::emulate() {
             delay(20);
             continue;
         }
-        if (!tgSetDataIrq(nfc, response.data(), static_cast<uint8_t>(response.size()))) {
-            nfc.inRelease();
-            targetReady = false;
-            delay(20);
-        }
+
     }
 
     nfc.inRelease();

@@ -252,10 +252,6 @@ public:
     // BLE
     void setBleName(const String name);
 
-    // IR
-    void setIrTxPin(int value);
-    void setIrTxRepeats(uint8_t value);
-    void setIrRxPin(int value);
 
     // RF
     void setRfTxPin(int value);

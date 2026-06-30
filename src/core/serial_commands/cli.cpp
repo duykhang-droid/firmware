@@ -35,7 +35,6 @@ void SerialCli::setup() {
 
     createCryptoCommands(&_cli);
     createGpioCommands(&_cli);
-    createIrCommands(&_cli);
     createPowerCommands(&_cli);
     createRfCommands(&_cli);
     createSettingsCommands(&_cli);

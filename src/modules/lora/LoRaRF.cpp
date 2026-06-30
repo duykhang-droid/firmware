@@ -44,13 +44,7 @@ volatile bool loraInterruptEnabled = true;
 enum class LoRaRadioVariant { SX1276, SX1262 };
 LoRaRadioVariant loraRadioVariant = LoRaRadioVariant::SX1276;
 
-int getLoraIrqPin() {
-#ifdef LORA_IRQ
-    return LORA_IRQ;
-#else
-    return bruceConfigPins.LoRa_bus.io2;
-#endif
-}
+
 
 int getLoraBusyPin() {
 #ifdef LORA_BUSY
@@ -120,18 +114,13 @@ bool startLoraRadio(float bandMHz) {
     intlora = false;
     loraPacketReceived = false;
     loraInterruptEnabled = true;
-    const int irqPin = getLoraIrqPin();
     if (getLoraCsPin() == GPIO_NUM_NC || bruceConfigPins.LoRa_bus.mosi == GPIO_NUM_NC ||
         bruceConfigPins.LoRa_bus.miso == GPIO_NUM_NC || bruceConfigPins.LoRa_bus.sck == GPIO_NUM_NC) {
         Serial.println("LoRa pins not configured!");
         displayError("LoRa pins not configured!", true);
         return false;
     }
-    if (irqPin == GPIO_NUM_NC) {
-        Serial.println("LoRa IRQ pin not configured!");
-        displayError("LoRa IRQ pin not configured!", true);
-        return false;
-    }
+
 
     loraSpi = selectLoraSPIBus();
     clearLoraRadio();
@@ -434,7 +423,6 @@ void lorachat() {
         "Pins: SCK:" + String(bruceConfigPins.LoRa_bus.sck) +
         " MISO:" + String(bruceConfigPins.LoRa_bus.miso) + " MOSI:" + String(bruceConfigPins.LoRa_bus.mosi) +
         " CS:" + String(bruceConfigPins.LoRa_bus.cs) + " RST:" + String(getLoraResetPin()) +
-        " IRQ:" + String(getLoraIrqPin()) + "BAND: " + String(bandMHz) +
         "MHz Radio: " + ((loraRadioVariant == LoRaRadioVariant::SX1262) ? "SX1262" : "SX1276") +
         " DisplayName:  " + displayName
     );

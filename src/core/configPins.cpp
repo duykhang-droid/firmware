@@ -445,20 +445,6 @@ void BruceConfigPins::setBleName(String value) {
     saveFile();
 }
 
-void BruceConfigPins::setIrTxPin(int value) {
-    irTx = value;
-    saveFile();
-}
-
-void BruceConfigPins::setIrTxRepeats(uint8_t value) {
-    irTxRepeats = value;
-    saveFile();
-}
-
-void BruceConfigPins::setIrRxPin(int value) {
-    irRx = value;
-    saveFile();
-}
 
 void BruceConfigPins::setRfTxPin(int value) {
     rfTx = value;

@@ -66,11 +66,6 @@ void setClock();
 
 void runClockLoop(bool showMenuHint = false);
 
-int gsetIrTxPin(bool set = false);
-
-void setIrTxRepeats();
-
-int gsetIrRxPin(bool set = false);
 
 int gsetRfTxPin(bool set = false);
 

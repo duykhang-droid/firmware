@@ -59,10 +59,7 @@ uint32_t settingsCallback(cmd *c) {
         );
     }
     if (setting_name == "bleName") bruceConfigPins.setBleName(setting_value);
-    if (setting_name == "irTx") bruceConfigPins.setIrTxPin(setting_value.toInt());
-    if (setting_name == "irTxRepeats")
-        bruceConfigPins.setIrTxRepeats(static_cast<uint8_t>(setting_value.toInt()));
-    if (setting_name == "irRx") bruceConfigPins.setIrRxPin(setting_value.toInt());
+
     if (setting_name == "rfTx") bruceConfigPins.setRfTxPin(setting_value.toInt());
     if (setting_name == "rfRx") bruceConfigPins.setRfRxPin(setting_value.toInt());
     if (setting_name == "rfModule")
