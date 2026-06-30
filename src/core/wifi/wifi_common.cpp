@@ -327,26 +327,6 @@ bool wifiConnecttoKnownNet(void) {
             break;
         }
     }
-    if (WiFi.status() == WL_CONNECTED) {
-        wifiConnected = true;
-        wifiIP = WiFi.localIP().toString();
-
-        // Start timezone update in background if not already running
-        if (timezoneTaskHandle == NULL) {
-            xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-        }
-    }
     return result;
 }
 
-void updateTimezoneTask(void *pvParameters) {
-    // Wait a bit for connection to stabilize before updating timezone
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
-
-    // Only update timezone if WiFi is still connected
-    if (WiFi.isConnected() && wifiConnected) { updateClockTimezone(); }
-
-    // Clear the task handle before deleting
-    timezoneTaskHandle = NULL;
-    vTaskDelete(NULL);
-}
