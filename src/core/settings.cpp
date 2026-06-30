@@ -1139,7 +1139,7 @@ void setStartupApp() {
         index++;
         if (bruceConfig.startupApp == appName) idx = index;
 
-
+    }
 
     loopOptions(options, idx);
     options.clear();
@@ -1169,10 +1169,9 @@ void setWifiApSsidMenu() {
                  if (!newSsid.isEmpty()) bruceConfig.setWifiApCreds(newSsid, bruceConfig.wifiAp.pwd);
                  else displayError("SSID cannot be empty", true);
              }
-         },                                                                         !isDefault},
-    };
+         },         !isDefault},
+    
    // addOptionToMainMenu();
-
     loopOptions(options, isDefault ? 0 : 1); }
 }
 
