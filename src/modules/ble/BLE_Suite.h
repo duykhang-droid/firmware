@@ -471,7 +471,6 @@ void showHFPSubMenu(NimBLEAddress target);
 void showAudioSubMenu(NimBLEAddress target);
 void showHIDSubMenu(NimBLEAddress target);
 void showMemorySubMenu(NimBLEAddress target);
-void showDoSSubMenu(NimBLEAddress target);
 void showPayloadSubMenu(NimBLEAddress target);
 void showTestingSubMenu(NimBLEAddress target);
 void executeAttackWithTargetScan(int attackIndex);

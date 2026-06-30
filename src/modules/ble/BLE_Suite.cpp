@@ -3871,7 +3871,6 @@ void executeAttackWithTargetScan(int attackIndex) {
         case 4: showAudioSubMenu(target); break;
         case 5: showHIDSubMenu(target); break;
         case 6: showMemorySubMenu(target); break;
-        case 7: showDoSSubMenu(target); break;
         case 8: showPayloadSubMenu(target); break;
         case 9: showTestingSubMenu(target); break;
         case 10: runUniversalAttack(target); break;
