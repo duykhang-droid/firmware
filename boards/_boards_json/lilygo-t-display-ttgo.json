@@ -19,7 +19,6 @@
   "connectivity": [
     "wifi",
     "bluetooth",
-    "ethernet",
     "can"
   ],
   "debug": {

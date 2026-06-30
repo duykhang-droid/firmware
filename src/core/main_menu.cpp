@@ -16,16 +16,12 @@ MainMenu::MainMenu() {
         &fmMenu,
 #endif
         &irMenu,
-#if !defined(LITE_VERSION)
-        &ethernetMenu,
-#endif
         &gpsMenu,
         &rfidMenu,
         &fileMenu,
 #if !defined(LITE_VERSION) && !defined(DISABLE_INTERPRETER)
         &scriptsMenu,
 #endif
-        &clockMenu,
         &othersMenu,
         &configMenu,
     };

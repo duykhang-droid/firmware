@@ -160,10 +160,4 @@ static const uint8_t LP_TX = 11;
 #define NRF24_MOSI_PIN SPI_MOSI_PIN
 #define NRF24_SCK_PIN SPI_SCK_PIN
 #define NRF24_MISO_PIN SPI_MISO_PIN
-// Ethernet
-#define W5500_INT_PIN 8
-#define W5500_SS_PIN 9
-#define W5500_MOSI_PIN SPI_MOSI_PIN
-#define W5500_SCK_PIN SPI_SCK_PIN
-#define W5500_MISO_PIN SPI_MISO_PIN
-#endif /* Pins_Arduino_h */
+

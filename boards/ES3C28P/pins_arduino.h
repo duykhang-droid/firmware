@@ -72,15 +72,6 @@ static const uint8_t MISO = SPI_MISO_PIN;
 #define NRF24_SCK_PIN SPI_SCK_PIN
 #define NRF24_MISO_PIN SPI_MISO_PIN
 
-// =============================================
-// W5500 Ethernet (external module via expansion pins)
-// =============================================
-#define USE_W5500_VIA_SPI
-#define W5500_SS_PIN -1
-#define W5500_MOSI_PIN SPI_MOSI_PIN
-#define W5500_SCK_PIN SPI_SCK_PIN
-#define W5500_MISO_PIN SPI_MISO_PIN
-#define W5500_INT_PIN -1
 
 // =============================================
 // TFT Display (ILI9341V via SPI)
