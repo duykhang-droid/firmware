@@ -29,7 +29,6 @@
 
 // 32bit: https://github.com/9dl/Bruce-C2/releases/download/v1.0/BruceC2_windows_386.exe
 // 64bit: https://github.com/9dl/Bruce-C2/releases/download/v1.0/BruceC2_windows_amd64.exe
-#include "modules/wifi/socks4_proxy.h"
 #include "modules/wifi/tcp_utils.h"
 
 // global toggle - controls whether scanNetworks includes hidden SSIDs
