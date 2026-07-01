@@ -688,6 +688,10 @@ bool sniffer_prepare_storage(FS *fs, bool sdDetectedParam) {
     return true;
 }
 
+void sniffer_wait_for_flush(int ms) {
+        delay(ms);
+        }
+
 void sniffer_set_mode(SnifferMode mode) {
     if (mode == SnifferMode::Full && !sdDetected) { mode = SnifferMode::HandshakesOnly; }
     if (mode == currentMode) { return; }
