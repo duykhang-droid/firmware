@@ -16,8 +16,8 @@ int max_FM_size = tftWidth / (LW * FM) - 1;
 int max_FP_size = tftWidth / (LW)-2;
 
 // QWERTY KEYSET
-const int qwerty_keyboard_width = 12;
-const int qwerty_keyboard_height = 4;
+const int qwerty_keyboard_width = 9;
+const int qwerty_keyboard_height = 3;
 char qwerty_keyset[qwerty_keyboard_height][qwerty_keyboard_width][2] = {
     //  4 lines, with 12 characters, capital and lowercase
     {{'1', '!'},
@@ -71,8 +71,8 @@ char qwerty_keyset[qwerty_keyboard_height][qwerty_keyboard_width][2] = {
 };
 
 // AZERTY KEYSET (French)
-const int azerty_keyboard_width = 12;
-const int azerty_keyboard_height = 4;
+const int azerty_keyboard_width = 9;
+const int azerty_keyboard_height = 3;
 char azerty_keyset[azerty_keyboard_height][azerty_keyboard_width][2] = {
     // Row 1: numbers / symbols
     {{'1', '&'},
@@ -129,8 +129,8 @@ char azerty_keyset[azerty_keyboard_height][azerty_keyboard_width][2] = {
 };
 
 // QWERTZ KEYSET (German)
-const int qwertz_keyboard_width = 12;
-const int qwertz_keyboard_height = 4;
+const int qwertz_keyboard_width = 9;
+const int qwertz_keyboard_height = 3;
 char qwertz_keyset[qwertz_keyboard_height][qwertz_keyboard_width][2] = {
     // Row 1
     {{'1', '!'},
@@ -187,8 +187,8 @@ char qwertz_keyset[qwertz_keyboard_height][qwertz_keyboard_width][2] = {
 };
 
 // HEX KEYSET
-const int hex_keyboard_width = 4;
-const int hex_keyboard_height = 4;
+const int hex_keyboard_width = 3;
+const int hex_keyboard_height = 3;
 char hex_keyset[hex_keyboard_height][hex_keyboard_width][2] = {
     {{'0', '0'}, {'1', '1'}, {'2', '2'}, {'3', '3'}},
     {{'4', '4'}, {'5', '5'}, {'6', '6'}, {'7', '7'}},
@@ -197,8 +197,8 @@ char hex_keyset[hex_keyboard_height][hex_keyboard_width][2] = {
 };
 
 // NUMBERS ONLY KEYSET
-const int numpad_keyboard_width = 4;
-const int numpad_keyboard_height = 3;
+const int numpad_keyboard_width = 3;
+const int numpad_keyboard_height = 2;
 char numpad_keyset[numpad_keyboard_height][numpad_keyboard_width][2] = {
     // 3 lines, with 4 characters each:
     {{'1', '1'}, {'2', '2'}, {'3', '3'}, {'\0', '\0'}},

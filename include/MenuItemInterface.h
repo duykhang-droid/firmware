@@ -8,7 +8,7 @@ class MenuItemInterface {
 public:
     virtual ~MenuItemInterface() = default;
     virtual void optionsMenu(void) = 0;
-    virtual void drawIcon(float scale = 0.7) = 0;
+    virtual void drawIcon(float scale = 0.5) = 0;
     virtual void drawIconImg() {
         drawImg(
             *bruceConfig.themeFS(),

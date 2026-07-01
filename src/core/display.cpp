@@ -65,7 +65,7 @@ void displayScrollingText(const String &text, Opt_Coord &coord) {
 ** Description:   Draw touch screen footer
 ***************************************************************************************/
 void TouchFooter(uint16_t color) {
-    tft.drawRoundRect(5, tftHeight + 2, tftWidth - 10, 25, 5, color);
+    tft.drawRoundRect(5, tftHeight + 2, tftWidth - 10, 12, 5, color);
     tft.setTextColor(color);
     tft.setTextSize(FM);
     tft.drawCentreString("PREV", tftWidth / 6, tftHeight + 4, 1);
@@ -77,7 +77,7 @@ void TouchFooter(uint16_t color) {
 ** Description:   Draw touch screen footer
 ***************************************************************************************/
 void MegaFooter(uint16_t color) {
-    tft.drawRoundRect(5, tftHeight + 2, tftWidth - 10, 25, 5, color);
+    tft.drawRoundRect(5, tftHeight + 2, tftWidth - 10, 12, 5, color);
     tft.setTextColor(color);
     tft.setTextSize(FM);
     tft.drawCentreString("Exit", tftWidth / 6, tftHeight + 4, 1);
