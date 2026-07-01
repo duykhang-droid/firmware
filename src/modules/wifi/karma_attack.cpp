@@ -522,10 +522,6 @@ void ActiveBroadcastAttack::launchAttackForResponse(const String &ssid, const St
 }
 
 
-static void releaseKarmaState() {
-    delete gKarmaState;
-    gKarmaState = nullptr;
-}
 
 static std::vector<PendingPortal> &pendingPortalsRef() { return state().pendingPortals; }
 static PortalTemplate &selectedTemplateRef() { return state().selectedTemplate; }
