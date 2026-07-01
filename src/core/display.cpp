@@ -1111,19 +1111,6 @@ void drawMfkey32Icon(int x, int y) {
     }
     tft.fillRect(x + 40, y + 36, 6, 6, getColorVariation(bruceConfig.priColor, 3, 1));
 }***/
-void drawMfkey32Icon(int x, int y) {
-
-        tft.drawRect(x, y, 12, 18, bruceConfig.priColor);
-
-            tft.drawFastHLine(x + 2, y + 5, 8, bruceConfig.priColor);
-
-                tft.drawFastHLine(x + 2, y + 10, 8, bruceConfig.priColor);
-
-                    tft.drawFastHLine(x + 2, y + 15, 8, bruceConfig.priColor);
-                    }
-void drawMfkey64Icon(int x, int y) {
-        drawMfkey32Icon(x, y);
-        }
 
 // ####################################################################################################
 //  Draw a JPEG on the TFT, images will be cropped on the right/bottom sides if they do not fit
