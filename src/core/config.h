@@ -9,7 +9,6 @@
 #include <set>
 #include <vector>
 
-enum EvilPortalPasswordMode { FULL_PASSWORD = 0, FIRST_LAST_CHAR = 1, HIDE_PASSWORD = 2, SAVE_LENGTH = 3 };
 
 class BruceConfig : public BruceTheme {
 public:
@@ -21,17 +20,7 @@ public:
         String user;
         String pwd;
     };
-    struct QrCodeEntry {
-        String menuName;
-        String content;
-    };
-    struct EvilPortalEndpoints {
-        String getCredsEndpoint;
-        String setSsidEndpoint;
-        bool showEndpoints;
-        bool allowSetSsid;
-        bool allowGetCreds;
-    };
+
 
     const char *filepath = "/bruce.conf";
 
@@ -67,10 +56,6 @@ public:
     String wifiMAC = ""; //@IncursioHack
     bool TerminalLog = true;
 
-    // EvilPortal
-    EvilPortalEndpoints evilPortalEndpoints = {"/creds", "/ssid", true, true, true};
-    EvilPortalPasswordMode evilPortalPasswordMode = FULL_PASSWORD;
-    String evilPortalGatewayIp = "172.0.0.1";
 
     void setWifiMAC(const String &mac) {
         wifiMAC = mac;
@@ -92,13 +77,6 @@ public:
     bool badUSBBLEShowOutput = true;
 
     std::vector<String> disabledMenus = {};
-
-    std::vector<QrCodeEntry> qrCodes = {
-        {"Bruce AP",   "WIFI:T:WPA;S:BruceNet;P:brucenet;;"},
-        {"Bruce Wiki", "https://github.com/pr3y/Bruce/wiki"},
-        {"Bruce Site", "https://bruce.computer"            },
-        {"Rickroll",   "https://youtu.be/dQw4w9WgXcQ"      }
-    };
 
     /////////////////////////////////////////////////////////////////////////////////////
     // Constructor
@@ -155,22 +133,7 @@ public:
     void setWifiApCreds(const String &ssid, const String &pwd);
     void setTerminalLog(bool value);
     void addWifiCredential(const String &ssid, const String &pwd);
-    void addQrCodeEntry(const String &menuName, const String &content);
-    void removeQrCodeEntry(const String &menuName);
     String getWifiPassword(const String &ssid) const;
-    void addEvilWifiName(String value);
-    void removeEvilWifiName(String value);
-    void setEvilEndpointCreds(String value);
-    void setEvilEndpointSsid(String value);
-    void setEvilAllowEndpointDisplay(bool value);
-    void setEvilAllowGetCreds(bool value);
-    void setEvilAllowSetSsid(bool value);
-    void setEvilPasswordMode(EvilPortalPasswordMode value);
-    void setEvilGatewayIp(String value);
-    void validateEvilEndpointCreds();
-    void validateEvilEndpointSsid();
-    void validateEvilPasswordMode();
-    void validateEvilGatewayIp();
 
     // RFID
     void addMifareKey(String value);
@@ -178,7 +141,7 @@ public:
 
     // Misc
     void setStartupApp(String value);
-    void setStartupAppJSInterpreterFile(String value);
+
 
     void setDevMode(int value);
     void validateDevModeValue();

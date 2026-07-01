@@ -45,24 +45,11 @@ JsonDocument BruceConfig::toJson() const {
     setting["wifiMAC"] = wifiMAC; //@IncursioHack
     setting["TerminalLog"] = TerminalLog;
 
-    JsonArray _evilWifiNames = setting["evilWifiNames"].to<JsonArray>();
-    for (auto key : evilWifiNames) _evilWifiNames.add(key);
-
-    JsonObject _evilWifiEndpoints = setting["evilWifiEndpoints"].to<JsonObject>();
-    _evilWifiEndpoints["getCredsEndpoint"] = evilPortalEndpoints.getCredsEndpoint;
-    _evilWifiEndpoints["setSsidEndpoint"] = evilPortalEndpoints.setSsidEndpoint;
-    _evilWifiEndpoints["showEndpoints"] = evilPortalEndpoints.showEndpoints;
-    _evilWifiEndpoints["allowSetSsid"] = evilPortalEndpoints.allowSetSsid;
-    _evilWifiEndpoints["allowGetCreds"] = evilPortalEndpoints.allowGetCreds;
-    _evilWifiEndpoints["gatewayIp"] = evilPortalGatewayIp;
-
-    setting["evilWifiPasswordMode"] = evilPortalPasswordMode;
 
     JsonObject _wifi = setting["wifi"].to<JsonObject>();
     for (const auto &pair : wifi) { _wifi[pair.first] = pair.second; }
 
     setting["startupApp"] = startupApp;
-    setting["startupAppJSInterpreterFile"] = startupAppJSInterpreterFile;
     setting["wigleBasicToken"] = wigleBasicToken;
     setting["wdgwarsApiKey"] = wdgwarsApiKey;
     setting["devMode"] = devMode;
@@ -309,53 +296,9 @@ void BruceConfig::fromFile(bool checkFS) {
         log_e("Fail");
     }
 
-    if (!setting["evilWifiNames"].isNull()) {
-        evilWifiNames.clear();
-        JsonArray _evilWifiNames = setting["evilWifiNames"].as<JsonArray>();
-        for (JsonVariant key : _evilWifiNames) evilWifiNames.insert(key.as<String>());
-    } else {
-        count++;
-        log_e("Fail");
-    }
-
-    if (!setting["evilWifiEndpoints"].isNull()) {
-        JsonObject evilPortalEndpointsObj = setting["evilWifiEndpoints"].as<JsonObject>();
-        evilPortalEndpoints.getCredsEndpoint = evilPortalEndpointsObj["getCredsEndpoint"].as<String>();
-        evilPortalEndpoints.setSsidEndpoint = evilPortalEndpointsObj["setSsidEndpoint"].as<String>();
-        evilPortalEndpoints.showEndpoints = evilPortalEndpointsObj["showEndpoints"].as<bool>();
-        evilPortalEndpoints.allowSetSsid = evilPortalEndpointsObj["allowSetSsid"].as<bool>();
-        evilPortalEndpoints.allowGetCreds = evilPortalEndpointsObj["allowGetCreds"].as<bool>();
-        if (!evilPortalEndpointsObj["gatewayIp"].isNull()) {
-            evilPortalGatewayIp = evilPortalEndpointsObj["gatewayIp"].as<String>();
-        } else {
-            evilPortalGatewayIp = "172.0.0.1";
-        }
-    } else {
-        count++;
-        log_e("Fail");
-    }
-
-    if (!setting["evilWifiPasswordMode"].isNull()) {
-        int mode = setting["evilWifiPasswordMode"].as<int>();
-        if (mode >= 0 && mode <= 2) {
-            evilPortalPasswordMode = static_cast<EvilPortalPasswordMode>(mode);
-        } else {
-            evilPortalPasswordMode = FULL_PASSWORD;
-            log_w("Invalid evilWifiPasswordMode, using FULL_PASSWORD");
-        }
-    } else {
-        count++;
-        log_e("Fail");
-    }
 
     if (!setting["startupApp"].isNull()) {
         startupApp = setting["startupApp"].as<String>();
-    } else {
-        count++;
-        log_e("Fail");
-    }
-    if (!setting["startupAppJSInterpreterFile"].isNull()) {
-        startupAppJSInterpreterFile = setting["startupAppJSInterpreterFile"].as<String>();
     } else {
         count++;
         log_e("Fail");
@@ -414,19 +357,6 @@ void BruceConfig::fromFile(bool checkFS) {
     } else {
         count++;
         log_e("Fail");
-    }
-
-    if (!setting["qrCodes"].isNull()) {
-        qrCodes.clear();
-        JsonArray qrArray = setting["qrCodes"].as<JsonArray>();
-        for (JsonObject qrEntry : qrArray) {
-            String menuName = qrEntry["menuName"].as<String>();
-            String content = qrEntry["content"].as<String>();
-            qrCodes.push_back({menuName, content});
-        }
-    } else {
-        count++;
-        log_e("Fail to load qrCodes");
     }
 
     validateConfig();
@@ -642,93 +572,11 @@ void BruceConfig::addWifiCredential(const String &ssid, const String &pwd) {
 String BruceConfig::getWifiPassword(const String &ssid) const {
     auto it = wifi.find(ssid);
     if (it != wifi.end()) return it->second;
-    return "";
-}
-
-void BruceConfig::addEvilWifiName(String value) {
-    evilWifiNames.insert(value);
-    saveFile();
-}
-
-void BruceConfig::removeEvilWifiName(String value) {
-    evilWifiNames.erase(value);
-    saveFile();
-}
-
-void BruceConfig::setEvilEndpointCreds(String value) {
-    evilPortalEndpoints.getCredsEndpoint = value;
-    validateEvilEndpointCreds();
-    saveFile();
-}
-
-void BruceConfig::validateEvilEndpointCreds() {
-    if (evilPortalEndpoints.getCredsEndpoint == evilPortalEndpoints.setSsidEndpoint) {
-        // on collision reset to defaults
-        evilPortalEndpoints.getCredsEndpoint = "/creds";
-    }
-    if (evilPortalEndpoints.getCredsEndpoint[0] != '/') {
-        evilPortalEndpoints.getCredsEndpoint = '/' + evilPortalEndpoints.getCredsEndpoint;
-    }
-}
-
-void BruceConfig::setEvilEndpointSsid(String value) {
-    evilPortalEndpoints.setSsidEndpoint = value;
-    validateEvilEndpointCreds();
-    saveFile();
-}
-
-void BruceConfig::validateEvilEndpointSsid() {
-    if (evilPortalEndpoints.getCredsEndpoint == evilPortalEndpoints.setSsidEndpoint) {
-        // on collision reset to defaults
-        evilPortalEndpoints.setSsidEndpoint = "/ssid";
-    }
-    if (evilPortalEndpoints.setSsidEndpoint[0] != '/') {
-        evilPortalEndpoints.setSsidEndpoint = '/' + evilPortalEndpoints.setSsidEndpoint;
-    }
-}
-
-void BruceConfig::setEvilAllowEndpointDisplay(bool value) {
-    evilPortalEndpoints.showEndpoints = value;
-    saveFile();
-}
-
-void BruceConfig::setEvilAllowGetCreds(bool value) {
-    evilPortalEndpoints.allowGetCreds = value;
-    saveFile();
-}
-
-void BruceConfig::setEvilAllowSetSsid(bool value) {
-    evilPortalEndpoints.allowSetSsid = value;
-    saveFile();
-}
-
-void BruceConfig::setEvilPasswordMode(EvilPortalPasswordMode value) {
-    evilPortalPasswordMode = value;
-    saveFile();
-}
-
-void BruceConfig::validateEvilPasswordMode() {
-    if (evilPortalPasswordMode < 0 || evilPortalPasswordMode > 2) evilPortalPasswordMode = FULL_PASSWORD;
-}
-
-void BruceConfig::setEvilGatewayIp(String value) {
-    evilPortalGatewayIp = value;
-    validateEvilGatewayIp();
-    saveFile();
-}
-
-void BruceConfig::validateEvilGatewayIp() {
-    IPAddress gatewayIp;
-    if (!gatewayIp.fromString(evilPortalGatewayIp)) evilPortalGatewayIp = "172.0.0.1";
-}
+        return "";
+        }
 
 void BruceConfig::setStartupApp(String value) {
     startupApp = value;
-    saveFile();
-}
-
-void BruceConfig::setStartupAppJSInterpreterFile(String value) {
-    startupAppJSInterpreterFile = value;
     saveFile();
 }
 
@@ -785,28 +633,6 @@ void BruceConfig::validateMifareKeysItems() { MifareKeysManager::validateKeys(mi
 void BruceConfig::addDisabledMenu(String value) {
     // TODO: check if duplicate
     disabledMenus.push_back(value);
-    saveFile();
-}
-
-void BruceConfig::addQrCodeEntry(const String &menuName, const String &content) {
-    qrCodes.push_back({menuName, content});
-    saveFile();
-}
-
-void BruceConfig::removeQrCodeEntry(const String &menuName) {
-    size_t writeIndex = 0;
-
-    for (size_t readIndex = 0; readIndex < qrCodes.size(); ++readIndex) {
-        const QrCodeEntry &entry = qrCodes[readIndex];
-
-        if (entry.menuName != menuName) {
-            if (writeIndex != readIndex) { qrCodes[writeIndex] = std::move(qrCodes[readIndex]); }
-            ++writeIndex;
-        }
-    }
-
-    if (writeIndex < qrCodes.size()) { qrCodes.erase(qrCodes.begin() + writeIndex, qrCodes.end()); }
-
     saveFile();
 }
 

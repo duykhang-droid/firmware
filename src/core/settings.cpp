@@ -423,33 +423,10 @@ void setCustomUIColorSettingMenu(
 * retrocompatibility)
 **  Enable or disable sound
 **********************************************************************/
-void setSoundConfig() {
-    options = {
-        {"Sound off", [=]() { bruceConfig.setSoundEnabled(0); }, bruceConfig.soundEnabled == 0},
-        {"Sound on",  [=]() { bruceConfig.setSoundEnabled(1); }, bruceConfig.soundEnabled == 1},
-    };
-    loopOptions(options, bruceConfig.soundEnabled);
-}
-
 /*********************************************************************
 **  Function: setSoundVolume
 **  Set sound volume
 **********************************************************************/
-void setSoundVolume() {
-    options = {
-        {"10%",  [=]() { bruceConfig.setSoundVolume(10); },  bruceConfig.soundVolume == 10 },
-        {"20%",  [=]() { bruceConfig.setSoundVolume(20); },  bruceConfig.soundVolume == 20 },
-        {"30%",  [=]() { bruceConfig.setSoundVolume(30); },  bruceConfig.soundVolume == 30 },
-        {"40%",  [=]() { bruceConfig.setSoundVolume(40); },  bruceConfig.soundVolume == 40 },
-        {"50%",  [=]() { bruceConfig.setSoundVolume(50); },  bruceConfig.soundVolume == 50 },
-        {"60%",  [=]() { bruceConfig.setSoundVolume(60); },  bruceConfig.soundVolume == 60 },
-        {"70%",  [=]() { bruceConfig.setSoundVolume(70); },  bruceConfig.soundVolume == 70 },
-        {"80%",  [=]() { bruceConfig.setSoundVolume(80); },  bruceConfig.soundVolume == 80 },
-        {"90%",  [=]() { bruceConfig.setSoundVolume(90); },  bruceConfig.soundVolume == 90 },
-        {"100%", [=]() { bruceConfig.setSoundVolume(100); }, bruceConfig.soundVolume == 100},
-    };
-    loopOptions(options, bruceConfig.soundVolume);
-}
 
 #ifdef HAS_RGB_LED
 /*********************************************************************
@@ -482,138 +459,38 @@ void setWifiStartupConfig() {
 **  Function: addEvilWifiMenu
 **  Handles Menu to add evil wifi names into config list
 **********************************************************************/
-void addEvilWifiMenu() {
-    String apName = keyboard("", 30, "Evil Portal SSID");
-    if (apName != "\x1B") bruceConfig.addEvilWifiName(apName);
-}
-
 /*********************************************************************
 **  Function: removeEvilWifiMenu
 **  Handles Menu to remove evil wifi names from config list
 **********************************************************************/
-void removeEvilWifiMenu() {
-    options = {};
-
-    for (const auto &wifi_name : bruceConfig.evilWifiNames) {
-        options.push_back({wifi_name.c_str(), [wifi_name]() { bruceConfig.removeEvilWifiName(wifi_name); }});
-    }
-
-    options.push_back({"Cancel", [=]() { backToMenu(); }});
-
-    loopOptions(options);
-}
-
 /*********************************************************************
 **  Function: setEvilEndpointCreds
 **  Handles menu for changing the endpoint to access captured creds
 **********************************************************************/
-void setEvilEndpointCreds() {
-    String userInput = keyboard(bruceConfig.evilPortalEndpoints.getCredsEndpoint, 30, "Evil creds endpoint");
-    if (userInput != "\x1B") bruceConfig.setEvilEndpointCreds(userInput);
-}
-
 /*********************************************************************
 **  Function: setEvilEndpointSsid
 **  Handles menu for changing the endpoint to change evilSsid
 **********************************************************************/
-void setEvilEndpointSsid() {
-    String userInput = keyboard(bruceConfig.evilPortalEndpoints.setSsidEndpoint, 30, "Evil creds endpoint");
-    if (userInput != "\x1B") bruceConfig.setEvilEndpointSsid(userInput);
-}
-
 /*********************************************************************
 **  Function: setEvilAllowGetCredentials
 **  Handles menu for toggling access to the credential list endpoint
 **********************************************************************/
-
-void setEvilAllowGetCreds() {
-    options = {
-        {"Disallow",
-         [=]() { bruceConfig.setEvilAllowGetCreds(false); },
-         bruceConfig.evilPortalEndpoints.allowGetCreds == false},
-        {"Allow",
-         [=]() { bruceConfig.setEvilAllowGetCreds(true); },
-         bruceConfig.evilPortalEndpoints.allowGetCreds == true },
-    };
-    loopOptions(options, bruceConfig.evilPortalEndpoints.allowGetCreds);
-}
-
 /*********************************************************************
 **  Function: setEvilAllowGetCredentials
 **  Handles menu for toggling access to the change SSID endpoint
 **********************************************************************/
-
-void setEvilAllowSetSsid() {
-    options = {
-        {"Disallow",
-         [=]() { bruceConfig.setEvilAllowSetSsid(false); },
-         bruceConfig.evilPortalEndpoints.allowSetSsid == false},
-        {"Allow",
-         [=]() { bruceConfig.setEvilAllowSetSsid(true); },
-         bruceConfig.evilPortalEndpoints.allowSetSsid == true },
-    };
-    loopOptions(options, bruceConfig.evilPortalEndpoints.allowSetSsid);
-}
-
 /*********************************************************************
 **  Function: setEvilAllowEndpointDisplay
 **  Handles menu for toggling the display of the Evil Portal endpoints
 **********************************************************************/
-
-void setEvilAllowEndpointDisplay() {
-    options = {
-        {"Disallow",
-         [=]() { bruceConfig.setEvilAllowEndpointDisplay(false); },
-         bruceConfig.evilPortalEndpoints.showEndpoints == false},
-        {"Allow",
-         [=]() { bruceConfig.setEvilAllowEndpointDisplay(true); },
-         bruceConfig.evilPortalEndpoints.showEndpoints == true },
-    };
-    loopOptions(options, bruceConfig.evilPortalEndpoints.showEndpoints);
-}
-
 /*********************************************************************
 ** Function: setEvilPasswordMode
 ** Handles menu for setting the evil portal password mode
 ***********************************************************************/
-void setEvilPasswordMode() {
-    options = {
-        {"Save 'password'",
-         [=]() { bruceConfig.setEvilPasswordMode(FULL_PASSWORD); },
-         bruceConfig.evilPortalPasswordMode == FULL_PASSWORD  },
-        {"Save 'p******d'",
-         [=]() { bruceConfig.setEvilPasswordMode(FIRST_LAST_CHAR); },
-         bruceConfig.evilPortalPasswordMode == FIRST_LAST_CHAR},
-        {"Save '*hidden*'",
-         [=]() { bruceConfig.setEvilPasswordMode(HIDE_PASSWORD); },
-         bruceConfig.evilPortalPasswordMode == HIDE_PASSWORD  },
-        {"Save length",
-         [=]() { bruceConfig.setEvilPasswordMode(SAVE_LENGTH); },
-         bruceConfig.evilPortalPasswordMode == SAVE_LENGTH    },
-    };
-    loopOptions(options, bruceConfig.evilPortalPasswordMode);
-}
-
 /*********************************************************************
 ** Function: setEvilGatewayIp
 ** Handles menu for setting the Evil Portal gateway IP
 ***********************************************************************/
-void setEvilGatewayIp() {
-    options = {
-        {"172.0.0.1",
-         [=]() { bruceConfig.setEvilGatewayIp("172.0.0.1"); },
-         bruceConfig.evilPortalGatewayIp == "172.0.0.1"},
-        {"192.168.4.1",
-         [=]() { bruceConfig.setEvilGatewayIp("192.168.4.1"); },
-         bruceConfig.evilPortalGatewayIp == "192.168.4.1"},
-        {"Custom", [=]() {
-             String ip = num_keyboard("", 15, "Gateway Addr");
-             bruceConfig.setEvilGatewayIp(ip);
-         }},
-    };
-    loopOptions(options, bruceConfig.evilPortalGatewayIp == "192.168.4.1" ? 1 : 0);
-}
-
 /*********************************************************************
 **  Function: setRFModuleMenu
 **  Handles Menu to set the RF module in use
