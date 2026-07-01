@@ -1034,53 +1034,54 @@ void drawSdSmall(int x, int y) {
 }
 
 void drawWifiSmall(int x, int y) {
-    tft.fillRect(x, y, 7, 7, bruceConfig.bgColor);//sua tft
-    tft.fillCircle(x + 8, y + 13, 1, bruceConfig.priColor);
-    tft.drawArc(x + 8, y + 13, 4, 6, 80, 225, bruceConfig.priColor, bruceConfig.bgColor);
-    tft.drawArc(x + 8, y + 13, 9, 11, 80, 225, bruceConfig.priColor, bruceConfig.bgColor);
-}
+tft.fillRect(x, y, 12, 12, bruceConfig.bgColor);
+tft.fillCircle(x + 6, y + 9, 1, bruceConfig.priColor);
+tft.drawArc(x + 6, y + 9, 3, 4, 80, 225, bruceConfig.priColor, bruceConfig.bgColor);
+tft.drawArc(x + 6, y + 9, 6, 7, 80, 225, bruceConfig.priColor, bruceConfig.bgColor);
+ }
 
 void drawWebUISmall(int x, int y) {
-    tft.fillRect(x, y, 7, 7, bruceConfig.bgColor);
-    tft.drawCircle(x + 8, y + 8, 6, bruceConfig.priColor);
-    tft.drawLine(x + 3, y + 4, x + 13, y + 4, bruceConfig.priColor);
-    tft.drawLine(x + 2, y + 8, x + 14, y + 8, bruceConfig.priColor);
-    tft.drawLine(x + 3, y + 12, x + 13, y + 12, bruceConfig.priColor);
-}
+tft.fillRect(x, y, 12, 12, bruceConfig.bgColor);
+tft.drawCircle(x + 6, y + 6, 5, bruceConfig.priColor);
+tft.drawFastHLine(x + 2, y + 6, 8, bruceConfig.priColor);
+tft.drawFastVLine(x + 6, y + 2, 8, bruceConfig.priColor);
+     }
 
 void drawBLESmall(int x, int y) {
-    tft.fillRect(x, y, 7, 7, bruceConfig.bgColor);
-    tft.drawWideLine(x + 8, y + 8, x + 4, y + 4, 2, bruceConfig.priColor, bruceConfig.bgColor);
-    tft.drawWideLine(x + 8, y + 8, x + 4, y + 12, 2, bruceConfig.priColor, bruceConfig.bgColor);
-    tft.drawTriangle(x + 8, y + 8, x + 8, y + 2, x + 12, y + 5, bruceConfig.priColor);
-    tft.drawTriangle(x + 8, y + 8, x + 8, y + 14, x + 12, y + 11, bruceConfig.priColor);
-}
+tft.fillRect(x, y, 12, 12, bruceConfig.bgColor);
+tft.drawLine(x + 5, y + 2, x + 5, y + 10, bruceConfig.priColor);
+tft.drawLine(x + 5, y + 6, x + 2, y + 3, bruceConfig.priColor);
+tft.drawLine(x + 5, y + 6, x + 2, y + 9, bruceConfig.priColor);
+tft.drawLine(x + 5, y + 2, x + 8, y + 4, bruceConfig.priColor);
+tft.drawLine(x + 5, y + 10, x + 8, y + 8, bruceConfig.priColor);
+      }
+
 
 void drawBLE_beacon(int x, int y, uint16_t color) {
-    tft.fillRect(x, y, 10, 20, bruceConfig.bgColor);
-    tft.drawWideLine(40 + x, 53 + y, 2 + x, 26 + y, 5, color, bruceConfig.bgColor);
-    tft.drawWideLine(40 + x, 26 + y, 2 + x, 53 + y, 5, color, bruceConfig.bgColor);
-    tft.drawWideLine(40 + x, 53 + y, 20 + x, 68 + y, 5, color, bruceConfig.bgColor);
-    tft.drawWideLine(40 + x, 26 + y, 20 + x, 12 + y, 5, color, bruceConfig.bgColor);
-    tft.drawWideLine(20 + x, 12 + y, 20 + x, 68 + y, 5, color, bruceConfig.bgColor);
-    tft.fillTriangle(40 + x, 26 + y, 20 + x, 40 + y, 20 + x, 12 + y, color);
-    tft.fillTriangle(40 + x, 53 + y, 20 + x, 40 + y, 20 + x, 68 + y, color);
-}
+tft.drawLine(x + 12, y + 2, x + 12, y + 22, color);
+tft.drawLine(x + 12, y + 12, x + 4, y + 4, color);
+tft.drawLine(x + 12, y + 12, x + 4, y + 20, color);
+tft.drawLine(x + 12, y + 2, x + 20, y + 8, color);
+tft.drawLine(x + 12, y + 22, x + 20, y + 16, color);
+                        }
 
 
 
 void drawCreditCard(int x, int y) {
-    tft.fillRect(x, y, 25, 15, bruceConfig.bgColor);
-    tft.fillRoundRect(x + 5, y + 5, 60, 40, 5, bruceConfig.priColor);
-    tft.fillRect(x + 5, y + 15, 60, 10, getColorVariation(bruceConfig.priColor, 3, -1));
-    tft.fillRect(x + 10, y + 30, 12, 10, getColorVariation(bruceConfig.priColor, 3, 1));
-    tft.drawRect(x + 10, y + 30, 12, 10, getColorVariation(bruceConfig.priColor, 5, -1));
-    tft.drawRect(x + 10 + 4, y + 30, 4, 10, getColorVariation(bruceConfig.priColor, 5, -1));
-    tft.drawRect(x + 10, y + 33, 5, 4, getColorVariation(bruceConfig.priColor, 5, -1));
-    tft.drawRect(x + 17, y + 33, 5, 4, getColorVariation(bruceConfig.priColor, 5, -1));
-    tft.fillRect(x + 30, y + 35, 30, 5, getColorVariation(bruceConfig.priColor, 5, 1));
-}
 
+        tft.fillRoundRect(x, y, 36, 22, 3, bruceConfig.priColor);
+
+            tft.fillRect(x, y + 6, 36, 4,
+                             getColorVariation(bruceConfig.priColor, 3, -1));
+
+                                 tft.fillRect(x + 4, y + 13, 8, 5,
+                                                  getColorVariation(bruceConfig.priColor, 3, 1));
+
+                                                      tft.fillRect(x + 18, y + 15, 12, 2,
+                                                                       getColorVariation(bruceConfig.priColor, 5, 1));
+                                                                       }
+
+/****
 void drawMfkey32Icon(int x, int y) {
     tft.drawRect(x + 2, y + 15, 24, 40, bruceConfig.priColor);
     tft.drawRect(x + 5, y + 18, 18, 12, bruceConfig.priColor);
@@ -1109,15 +1110,21 @@ void drawMfkey32Icon(int x, int y) {
         turns++;
     }
     tft.fillRect(x + 40, y + 36, 6, 6, getColorVariation(bruceConfig.priColor, 3, 1));
-}
+}***/
+void drawMfkey32Icon(int x, int y) {
 
+        tft.drawRect(x, y, 12, 18, bruceConfig.priColor);
+
+            tft.drawFastHLine(x + 2, y + 5, 8, bruceConfig.priColor);
+
+                tft.drawFastHLine(x + 2, y + 10, 8, bruceConfig.priColor);
+
+                    tft.drawFastHLine(x + 2, y + 15, 8, bruceConfig.priColor);
+                    }
 void drawMfkey64Icon(int x, int y) {
-    drawMfkey32Icon(x, y);
-    tft.fillRoundRect(x + 40, y + 6, 24, 14, 4, bruceConfig.bgColor);
-    tft.drawRoundRect(x + 40, y + 6, 24, 14, 4, getColorVariation(bruceConfig.priColor, 3, -1));
-    tft.drawCircle(x + 48, y + 12, 4, getColorVariation(bruceConfig.priColor, 3, -1));
+        drawMfkey32Icon(x, y);
+        }
 }
-
 // ####################################################################################################
 //  Draw a JPEG on the TFT, images will be cropped on the right/bottom sides if they do not fit
 // ####################################################################################################
