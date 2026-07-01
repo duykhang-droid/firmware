@@ -537,7 +537,7 @@ static bool samePendingPortal(const PendingPortal &a, const PendingPortal &b) {
 
 static bool enqueuePendingPortal(const PendingPortal &portal, bool prioritize) {
     auto &queue = pendingPortalsRef();
-
+}
 
 
 static void destroyActivePortal() {

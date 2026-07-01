@@ -131,7 +131,6 @@ void buildNTLMType2Msg(uint8_t *challenge, uint8_t *buffer, uint16_t *len) {
     avPairs[offset++] = 0x00;
     avPairs[offset++] = 0x08;
     avPairs[offset++] = 0x00;
-    uint64_t ts = getWindowsTimestamp();
     memcpy(avPairs + offset, &ts, 8);
     offset += 8;
 
