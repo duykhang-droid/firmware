@@ -808,7 +808,7 @@ void drawStatusBar() {
     }
 
 
-        setTftDisplay(6, 6, bruceConfig.priColor, 1, bruceConfig.bgColor);
+        setTftDisplay(8, 6, bruceConfig.priColor, 1, bruceConfig.bgColor);
         tft.print("Khang " + String(BRUCE_VERSION));
 
 
