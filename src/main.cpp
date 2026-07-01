@@ -380,7 +380,6 @@ void setup() {
 #endif
     begin_storage();
     begin_tft();
-    init_clock();
     init_led();
 
     options.reserve(20); // preallocate some options space to avoid fragmentation
