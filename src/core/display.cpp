@@ -932,7 +932,7 @@ void printCenterFootnote(String text) {
     tft.setTextSize(FP);
     tft.drawCentreString(text, tftWidth / 2, tftHeight - BORDER_PAD_X - FP * LH, SMOOTH_FONT);
 }
-/***
+
 void drawBatteryStatus(uint8_t bat) {
     if (bat == 0) return;
 
@@ -947,14 +947,14 @@ void drawBatteryStatus(uint8_t bat) {
     tft.fillRect(tftWidth - 28, 4, 18, 11, bruceConfig.bgColor);
     if (charging) {
         tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
-        tft.drawRightString("CHG", tftWidth - 22, 6, 1);
+        tft.drawRightString("CHG", tftWidth - 30, 6, 1);
     } else {
         tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
         tft.drawRightString((bat == 100 ? "" : " ") + String(bat) + "%", tftWidth - 30, 6, 1);
     }
-    tft.fillRoundRect(tftWidth - 25, 8, 18 * bat / 100, 8, 1, barcolor);
-    tft.drawLine(tftWidth - 30, 9, tftWidth - 30, 9 + 13, bruceConfig.bgColor);
-    tft.drawLine(tftWidth - 20, 9, tftWidth - 20, 9 + 13, bruceConfig.bgColor);
+    tft.fillRoundRect(tftWidth - 28, 4, 18 * bat / 100, 8, 1, barcolor);
+    //tft.drawLine(tftWidth - 30, 9, tftWidth - 30, 9 + 13, bruceConfig.bgColor);
+    //tft.drawLine(tftWidth - 20, 9, tftWidth - 20, 9 + 13, bruceConfig.bgColor);
 }
 
 void drawWireguardStatus(int x, int y) {
@@ -967,77 +967,6 @@ void drawWireguardStatus(int x, int y) {
         tft.drawRoundRect(x + 3, y + 7, 10, 7, 1, bruceConfig.priColor);
     }
 }
-****/
-void drawBatteryStatus(uint8_t bat) {
-
-        if (bat == 0) return;
-
-            bool charging = isCharging();
-
-                uint16_t color = bruceConfig.priColor;
-                    uint16_t barcolor = bruceConfig.priColor;
-
-                        if (bat < 16)
-                                barcolor = color = TFT_RED;
-
-                                    // =========================
-                                        // TEXT %
-                                            // =========================
-
-                                                tft.setTextSize(FP);
-
-                                                    // clear vùng text cũ
-                                                        tft.fillRect(tftWidth - 34, 2, 24, 8, bruceConfig.bgColor);
-
-                                                            tft.setTextColor(color, bruceConfig.bgColor);
-
-                                                                if (charging) {
-
-                                                                        tft.drawRightString(
-                                                                                    "CHG",
-                                                                                                tftWidth - 22,
-                                                                                                            2,
-                                                                                                                        1
-                                                                                                                                );
-
-                                                                                                                                    } else {
-
-                                                                                                                                            // GIỮ NGUYÊN vị trí gốc của bạn
-                                                                                                                                                    tft.drawRightString(
-                                                                                                                                                                (bat == 100 ? "" : " ") + String(bat) + "%",
-                                                                                                                                                                            tftWidth - 30,
-                                                                                                                                                                                        2,
-                                                                                                                                                                                                    1
-                                                                                                                                                                                                            );
-                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                    // =========================
-                                                                                                                                                                                                                        // ICON PIN MINI
-                                                                                                                                                                                                                            // =========================
-
-                                                                                                                                                                                                                                int bx = tftWidth - 12;
-                                                                                                                                                                                                                                    int by = 3;
-
-                                                                                                                                                                                                                                        // clear icon cũ
-                                                                                                                                                                                                                                            tft.fillRect(bx - 1, by - 1, 14, 8, bruceConfig.bgColor);
-
-                                                                                                                                                                                                                                                // body
-                                                                                                                                                                                                                                                    tft.drawRect(bx, by, 10, 5, color);
-
-                                                                                                                                                                                                                                                        // đầu pin
-                                                                                                                                                                                                                                                            tft.drawRect(bx + 10, by + 1, 1, 3, color);
-
-                                                                                                                                                                                                                                                                // mức pin
-                                                                                                                                                                                                                                                                    int fill = map(bat, 0, 100, 0, 8);
-
-                                                                                                                                                                                                                                                                        tft.fillRect(
-                                                                                                                                                                                                                                                                                bx + 1,
-                                                                                                                                                                                                                                                                                        by + 1,
-                                                                                                                                                                                                                                                                                                fill,
-                                                                                                                                                                                                                                                                                                        3,
-                                                                                                                                                                                                                                                                                                                barcolor
-                                                                                                                                                                                                                                                                                                                    );
-                                                                                                                                                                                                                                                                                                                    }
 
 /***************************************************************************************
 ** Function name: listFiles
