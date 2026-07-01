@@ -1034,11 +1034,12 @@ void drawSdSmall(int x, int y) {
 }
 
 void drawWifiSmall(int x, int y) {
-tft.fillRect(x, y, 12, 12, bruceConfig.bgColor);
-tft.fillCircle(x + 6, y + 9, 1, bruceConfig.priColor);
-tft.drawArc(x + 6, y + 9, 3, 4, 80, 225, bruceConfig.priColor, bruceConfig.bgColor);
-tft.drawArc(x + 6, y + 9, 6, 7, 80, 225, bruceConfig.priColor, bruceConfig.bgColor);
- }
+    tft.fillRect(x, y, 8, 8, bruceConfig.bgColor);
+    tft.fillCircle( x + 4,  y + 6, 1, bruceConfig.priColor);
+    tft.drawArc( x + 4,  y + 6, 2, 3, 135, 225, bruceConfig.priColor, bruceConfig.bgColor);
+    tft.drawArc( x + 4, y + 6, 4, 5, 135, 225, bruceConfig.priColor, bruceConfig.bgColor);
+    }
+
 
 void drawWebUISmall(int x, int y) {
 tft.fillRect(x, y, 12, 12, bruceConfig.bgColor);
