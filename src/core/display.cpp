@@ -942,17 +942,17 @@ void drawBatteryStatus(uint8_t bat) {
     uint16_t barcolor = bruceConfig.priColor;
     if (bat < 16) barcolor = color = TFT_RED;
 
-    tft.drawRoundRect(tftWidth - 28, 5, 18, 11, 1, color);
+    tft.drawRoundRect(tftWidth - 28, 6, 18, 11, 1, color);
     tft.setTextSize(FP);
-    tft.fillRect(tftWidth - 28, 5, 18, 11, bruceConfig.bgColor);
+    tft.fillRect(tftWidth - 28, 6, 18, 11, bruceConfig.bgColor);
     if (charging) {
         tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
         tft.drawRightString("CHG", tftWidth - 30, 6, 1);
     } else {
         tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
-        tft.drawRightString((bat == 100 ? "" : " ") + String(bat) + "%", tftWidth - 30, 5, 1);
+        tft.drawRightString((bat == 100 ? "" : " ") + String(bat) + "%", tftWidth - 30, 6, 1);
     }
-    tft.fillRoundRect(tftWidth - 28, 5, 18 * bat / 100, 8, 1, barcolor);
+    tft.fillRoundRect(tftWidth - 28, 6, 18 * bat / 100, 8, 1, barcolor);
     //tft.drawLine(tftWidth - 30, 9, tftWidth - 30, 9 + 13, bruceConfig.bgColor);
     //tft.drawLine(tftWidth - 20, 9, tftWidth - 20, 9 + 13, bruceConfig.bgColor);
 }
