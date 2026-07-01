@@ -808,7 +808,7 @@ void drawStatusBar() {
     }
 
 
-        setTftDisplay(7, 7, bruceConfig.priColor, 1, bruceConfig.bgColor);
+        setTftDisplay(6, 6, bruceConfig.priColor, 1, bruceConfig.bgColor);
         tft.print("Khang " + String(BRUCE_VERSION));
 
 
@@ -829,7 +829,7 @@ void drawStatusBar() {
         const int IH  = 4;
         const int GAP = 1;
         int totalW = iconCount * IW + (iconCount - 1) * GAP;
-        int sx = (tftWidth - totalW) / 2;
+        int sx = (tftWidth - totalW) / 2 - 2;
         int iy = 5;
         int idx = 0;
 
@@ -950,7 +950,7 @@ void drawBatteryStatus(uint8_t bat) {
         tft.drawRightString("CHG", tftWidth - 30, 6, 1);
     } else {
         tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
-        tft.drawRightString((bat == 100 ? "" : " ") + String(bat) + "%", tftWidth - 30, 6, 1);
+        tft.drawRightString((bat == 100 ? "" : " ") + String(bat) + "%", tftWidth - 30, 5, 1);
     }
     tft.fillRoundRect(tftWidth - 28, 5, 18 * bat / 100, 8, 1, barcolor);
     //tft.drawLine(tftWidth - 30, 9, tftWidth - 30, 9 + 13, bruceConfig.bgColor);
