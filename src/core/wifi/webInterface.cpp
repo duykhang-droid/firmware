@@ -381,7 +381,6 @@ void serveWebUIFile(
 **  configure web server
 **********************************************************************/
 void configureWebServer() {
-    mdnsRunning = startMdnsResponder();
     DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
     server->onNotFound(notFound);
 
