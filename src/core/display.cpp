@@ -1058,11 +1058,11 @@ tft.drawLine(x + 5, y + 10, x + 8, y + 8, bruceConfig.priColor);
 
 
 void drawBLE_beacon(int x, int y, uint16_t color) {
-tft.drawLine(x + 12, y + 2, x + 12, y + 22, color);
-tft.drawLine(x + 12, y + 12, x + 4, y + 4, color);
-tft.drawLine(x + 12, y + 12, x + 4, y + 20, color);
-tft.drawLine(x + 12, y + 2, x + 20, y + 8, color);
-tft.drawLine(x + 12, y + 22, x + 20, y + 16, color);
+tft.drawLine(x + 6, y + 2, x + 6, y + 14, color);
+tft.drawLine(x + 6, y + 8, x + 2, y + 4, color);
+tft.drawLine(x + 6, y + 8, x + 2, y + 12, color);
+tft.drawLine(x + 6, y + 2, x + 10, y + 5, color);
+tft.drawLine(x + 6, y + 14, x + 10, y + 11, color);
                         }
 
 
