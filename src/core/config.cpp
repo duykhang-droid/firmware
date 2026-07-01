@@ -17,9 +17,6 @@ JsonDocument BruceConfig::toJson() const {
     setting["automaticTimeUpdateViaNTP"] = automaticTimeUpdateViaNTP;
     setting["tmz"] = tmz;
     setting["dst"] = dst;
-    setting["clock24hr"] = clock24hr;
-    setting["soundEnabled"] = soundEnabled;
-    setting["soundVolume"] = soundVolume;
     setting["wifiAtStartup"] = wifiAtStartup;
     setting["instantBoot"] = instantBoot;
     setting["keyboardLang"] = keyboardLang;
@@ -61,13 +58,6 @@ JsonDocument BruceConfig::toJson() const {
 
     JsonArray dm = setting["disabledMenus"].to<JsonArray>();
     for (int i = 0; i < disabledMenus.size(); i++) { dm.add(disabledMenus[i]); }
-
-    JsonArray qrArray = setting["qrCodes"].to<JsonArray>();
-    for (const auto &entry : qrCodes) {
-        JsonObject qrEntry = qrArray.add<JsonObject>();
-        qrEntry["menuName"] = entry.menuName;
-        qrEntry["content"] = entry.content;
-    }
 
     return jsonDoc;
 }
@@ -401,8 +391,6 @@ void BruceConfig::validateConfig() {
     validateDimmerValue();
     validateBrightValue();
     validateTmzValue();
-    validateSoundEnabledValue();
-    validateSoundVolumeValue();
     validateWifiAtStartupValue();
 #ifdef HAS_RGB_LED
     validateLedBrightValue();
@@ -417,10 +405,6 @@ void BruceConfig::validateConfig() {
     validateColorInverted();
     validateBadUSBBLEKeyboardLayout();
     validateBadUSBBLEKeyDelay();
-    validateEvilEndpointCreds();
-    validateEvilEndpointSsid();
-    validateEvilPasswordMode();
-    validateEvilGatewayIp();
 }
 
 void BruceConfig::setUiColor(uint16_t primary, uint16_t *secondary, uint16_t *background) {
