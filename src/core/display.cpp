@@ -956,7 +956,7 @@ void drawBatteryStatus(uint8_t bat) {
     //tft.drawLine(tftWidth - 30, 9, tftWidth - 30, 9 + 13, bruceConfig.bgColor);
     //tft.drawLine(tftWidth - 20, 9, tftWidth - 20, 9 + 13, bruceConfig.bgColor);
 }
-/** 
+
 void drawWireguardStatus(int x, int y) {
     tft.fillRect(x, y, 16, 16, bruceConfig.bgColor);
     if (isConnectedWireguard) {
@@ -967,7 +967,7 @@ void drawWireguardStatus(int x, int y) {
         tft.drawRoundRect(x + 3, y + 7, 10, 7, 1, bruceConfig.priColor);
     }
 }
-****/
+
 /***************************************************************************************
 ** Function name: listFiles
 ** Description:   Função para desenhar e mostrar o menu principal
