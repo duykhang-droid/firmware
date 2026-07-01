@@ -133,8 +133,8 @@ void drawUSBStickIcon(bool plugged) {
     static bool first = true;
 
     float scale;
-    if (bruceConfigPins.rotation & 0b01) scale = float((float)tftHeight / (float)135);
-    else scale = float((float)tftWidth / (float)240);
+    if (bruceConfigPins.rotation & 0b01) scale = float((float)tftHeight / (float)80);
+    else scale = float((float)tftWidth / (float)160);
 
     int iconW = scale * 120;
     int iconH = scale * 40;

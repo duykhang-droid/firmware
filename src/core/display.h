@@ -9,11 +9,11 @@
 #include <globals.h>
 #define STATUS_BAR_HEIGHT 12
 #define BORDER_OFFSET_FROM_SCREEN_EDGE 2
-#define BORDER_PAD_X 4
-#define BORDER_PAD_Y 12
+#define BORDER_PAD_X 3
+#define BORDER_PAD_Y 9
 #define MENU_TYPE_MAIN 0
 #define MENU_TYPE_SUBMENU 1
-#define MENU_TYPE_REGULAR 2
+#define MENU_TYPE_REGULAR 1
 
 void panelSleep(bool on);
 void turnOffDisplay();
@@ -22,7 +22,7 @@ bool wakeUpScreen();
 struct Opt_Coord {
     uint16_t x = 0;
     uint16_t y = 0;
-    uint16_t size = 10;
+    uint16_t size = 8;
     uint16_t fgcolor = bruceConfig.priColor;
     uint16_t bgcolor = bruceConfig.bgColor;
 };
