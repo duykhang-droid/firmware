@@ -375,25 +375,6 @@ void serveWebUIFile(
 **  Function: startMdnsResponder
 **  Try to start mDNS only if there is enough internal heap available
 **********************************************************************/
-static bool startMdnsResponder() {
-    constexpr size_t kMinInternalHeap = 20 * 1024; // bytes reserved for mDNS buffers
-    size_t freeInternalHeap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
-    if (freeInternalHeap < kMinInternalHeap) {
-        log_e(
-            "Skipping mDNS responder. Only %lu bytes of internal heap available (need %lu).\n",
-            static_cast<unsigned long>(freeInternalHeap),
-            static_cast<unsigned long>(kMinInternalHeap)
-        );
-        return false;
-    }
-
-    if (!MDNS.begin(host)) {
-        log_e("Error setting up MDNS responder!");
-        return false;
-    }
-
-    return true;
-}
 
 /**********************************************************************
 **  Function: configureWebServer

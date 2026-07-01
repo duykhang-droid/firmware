@@ -9,7 +9,6 @@
 #include "modules/wifi/ap_info.h"
 #include "modules/wifi/clients.h"
 #include "modules/wifi/netcut.h"
-#include "modules/wifi/responder.h"
 #include "modules/wifi/scan_hosts.h"
 #include "modules/wifi/sniffer.h"
 #include "modules/wifi/wifi_atks.h"
@@ -65,7 +64,6 @@ void WifiMenu::optionsMenu() {
     options.push_back({"Sniffer", sniffer_setup});
 
     options.push_back({"Wireguard", wg_setup});
-    options.push_back({"Responder", responder});
     options.push_back({"Brucegotchi", brucegotchi_start});
     options.push_back({"WiFi Pass Recovery", wifi_recover_menu});
 #endif
@@ -88,7 +86,7 @@ void WifiMenu::configMenu() {
                                configMenu();
                            }});
 
-    
+
 
     {
 

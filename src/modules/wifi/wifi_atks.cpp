@@ -13,7 +13,6 @@
 #include "core/wifi/wifi_common.h"
 #include "esp_system.h"
 #include "esp_wifi.h"
-#include "evil_portal.h"
 #include "sniffer.h"
 #include "vector"
 #include <Arduino.h>
