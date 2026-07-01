@@ -29,7 +29,11 @@ public:
     void draw(float scale = 1) {
         if (rotation != bruceConfigPins.rotation) resetCoordinates();
         if (!checkTheme()) {
+            #if TFT_WIDTH == 80
+            tft.fillRect(0, 10, tftWidth, 110, bruceConfig.bgColor);
+            #else
             tft.fillRect(0, 10, tftWidth, tftHeight - 10, bruceConfig.bgColor);
+            #endif
             drawIcon(scale);
             drawArrows(scale);
             drawTitle(scale);
@@ -96,7 +100,11 @@ public:
     }
 
     void drawTitle(float scale = 1) {
+        #if TFT_WIDTH == 80
+        int titleY = iconCenterY + 28;
+        #else
         int titleY = iconCenterY + iconAreaH / 2 - 8;
+        #endif
 
         tft.setTextSize(1);
         tft.drawPixel(0, 0, 0);
@@ -109,13 +117,25 @@ protected:
     String _name = "";
     uint8_t rotation = ROTATION;
 
+    #if TFT_WIDTH == 80
+    int iconAreaH = 48;
+    int iconAreaW = 48;
+    #else
     int iconAreaH =
-        ((tftHeight - 40 * BORDER_PAD_Y) % 2 == 0 ? tftHeight - 2 * BORDER_PAD_Y
-                                                 : tftHeight - 2 * BORDER_PAD_Y + 1);
-    int iconAreaW = iconAreaH;
+        ((tftHeight - 40 * BORDER_PAD_Y) % 2 == 0
+                 ? tftHeight - 2 * BORDER_PAD_Y
+                          : tftHeight - 2 * BORDER_PAD_Y + 1);
+
+         int iconAreaW = iconAreaH;
+
+    #endif
 
     int iconCenterX = tftWidth / 2;
+    #if TFT_WIDTH == 80
+    int iconCenterY = 58;
+    #else
     int iconCenterY = tftHeight / 2;
+    #endif
     int imgCenterY = 2;
 
     int iconAreaX = iconCenterX - iconAreaW / 2;
@@ -129,18 +149,33 @@ protected:
     void clearIconArea(void) {
         tft.fillRect(iconAreaX, iconAreaY, iconAreaW, iconAreaH, bruceConfig.bgColor);
     }
-    void clearImgArea(void) { tft.fillRect(4, 13, tftWidth - 7, tftHeight - 17, bruceConfig.bgColor); }
+    void clearImgArea(void) {
+            tft.fillRect(2, 12, tftWidth - 4, 60, bruceConfig.bgColor);
+            }
     void resetCoordinates(void) {
         // Recalculate Center and ared due to portrait/landscape changings
+        #if TFT_WIDTH == 80
+
+        iconAreaH = 48;
+        iconAreaW = 48;
+
+        #else
+
         if (tftWidth > tftHeight) {
             iconAreaH =
-                ((tftHeight - 2 * BORDER_PAD_Y) % 2 == 0 ? tftHeight - 2 * BORDER_PAD_Y
-                                                         : tftHeight - 2 * BORDER_PAD_Y + 1);
-        } else {
-            iconAreaH =
-                ((tftWidth - 2 * BORDER_PAD_Y) % 2 == 0 ? tftWidth - 2 * BORDER_PAD_Y
-                                                        : tftWidth - 2 * BORDER_PAD_Y + 1);
-        }
+                    ((tftHeight - 2 * BORDER_PAD_Y) % 2 == 0
+                                 ? tftHeight - 2 * BORDER_PAD_Y
+                                              : tftHeight - 2 * BORDER_PAD_Y + 1);
+                                              } else {
+                                                  iconAreaH =
+                                                          ((tftWidth - 2 * BORDER_PAD_Y) % 2 == 0
+                                                                       ? tftWidth - 2 * BORDER_PAD_Y
+                                                                                    : tftWidth - 2 * BORDER_PAD_Y + 1);
+                                                                                    }
+
+                                                                                    iconAreaW = iconAreaH;
+
+                                                                                    #endif
 
         iconAreaW = iconAreaH;
 
