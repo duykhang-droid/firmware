@@ -559,7 +559,17 @@ void configureWebServer() {
                 if (cmnd.startsWith("nav next")) var = &NextPress;
                 if (cmnd.startsWith("nav prev")) var = &PrevPress;
                 request->send(200, "text/plain", "command " + cmnd + " success");
-            
+            int time;
+            if (cmnd.endsWith("0")) time = cmnd.substring(cmnd.lastIndexOf(' ')).toInt();
+            else time = 10;
+            auto tmp = millis() + time;
+            while (tmp > millis()) {
+            AnyKeyPress = true;
+            SerialCmdPress = true;
+        *var = true;
+        if (!LongPress) vTaskDelay(pdMS_TO_TICKS(190));
+            else vTaskDelay(pdMS_TO_TICKS(50));
+            }
             } else {
                 if (parseSerialCommand(cmnd, false)) {
                     request->send(200, "text/plain", "command " + cmnd + " queued");

@@ -466,6 +466,7 @@ void ducky_setup(HIDInterface *&hid, bool ble) {
         return;
     }
     FS *fs = nullptr;
+    bool first_time = true;
 
     tft.fillScreen(bruceConfig.bgColor);
     String bad_script = "";
@@ -494,6 +495,7 @@ void ducky_setup(HIDInterface *&hid, bool ble) {
             printStatusBadUSBBLE("Preparing USB");
             ducky_startKb(hid, ble);
             if (returnToMenu) goto EXIT; // make sure to free the hid object before exiting
+            first_time = false;
             if (!ble) {
 #if !defined(USB_as_HID)
                 mySerial.write(0x00);
