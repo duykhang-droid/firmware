@@ -804,7 +804,7 @@ void drawStatusBar() {
 
     if (bruceConfig.theme.border) {
         tft.drawRoundRect(3, 3, tftWidth - 8, tftHeight - 8, 3, bruceConfig.priColor);
-        tft.drawLine(3, 15, tftWidth - 4, 16, bruceConfig.priColor);
+        tft.drawLine(3, 15, tftWidth - 3, 15, bruceConfig.priColor);
     }
 
 
@@ -825,8 +825,8 @@ void drawStatusBar() {
     if (showWG)   iconCount++;
 
     if (iconCount > 0) {
-        const int IW  = 7;
-        const int IH  = 7;
+        const int IW  = 4;
+        const int IH  = 4;
         const int GAP = 1;
         int totalW = iconCount * IW + (iconCount - 1) * GAP;
         int sx = (tftWidth - totalW) / 2;
@@ -944,7 +944,7 @@ void drawBatteryStatus(uint8_t bat) {
 
     tft.drawRoundRect(tftWidth - 28, 6, 18, 10, 2, color);
     tft.setTextSize(FP);
-    tft.fillRect(tftWidth - 25, 3, 16, 6, bruceConfig.bgColor);
+    tft.fillRect(tftWidth - 15, 3, 16, 6, bruceConfig.bgColor);
     if (charging) {
         tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
         tft.drawRightString("CHG", tftWidth - 22, 6, 1);
