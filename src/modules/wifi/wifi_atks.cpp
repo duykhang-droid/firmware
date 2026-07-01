@@ -717,12 +717,8 @@ AGAIN:
     options = {
         {"Information",         [=]() { wifi_atk_info(tssid, mac, channel); }      },
         {"Deauth",              [=]() { target_atk(tssid, mac, channel); }         },
-#ifndef LITE_VERSION
         {"Capture Handshake",   [=]() { capture_handshake(tssid, mac, channel); }  },
-#endif
-        {"Deauth+Clone+Verify",
-         [=]() // New WiFi Attack
-                               },
+
     };
     addOptionToMainMenu();
 
