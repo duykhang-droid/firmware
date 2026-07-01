@@ -825,11 +825,11 @@ void drawStatusBar() {
     if (showWG)   iconCount++;
 
     if (iconCount > 0) {
-        const int IW  = 4;
-        const int IH  = 4;
-        const int GAP = 1;
+        const int IW  = 10;
+        const int IH  = 10;
+        const int GAP = 2;
         int totalW = iconCount * IW + (iconCount - 1) * GAP;
-        int sx = (tftWidth - totalW) / 2 - 2;
+        int sx = (tftWidth - totalW) / 2 - 5;
         int iy = 5;
         int idx = 0;
 
@@ -942,9 +942,9 @@ void drawBatteryStatus(uint8_t bat) {
     uint16_t barcolor = bruceConfig.priColor;
     if (bat < 16) barcolor = color = TFT_RED;
 
-    tft.drawRoundRect(tftWidth - 28, 6, 18, 11, 1, color);
+    tft.drawRoundRect(tftWidth - 28, 6, 18, 10, 1, color);
     tft.setTextSize(FP);
-    tft.fillRect(tftWidth - 28, 6, 18, 11, bruceConfig.bgColor);
+    tft.fillRect(tftWidth - 28, 6, 18, 10, bruceConfig.bgColor);
     if (charging) {
         tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
         tft.drawRightString("CHG", tftWidth - 30, 6, 1);
@@ -1049,22 +1049,24 @@ tft.drawFastVLine(x + 6, y + 2, 8, bruceConfig.priColor);
      }
 
 void drawBLESmall(int x, int y) {
-tft.fillRect(x, y, 12, 12, bruceConfig.bgColor);
-tft.drawLine(x + 5, y + 2, x + 5, y + 10, bruceConfig.priColor);
-tft.drawLine(x + 5, y + 6, x + 2, y + 3, bruceConfig.priColor);
-tft.drawLine(x + 5, y + 6, x + 2, y + 9, bruceConfig.priColor);
-tft.drawLine(x + 5, y + 2, x + 8, y + 4, bruceConfig.priColor);
-tft.drawLine(x + 5, y + 10, x + 8, y + 8, bruceConfig.priColor);
-      }
-
+     tft.fillRect(x, y, 8, 8, bruceConfig.bgColor);
+     tft.drawLine(x + 4, y + 1, x + 4, y + 7, bruceConfig.priColor);
+     tft.drawLine(x + 4, y + 4, x + 1, y + 2, bruceConfig.priColor);
+     tft.drawLine(x + 4, y + 4, x + 1, y + 6, bruceConfig.priColor);
+     tft.drawLine(x + 4, y + 1, x + 7, y + 3, bruceConfig.priColor);
+     tft.drawLine(x + 4, y + 7, x + 7, y + 5, bruceConfig.priColor);
+     }
 
 void drawBLE_beacon(int x, int y, uint16_t color) {
-tft.drawLine(x + 6, y + 2, x + 6, y + 14, color);
-tft.drawLine(x + 6, y + 8, x + 2, y + 4, color);
-tft.drawLine(x + 6, y + 8, x + 2, y + 12, color);
-tft.drawLine(x + 6, y + 2, x + 10, y + 5, color);
-tft.drawLine(x + 6, y + 14, x + 10, y + 11, color);
-                        }
+tft.fillRect(x, y, 16, 32, bruceConfig.bgColor);
+ tft.drawWideLine(16 + x, 21 + y,1 + x, 10 + y, 2, color, bruceConfig.bgColor);
+tft.drawWideLine(16 + x, 10 + y,1 + x, 21 + y, 2, color, bruceConfig.bgColor);
+tft.drawWideLine(16 + x, 21 + y, 8 + x, 27 + y, 2, color, bruceConfig.bgColor);
+tft.drawWideLine(16 + x, 10 + y, 8 + x, 5 + y, 2, color, bruceConfig.bgColor);
+tft.drawWideLine(8 + x, 5 + y, 8 + x, 27 + y, 2, color, bruceConfig.bgColor);
+  tft.fillTriangle(16 + x, 10 + y, 8 + x, 16 + y, 8 + x, 5 + y, color);
+  tft.fillTriangle(16 + x, 21 + y, 8 + x, 16 + y, 8 + x, 27 + y, color);
+  }
 
 
 
