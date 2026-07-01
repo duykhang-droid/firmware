@@ -576,7 +576,7 @@ void key_input(FS fs, String bad_script, HIDInterface *_hid) {
     tft.setCursor(BORDER_OFFSET_FROM_SCREEN_EDGE * 2, FP * 8 * 3 + 2 + STATUS_BAR_HEIGHT);
     tft.print("Run Time:");
 
-    printDecimalTime(0);
+    //printDecimalTime(0);
 
     tft.drawLine(
         BORDER_OFFSET_FROM_SCREEN_EDGE,
@@ -736,7 +736,7 @@ void key_input(FS fs, String bad_script, HIDInterface *_hid) {
             }
         }
 
-        printDecimalTime(millis() - startMillisBADUSBBLE);
+      //  printDecimalTime(millis() - startMillisBADUSBBLE);
     }
 
     printStatusBadUSBBLE("Finished");

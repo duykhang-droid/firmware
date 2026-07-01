@@ -48,7 +48,7 @@ void printHeaderBadUSBBLE(String bad_script);
 void printStatusBadUSBBLE(String status);
 void printTFTBadUSBBLE(String text, uint16_t color = TFT_WHITE, bool newline = false);
 
-void printDecimalTime(uint32_t milliseconds);
+//void printDecimalTime(uint32_t milliseconds);
 
 bool waitForButtonPress();
 bool handlePauseResume();
