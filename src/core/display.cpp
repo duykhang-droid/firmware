@@ -1124,7 +1124,7 @@ void drawMfkey32Icon(int x, int y) {
 void drawMfkey64Icon(int x, int y) {
         drawMfkey32Icon(x, y);
         }
-}
+
 // ####################################################################################################
 //  Draw a JPEG on the TFT, images will be cropped on the right/bottom sides if they do not fit
 // ####################################################################################################
