@@ -812,7 +812,7 @@ void drawStatusBar() {
         tft.print("Khang " + String(BRUCE_VERSION));
 
 
-    int iconCount = 0;
+   /**  int iconCount = 0;
     bool showSD   = sdcardMounted;
     bool showWifi = (WiFi.getMode() != 0);
     bool showWeb  = isWebUIActive;
@@ -832,7 +832,7 @@ void drawStatusBar() {
         int sx = (tftWidth - totalW) / 2 - 5;
         int iy = 5;
         int idx = 0;
-
+**/
 void drawMainBorder(bool clear) {
     if (clear) {
         tft.drawPixel(0, 0, 0);
