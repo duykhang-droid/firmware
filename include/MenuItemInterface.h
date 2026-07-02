@@ -132,7 +132,7 @@ protected:
 
     int iconCenterX = tftWidth / 2;
     #if TFT_WIDTH == 80
-    int iconCenterY = 58;
+    int iconCenterY = 22;
     #else
     int iconCenterY = tftHeight / 2;
     #endif
@@ -180,7 +180,12 @@ protected:
         iconAreaW = iconAreaH;
 
         iconCenterX = tftWidth / 2;
+
+        #if TFT_WIDTH == 80
+        iconCenterY = 34;
+        #else
         iconCenterY = tftHeight / 2;
+        #endif
 
         iconAreaX = iconCenterX - iconAreaW / 2;
         iconAreaY = iconCenterY - iconAreaH / 2;
