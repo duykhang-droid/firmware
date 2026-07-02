@@ -182,9 +182,9 @@ protected:
         iconCenterX = tftWidth / 2;
 
         #if TFT_WIDTH == 80
-        iconCenterY = 40;
+        iconCenterY = 44;
         #else
-        iconCenterY = tftHeight / 2;
+        iconCenterY = tftHeight / 2 - 2;
         #endif
 
         iconAreaX = iconCenterX - iconAreaW / 2;
