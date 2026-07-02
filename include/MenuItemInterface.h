@@ -103,7 +103,7 @@ public:
         #if TFT_WIDTH == 80
         int titleY = iconCenterY + 10;
         #else
-        int titleY = iconCenterY + iconAreaH / 2 - 8;
+        int titleY = iconCenterY + 14;
         #endif
 
         tft.setTextSize(1);
@@ -118,8 +118,8 @@ protected:
     uint8_t rotation = ROTATION;
 
     #if TFT_WIDTH == 80
-    int iconAreaH = 30;
-    int iconAreaW =30;
+    int iconAreaH = 26;
+    int iconAreaW =26;
     #else
     int iconAreaH =
         ((tftHeight - 40 * BORDER_PAD_Y) % 2 == 0
@@ -134,7 +134,7 @@ protected:
     #if TFT_WIDTH == 80
     int iconCenterY = 22;
     #else
-    int iconCenterY = tftHeight / 2;
+    int iconCenterY = 36;
     #endif
     int imgCenterY = 2;
 
@@ -184,7 +184,7 @@ protected:
         #if TFT_WIDTH == 80
         iconCenterY = 44;
         #else
-        iconCenterY = tftHeight / 2 - 2;
+        iconCenterY = 36;
         #endif
 
         iconAreaX = iconCenterX - iconAreaW / 2;
