@@ -811,7 +811,7 @@ void drawStatusBar() {
         setTftDisplay(8, 6, bruceConfig.priColor, 1, bruceConfig.bgColor);
         tft.print("Khang " + String(BRUCE_VERSION));
 
-
+}
    /**  int iconCount = 0;
     bool showSD   = sdcardMounted;
     bool showWifi = (WiFi.getMode() != 0);
