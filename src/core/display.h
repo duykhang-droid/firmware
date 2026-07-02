@@ -197,19 +197,7 @@ bool __attribute__((weak)) isCharging();
 
 void drawBatteryStatus(uint8_t bat);
 
-void drawWifiSmall(int x, int y);
-
-void drawWebUISmall(int x, int y);
-
-void drawBLESmall(int x, int y);
-
 void drawBLE_beacon(int x, int y, uint16_t color);
-
-
-
-void drawSdSmall(int x, int y);
-
-void drawCreditCard(int x, int y);
 
 void drawMfkey32Icon(int x, int y);
 

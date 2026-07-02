@@ -833,30 +833,6 @@ void drawStatusBar() {
         int iy = 5;
         int idx = 0;
 
-        if (showSD) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawSdSmall(x, iy);
-            idx++;
-        }
-        if (showWifi) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawWifiSmall(x, iy);
-            idx++;
-        }
-        if (showWeb) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawWebUISmall(x, iy);
-            idx++;
-        }
-        if (showBLE) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawBLESmall(x, iy);
-            idx++;
-        }
         if (showWG) {
             int x = sx + idx * (IW + GAP);
             tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
@@ -957,22 +933,12 @@ void drawBatteryStatus(uint8_t bat) {
     //tft.drawLine(tftWidth - 20, 9, tftWidth - 20, 9 + 13, bruceConfig.bgColor);
 }
 
-void drawWireguardStatus(int x, int y) {
-    tft.fillRect(x, y, 16, 16, bruceConfig.bgColor);
-    if (isConnectedWireguard) {
-        tft.drawRoundRect(x + 4, y + 2, 8, 8, 3, bruceConfig.priColor);
-        tft.fillRoundRect(x + 3, y + 7, 10, 7, 1, bruceConfig.priColor);
-    } else {
-        tft.drawRoundRect(x + 4, y + 2, 8, 8, 3, bruceConfig.priColor);
-        tft.drawRoundRect(x + 3, y + 7, 10, 7, 1, bruceConfig.priColor);
-    }
-}
 
 /***************************************************************************************
 ** Function name: listFiles
 ** Description:   Função para desenhar e mostrar o menu principal
 ***************************************************************************************/
-#define MAX_ITEMS (int)(tftHeight - 20) / (LH * FM)
+#define MAX_ITEMS (int)(tftHeight - 50) / (LH * FM)
 Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
     Opt_Coord coord;
     tft.drawPixel(0, 0, bruceConfig.bgColor);
@@ -1033,29 +999,7 @@ void drawSdSmall(int x, int y) {
     tft.drawLine(x + 11, y + 5, x + 11, y + 6, bruceConfig.priColor);
 }
 
-void drawWifiSmall(int x, int y) {
-    tft.fillRect(x, y, 8, 8, bruceConfig.bgColor);
-    tft.fillCircle( x + 4,  y + 6, 1, bruceConfig.priColor);
-    tft.drawArc( x + 4,  y + 6, 2, 3, 135, 225, bruceConfig.priColor, bruceConfig.bgColor);
-    tft.drawArc( x + 4, y + 6, 4, 5, 135, 225, bruceConfig.priColor, bruceConfig.bgColor);
-    }
 
-
-void drawWebUISmall(int x, int y) {
-tft.fillRect(x, y, 12, 12, bruceConfig.bgColor);
-tft.drawCircle(x + 6, y + 6, 5, bruceConfig.priColor);
-tft.drawFastHLine(x + 2, y + 6, 8, bruceConfig.priColor);
-tft.drawFastVLine(x + 6, y + 2, 8, bruceConfig.priColor);
-     }
-
-void drawBLESmall(int x, int y) {
-     tft.fillRect(x, y, 8, 8, bruceConfig.bgColor);
-     tft.drawLine(x + 4, y + 1, x + 4, y + 7, bruceConfig.priColor);
-     tft.drawLine(x + 4, y + 4, x + 1, y + 2, bruceConfig.priColor);
-     tft.drawLine(x + 4, y + 4, x + 1, y + 6, bruceConfig.priColor);
-     tft.drawLine(x + 4, y + 1, x + 7, y + 3, bruceConfig.priColor);
-     tft.drawLine(x + 4, y + 7, x + 7, y + 5, bruceConfig.priColor);
-     }
 
 void drawBLE_beacon(int x, int y, uint16_t color) {
 tft.fillRect(x, y, 16, 32, bruceConfig.bgColor);
