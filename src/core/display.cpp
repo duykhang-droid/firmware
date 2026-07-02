@@ -833,15 +833,6 @@ void drawStatusBar() {
         int iy = 5;
         int idx = 0;
 
-        if (showWG) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawWireguardStatus(x, iy);
-            idx++;
-        }
-    }
-}
-
 void drawMainBorder(bool clear) {
     if (clear) {
         tft.drawPixel(0, 0, 0);
