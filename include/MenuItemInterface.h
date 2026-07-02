@@ -101,7 +101,7 @@ public:
 
     void drawTitle(float scale = 1) {
         #if TFT_WIDTH == 80
-        int titleY = iconCenterY + 28;
+        int titleY = iconCenterY + 10;
         #else
         int titleY = iconCenterY + iconAreaH / 2 - 8;
         #endif
@@ -118,8 +118,8 @@ protected:
     uint8_t rotation = ROTATION;
 
     #if TFT_WIDTH == 80
-    int iconAreaH = 48;
-    int iconAreaW = 48;
+    int iconAreaH = 30;
+    int iconAreaW =30;
     #else
     int iconAreaH =
         ((tftHeight - 40 * BORDER_PAD_Y) % 2 == 0
@@ -156,8 +156,8 @@ protected:
         // Recalculate Center and ared due to portrait/landscape changings
         #if TFT_WIDTH == 80
 
-        iconAreaH = 40;
-        iconAreaW = 40;
+        iconAreaH = 30;
+        iconAreaW = 30;
 
         #else
 

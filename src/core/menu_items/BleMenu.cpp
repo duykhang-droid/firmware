@@ -50,7 +50,7 @@ void BleMenu::optionsMenu() {
 void BleMenu::drawIcon(float scale) {
     clearIconArea();
 
-    int lineWidth = scale * 4;
+    int lineWidth = scale * 2;
     int iconW = scale * 25;
     int iconH = scale * 42;
     int radius = scale * 5;
