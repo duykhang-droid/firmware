@@ -983,22 +983,7 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
     return coord;
 }
 
-// desenhos do menu principal, sprite "draw" com 80x80 pixels
-
-void drawSdSmall(int x, int y) {
-    tft.fillRect(x, y, 7, 7, bruceConfig.bgColor);
-    tft.drawLine(x + 3, y + 2, x + 3, y + 14, bruceConfig.priColor);
-    tft.drawLine(x + 3, y + 14, x + 13, y + 14, bruceConfig.priColor);
-    tft.drawLine(x + 13, y + 14, x + 13, y + 5, bruceConfig.priColor);
-    tft.drawLine(x + 13, y + 5, x + 10, y + 2, bruceConfig.priColor);
-    tft.drawLine(x + 10, y + 2, x + 3, y + 2, bruceConfig.priColor);
-
-    tft.drawLine(x + 5, y + 4, x + 5, y + 6, bruceConfig.priColor);
-    tft.drawLine(x + 7, y + 4, x + 7, y + 6, bruceConfig.priColor);
-    tft.drawLine(x + 9, y + 4, x + 9, y + 6, bruceConfig.priColor);
-    tft.drawLine(x + 11, y + 5, x + 11, y + 6, bruceConfig.priColor);
-}
-
+// 80x80
 
 
 void drawBLE_beacon(int x, int y, uint16_t color) {
