@@ -99,104 +99,69 @@ public:
         );
     }
 
-    void drawTitle(float scale = 1) {
-        #if TFT_WIDTH == 80
-        int titleY = iconCenterY + 10;
-        #else
-        int titleY = iconCenterY + 14;
-        #endif
+void drawTitle(float scale = 1) {
+            int titleY = iconCenterY + iconAreaH / 2 + FG;
 
-        tft.setTextSize(1);
-        tft.drawPixel(0, 0, 0);
-        tft.fillRect(arrowAreaX, titleY, tftWidth - 2 * arrowAreaX, LH * FM, bruceConfig.bgColor);
-        int nchars = (tftWidth - 8) / (LW * FM);
-        tft.drawCentreString(getName().substring(0, nchars), iconCenterX, titleY, 1);
-    }
+                    tft.setTextSize(FM);
+                            tft.drawPixel(0, 0, 0);
+                                    tft.fillRect(arrowAreaX, titleY, tftWidth - 2 * arrowAreaX, LH * FM, bruceConfig.bgColor);
+                                            int nchars = (tftWidth - 16) / (LW * FM);
+                                                    tft.drawCentreString(getName().substring(0, nchars), iconCenterX, titleY, 1);
+                                                        }
 
-protected:
-    String _name = "";
-    uint8_t rotation = ROTATION;
+                                                        protected:
+                                                            String _name = "";
+                                                                uint8_t rotation = ROTATION;
 
-    #if TFT_WIDTH == 80
-    int iconAreaH = 26;
-    int iconAreaW =26;
-    #else
-    int iconAreaH =
-        ((tftHeight - 40 * BORDER_PAD_Y) % 2 == 0
-                 ? tftHeight - 2 * BORDER_PAD_Y
-                          : tftHeight - 2 * BORDER_PAD_Y + 1);
+                                                                    int iconAreaH =
+                                                                            ((tftHeight - 2 * BORDER_PAD_Y) % 2 == 0 ? tftHeight - 2 * BORDER_PAD_Y
+                                                                                                                             : tftHeight - 2 * BORDER_PAD_Y + 1);
+                                                                                                                                 int iconAreaW = iconAreaH;
 
-         int iconAreaW = iconAreaH;
+                                                                                                                                     int iconCenterX = tftWidth / 2;
+                                                                                                                                         int iconCenterY = tftHeight / 2;
+                                                                                                                                             int imgCenterY = 13;
 
-    #endif
+                                                                                                                                                 int iconAreaX = iconCenterX - iconAreaW / 2;
+                                                                                                                                                     int iconAreaY = iconCenterY - iconAreaH / 2;
 
-    int iconCenterX = tftWidth / 2;
-    #if TFT_WIDTH == 80
-    int iconCenterY = 22;
-    #else
-    int iconCenterY = 36;
-    #endif
-    int imgCenterY = 2;
+                                                                                                                                                         int arrowAreaX = BORDER_PAD_X;
+                                                                                                                                                             int arrowAreaW = iconAreaX - arrowAreaX;
 
-    int iconAreaX = iconCenterX - iconAreaW / 2;
-    int iconAreaY = iconCenterY - iconAreaH / 2;
+                                                                                                                                                                 MenuItemInterface(const String &name) : _name(name) {}
 
-    int arrowAreaX = BORDER_PAD_X;
-    int arrowAreaW = iconAreaX - arrowAreaX;
+                                                                                                                                                                     void clearIconArea(void) {
+                                                                                                                                                                             tft.fillRect(iconAreaX, iconAreaY, iconAreaW, iconAreaH, bruceConfig.bgColor);
+                                                                                                                                                                                 }
+                                                                                                                                                                                     void clearImgArea(void) { tft.fillRect(7, 27, tftWidth - 14, tftHeight - 34, bruceConfig.bgColor); }
+                                                                                                                                                                                         void resetCoordinates(void) {
+                                                                                                                                                                                                 // Recalculate Center and ared due to portrait/landscape changings
+                                                                                                                                                                                                         if (tftWidth > tftHeight) {
+                                                                                                                                                                                                                     iconAreaH =
+                                                                                                                                                                                                                                     ((tftHeight - 2 * BORDER_PAD_Y) % 2 == 0 ? tftHeight - 2 * BORDER_PAD_Y
+                                                                                                                                                                                                                                                                                              : tftHeight - 2 * BORDER_PAD_Y + 1);
+                                                                                                                                                                                                                                                                                                      } else {
+                                                                                                                                                                                                                                                                                                                  iconAreaH =
+                                                                                                                                                                                                                                                                                                                                  ((tftWidth - 2 * BORDER_PAD_Y) % 2 == 0 ? tftWidth - 2 * BORDER_PAD_Y
+                                                                                                                                                                                                                                                                                                                                                                                          : tftWidth - 2 * BORDER_PAD_Y + 1);
+                                                                                                                                                                                                                                                                                                                                                                                                  }
 
-    MenuItemInterface(const String &name) : _name(name) {}
+                                                                                                                                                                                                                                                                                                                                                                                                          iconAreaW = iconAreaH;
 
-    void clearIconArea(void) {
-        tft.fillRect(iconAreaX, iconAreaY, iconAreaW, iconAreaH, bruceConfig.bgColor);
-    }
-    void clearImgArea(void) {
-            tft.fillRect(2, 12, tftWidth - 4, 60, bruceConfig.bgColor);
-            }
-    void resetCoordinates(void) {
-        // Recalculate Center and ared due to portrait/landscape changings
-        #if TFT_WIDTH == 80
+                                                                                                                                                                                                                                                                                                                                                                                                                  iconCenterX = tftWidth / 2;
+                                                                                                                                                                                                                                                                                                                                                                                                                          iconCenterY = tftHeight / 2;
 
-        iconAreaH = 30;
-        iconAreaW = 30;
+                                                                                                                                                                                                                                                                                                                                                                                                                                  iconAreaX = iconCenterX - iconAreaW / 2;
+                                                                                                                                                                                                                                                                                                                                                                                                                                          iconAreaY = iconCenterY - iconAreaH / 2;
 
-        #else
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  arrowAreaX = BORDER_PAD_X;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                          arrowAreaW = iconAreaX - arrowAreaX;
 
-        if (tftWidth > tftHeight) {
-            iconAreaH =
-                    ((tftHeight - 2 * BORDER_PAD_Y) % 2 == 0
-                                 ? tftHeight - 2 * BORDER_PAD_Y
-                                              : tftHeight - 2 * BORDER_PAD_Y + 1);
-                                              } else {
-                                                  iconAreaH =
-                                                          ((tftWidth - 2 * BORDER_PAD_Y) % 2 == 0
-                                                                       ? tftWidth - 2 * BORDER_PAD_Y
-                                                                                    : tftWidth - 2 * BORDER_PAD_Y + 1);
-                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  rotation = bruceConfigPins.rotation;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      }
 
-                                                                                    iconAreaW = iconAreaH;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      private:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      };
 
-                                                                                    #endif
-
-        iconAreaW = iconAreaH;
-
-        iconCenterX = tftWidth / 2;
-
-        #if TFT_WIDTH == 80
-        iconCenterY = 44;
-        #else
-        iconCenterY = 36;
-        #endif
-
-        iconAreaX = iconCenterX - iconAreaW / 2;
-        iconAreaY = iconCenterY - iconAreaH / 2;
-
-        arrowAreaX = BORDER_PAD_X;
-        arrowAreaW = iconAreaX - arrowAreaX;
-
-        rotation = bruceConfigPins.rotation;
-    }
-
-private:
-};
-
-#endif // __MENU_ITEM_INTERFACE_H__
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      #endif // __MENU_ITEM_INTERFACE_H__
+}
