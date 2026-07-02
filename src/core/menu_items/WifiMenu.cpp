@@ -14,7 +14,6 @@
 #include "modules/wifi/wifi_atks.h"
 
 #ifndef LITE_VERSION
-#include "modules/pwnagotchi/pwnagotchi.h"
 #include "modules/wifi/wifi_recover.h"
 #endif
 
@@ -63,7 +62,6 @@ void WifiMenu::optionsMenu() {
     options.push_back({"Sniffer", sniffer_setup});
 
     options.push_back({"Wireguard", wg_setup});
-    options.push_back({"Brucegotchi", brucegotchi_start});
     options.push_back({"WiFi Pass Recovery", wifi_recover_menu});
 #endif
 

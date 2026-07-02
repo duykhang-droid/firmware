@@ -11,7 +11,6 @@
 #include "core/settings.h" // clock
 #include "core/wifi/webInterface.h"
 #include "core/wifi/wifi_common.h"
-#include "modules/pwnagotchi/pwnagotchi.h"
 #include "modules/wifi/sniffer.h"
 #ifdef SOC_USB_OTG_SUPPORTED
 #include "core/massStorage.h"
@@ -19,7 +18,6 @@
 
 StartupApp::StartupApp() {
 
-    _startupApps["Brucegotchi"] = []() { brucegotchi_start(); };
     _startupApps["Sniffer"] = []() { sniffer_setup(); };
 
 #if defined(SOC_USB_OTG_SUPPORTED)
