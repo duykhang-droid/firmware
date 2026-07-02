@@ -156,8 +156,8 @@ protected:
         // Recalculate Center and ared due to portrait/landscape changings
         #if TFT_WIDTH == 80
 
-        iconAreaH = 48;
-        iconAreaW = 48;
+        iconAreaH = 40;
+        iconAreaW = 40;
 
         #else
 
@@ -182,7 +182,7 @@ protected:
         iconCenterX = tftWidth / 2;
 
         #if TFT_WIDTH == 80
-        iconCenterY = 34;
+        iconCenterY = 40;
         #else
         iconCenterY = tftHeight / 2;
         #endif
